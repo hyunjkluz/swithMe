@@ -11,7 +11,7 @@
 	<context:annotation-config/>
 
 	<!-- @Controller 클래스"의 객체를 Spring bean으로 자동 등록시키기 위한 (Annotaion 기반의 설정) 설정 적용 -->
-	<context:component-scan base-package="ssd.midterm.controller"/>  
+	<context:component-scan base-package="ssd.pbl.controller"/>  
 	
 	<!-- Annotation 기반 controller 및 handler mapping 이용을 위한 설정 적용 -->
 	<mvc:annotation-driven />

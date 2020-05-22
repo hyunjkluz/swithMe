@@ -6,6 +6,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     
     <!-- @Service 클래스의 객체를 Spring bean으로 자동 등록시키기 위한 (Annotaion 기반의 설정) 설정 적용 -->
-    <context:component-scan base-package="ssd.midterm.service"/>  
+    <context:component-scan base-package="ssd.pbl.service"/>  
 
 </beans>
