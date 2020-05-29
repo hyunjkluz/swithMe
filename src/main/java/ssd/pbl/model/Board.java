@@ -1,4 +1,4 @@
-package ssd.pbl.domain;
+package ssd.pbl.model;
 
 import java.util.Date;
 

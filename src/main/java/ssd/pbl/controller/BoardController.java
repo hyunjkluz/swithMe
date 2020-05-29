@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import ssd.pbl.domain.BoardForm;
+import ssd.pbl.model.BoardForm;
 //import ssd.pbl.domain.Criteria;
 //import ssd.pbl.domain.PageMaker;
 import ssd.pbl.service.BoardService;

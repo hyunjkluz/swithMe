@@ -11,9 +11,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import ssd.pbl.domain.BoardForm;
-import ssd.pbl.domain.Board;
-//import ssd.pbl.util.FileUtils;
+import ssd.pbl.model.Board;
+import ssd.pbl.model.BoardForm;
 
 @Service
 public class BoardService {
