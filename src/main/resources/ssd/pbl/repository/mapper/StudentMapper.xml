@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssd.pbl.repository.mapper.StudentMapper">
+	<cache />
+
+	<insert id="insertStudentMatch" parameterType="studentMatchForm">
+		INSERT INTO
+		studentMatch (level, teacherGender, grade, memo, registeredAt, updatedAt, testResult)
+		VALUES (#{level}, #{teacherGender}, #{grade), #{memo}, NOW(), NOW(), #{testResult})
+	</insert>
+
+	<insert id="insertStudentRegion">
+		INSERT INTO studentRegion (studentMatch, dong) 
+		VALUES (#{id}, #{dongId})
+	</insert>
+	
+	<insert id="insertStudentCharacter">
+		INSERT INTO studentCharacter (studentMatch, character)
+		VALUES (#{id}, #{characterId})
+	</insert>
+	
+	<insert id="insertStudentTestResult">
+		INSERT INTO studentTestResult (testPaper, studentMatch, answer, updatedAt) 
+		VALUES (#{testId}, #{id}, #{answer}, NOW())
+	</insert>
+</mapper>
