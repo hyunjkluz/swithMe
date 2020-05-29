@@ -36,7 +36,7 @@ public class AutoMatchController {
 		return "automatch/InputAutoMInfoMyChar";
 	}
 
-	@RequestMapping(value = "/step4", method = RequestMethod.GET)
+	@RequestMapping(value = "/step45", method = RequestMethod.GET)
 	public String getAutoMathForm4() {
 		return "automatch/InputAutoMInfoAddInfo";
 	}
