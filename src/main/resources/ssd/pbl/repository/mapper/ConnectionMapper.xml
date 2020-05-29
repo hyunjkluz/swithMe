@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssd.pbl.repository.mapper.ConnectionMapper">
+	<cache />
+
+	<insert id="insertConnection" parameterType="studentMatch">
+		INSERT INTO connection (student, teacher, step, subject, studentMatch, registeredAt, updatedAt) 
+		VALUES (#{studentId}, #{teacherId},  ‘DEMO’, #{subjectId}, #{id, jdbcType="INTEGER"}, NOW(), NOW());
+	</insert>
+
+</mapper>
