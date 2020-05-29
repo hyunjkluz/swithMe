@@ -9,7 +9,7 @@
 </head>
 <style>
 .main .menu{
-	float: left;
+	float: left; width: 200px;
 }
 .main .board{
 	float: left;
@@ -18,7 +18,7 @@ li {list-style: none; float: left; padding: 6px;}
 </style>
 <body>
 <div class="main" >
-	<%-- <div class="menu" >
+	<div class="menu" >
 		<section>
 		<select>
 		<c:forEach var="connectioncard" items="${connectioncards}" >
@@ -26,7 +26,7 @@ li {list-style: none; float: left; padding: 6px;}
 		</c:forEach>
 		</select>
 		</section>
-	</div> --%>
+	</div>
 	<div class="board" >
 		<section id="container">
 		<button type="button" onclick="">공지사항</button>
@@ -67,7 +67,7 @@ li {list-style: none; float: left; padding: 6px;}
 			  
 		</table>
 		<hr />
-		<div>
+		<%-- <div>
 		<ul>
 			<c:if test="${pageMaker.prev}">
 				<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
@@ -82,7 +82,7 @@ li {list-style: none; float: left; padding: 6px;}
 			</c:if> 
 		</ul>
 		</div>
-		</section>
+ --%>		</section>
 	</div>
 	
 	

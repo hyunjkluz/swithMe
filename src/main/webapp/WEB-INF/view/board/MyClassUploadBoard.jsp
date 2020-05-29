@@ -8,7 +8,7 @@
 </head>
 <body>
 <div>
-<form:form commandName="boardForm" enctype="mutipart/form-data">
+<form:form commandName="boardForm" enctype="mutipart/form-data" action="/board">
 	<form:select path="boardType" items="${boardTypes}" />
 	<br>
 	제목: <input type="text" name="title" /><br/>
@@ -16,8 +16,10 @@
 	<input type="file" name="file">
 	<br>
 	<input type="submit" value="등록"/>
-	<input type="reset" value="취소"/>
+	<!-- <input type="reset" value="취소"/> -->
+	<button type="button" onclick="location.href='' ">취소</button>
 </form:form>
+
 </div>
 </body>
 </html>
