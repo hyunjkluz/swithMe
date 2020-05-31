@@ -8,7 +8,7 @@
 	<insert id="insertStudentMatch" parameterType="studentMatchForm">
 		INSERT INTO
 		studentMatch (level, teacherGender, grade, memo, registeredAt, updatedAt, testResult)
-		VALUES (#{level}, #{teacherGender}, #{grade), #{memo}, NOW(), NOW(), #{testResult})
+		VALUES (#{level}, #{teacherGender}, #{grade}, #{memo}, SYSDATE, SYSDATE, #{testResult})
 	</insert>
 
 	<insert id="insertStudentRegion">
@@ -23,6 +23,6 @@
 	
 	<insert id="insertStudentTestResult">
 		INSERT INTO studentTestResult (testPaper, studentMatch, answer, updatedAt) 
-		VALUES (#{testId}, #{id}, #{answer}, NOW())
+		VALUES (#{testId}, #{id}, #{answer}, SYSDATE)
 	</insert>
 </mapper>

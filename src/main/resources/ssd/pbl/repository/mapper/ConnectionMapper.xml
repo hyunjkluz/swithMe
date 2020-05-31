@@ -5,9 +5,9 @@
 <mapper namespace="ssd.pbl.repository.mapper.ConnectionMapper">
 	<cache />
 
-	<insert id="insertConnection" parameterType="studentMatch">
+	<insert id="insertConnection" parameterType="studentMatchForm">
 		INSERT INTO connection (student, teacher, step, subject, studentMatch, registeredAt, updatedAt) 
-		VALUES (#{studentId}, #{teacherId},  ‘DEMO’, #{subjectId}, #{id, jdbcType="INTEGER"}, NOW(), NOW());
+		VALUES (#{studentId}, #{teacherId},  ‘DEMO’, #{subjectId}, #{id, javaType=int, jdbcType=NUMERIC}, SYSDATE, SYSDATE)
 	</insert>
 
 </mapper>
