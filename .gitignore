@@ -1,5 +1,5 @@
 ### Project Properties ##
-/src/main/resources/spring/*.properties
+/src/main/resources/spring/config
 
 ### Eclipse ###
 .metadata
