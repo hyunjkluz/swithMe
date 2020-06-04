@@ -5,7 +5,4 @@
 <mapper namespace="ssd.pbl.repository.mapper.ClassMapper">
 	<cache />
 
-	<select id="selectAutoMatchClass" resultType="Class">
-	</select>
-
 </mapper>

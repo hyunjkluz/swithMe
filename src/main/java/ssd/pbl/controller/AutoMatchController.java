@@ -3,9 +3,17 @@
  */
 package ssd.pbl.controller;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import ssd.pbl.model.Subject;
+import ssd.pbl.service.SubjectService;
 
 /**
  * @author kimhyunjin
@@ -15,9 +23,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/student/match")
 public class AutoMatchController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AutoMatchController.class);
+	
+	@Autowired
+	private SubjectService subjectService;
 	
 	@RequestMapping(value = "/form.do", method = RequestMethod.GET)
 	public String getAutoMatchForm() {
+		List<Subject> subjects = subjectService.getAllAubject();
+		
 		return "automatch/InputAutoMInfoStudentClassInfo";
 	}
 

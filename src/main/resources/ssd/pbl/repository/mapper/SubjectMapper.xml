@@ -4,6 +4,11 @@
 
 <mapper namespace="ssd.pbl.repository.mapper.SubjectMapper">
 	<cache />
+	
+	<insert id="insertSubject">
+		INSERT INTO subject (name, category) 
+		VALUES (#{name}, #{category})
+	</insert>
 
 	<select id="selectAllSubject" resultType="Subject">
 		SELECT *

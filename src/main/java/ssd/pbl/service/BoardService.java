@@ -16,7 +16,7 @@ import ssd.pbl.model.BoardForm;
 
 @Service
 public class BoardService {
-	@Resource(name="fileUtils")
+//	@Resource(name="fileUtils")
 	//private FileUtils fileUtils;
 
 	private Map<String, Board> boardMap = new HashMap<String, Board>();
