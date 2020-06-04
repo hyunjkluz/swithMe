@@ -3,11 +3,14 @@
  */
 package ssd.pbl.model;
 
+import java.io.Serializable;
+
 /**
  * @author kimhyunjin
  * @date: May 29, 2020 11:57:15 AM
  */
-public class Sido {
+@SuppressWarnings("serial")
+public class Sido implements Serializable {
 	private int id;
 	private String name;
 
