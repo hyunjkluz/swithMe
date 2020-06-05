@@ -8,6 +8,20 @@ public class UserSession {
 	private String name;
 	private File profileImg;
 	
+	public UserSession() {}
+	
+	public UserSession(String id) {
+		super();
+		this.id = id;
+	}
+	
+	public UserSession(String type, String id, String name, File profileImg) {
+		super();
+		this.type = type;
+		this.id = id;
+		this.name = name;
+		this.profileImg = profileImg;
+	}
 	public String getType() {
 		return type;
 	}
