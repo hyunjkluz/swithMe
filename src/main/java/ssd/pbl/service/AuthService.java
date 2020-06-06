@@ -1,7 +1,10 @@
 package ssd.pbl.service;
 
+import org.springframework.stereotype.Service;
+
 import ssd.pbl.model.LoginForm;
 
+@Service
 public class AuthService {
 	public void login() {
 		
