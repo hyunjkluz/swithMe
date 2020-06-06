@@ -3,19 +3,19 @@
 
 <mapper namespace="ssd.pbl.repository.mapper.CommentMapper">
 	<cache />
-	<select id="selectAllCommentByBoardId" resultType="Comment">
-	
+	<select id="selectAllReplyByBoardId" resultType="Reply">
+		
 	</select>
 
  	<insert id="insertComment" >
- 	
+ 		INSERT INTO COMMENT VALUES (?, ?, ?, ?, ?, ?, NULL);
  	</insert>
  	
- 	<update id="updateComment">
+ 	<update id="updateReply">
  	
  	</update>
  	
- 	<delete id="deleteComment">
+ 	<delete id="deleteReply">
  	
  	</delete>
  

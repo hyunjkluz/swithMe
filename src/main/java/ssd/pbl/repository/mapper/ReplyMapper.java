@@ -5,11 +5,11 @@ import java.util.List;
 import ssd.pbl.model.Reply;
 
 public interface ReplyMapper {
-	List<Reply> selectAllCommentByBoardId(int bId);
+	List<Reply> selectAllReplyByBoardId(int bId);
 	
-	void insertComment(Reply reply);
+	void insertReply(Reply reply);
 	
-	void updateComment(Reply reply);
+	void updateReply(Reply reply);
 	
-	void deleteComment(int cId);
+	void deleteReply(int cId);
 }

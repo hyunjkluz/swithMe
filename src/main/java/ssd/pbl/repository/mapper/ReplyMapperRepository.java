@@ -11,20 +11,20 @@ public class ReplyMapperRepository {
 	@Autowired
 	private ReplyMapper replyMapper;
 	
-	public List<Reply> selectAllCommentByBoardId(int bId) {
-		return replyMapper.selectAllCommentByBoardId(bId);
+	public List<Reply> selectAllReplyByBoardId(int bId) {
+		return replyMapper.selectAllReplyByBoardId(bId);
 	}
 	
-	public void insertComment(Reply reply) {
-		replyMapper.insertComment(reply);
+	public void insertReply(Reply reply) {
+		replyMapper.insertReply(reply);
 	}
 	
-	public void updateComment(Reply reply) {
-		replyMapper.updateComment(reply);
+	public void updateReply(Reply reply) {
+		replyMapper.updateReply(reply);
 	}
 	
 	public void deleteComment(int cId) {
-		replyMapper.deleteComment(cId);
+		replyMapper.deleteReply(cId);
 	}
 	
 }
