@@ -13,20 +13,20 @@ public class ReplyService {
 	@Autowired
 	private ReplyMapperRepository replyMapperRepository;
 	
-	public List<Reply> getAllComment(int bId) {
-		return replyMapperRepository.selectAllCommentByBoardId(bId);
+	public List<Reply> getAllReply(int bId) {
+		return replyMapperRepository.selectAllReplyByBoardId(bId);
 	}
 	
-	public void createComment(Reply reply) {
-		replyMapperRepository.insertComment(reply);
+	public void createReply(Reply reply) {
+		replyMapperRepository.insertReply(reply);
 	}
 	
-	public void editComment(Reply reply) {
-		replyMapperRepository.updateComment(reply);
+	public void editReply(Reply reply) {
+		replyMapperRepository.updateReply(reply);
 	}
 	
-	public void deleteComment(int cId) {
-		replyMapperRepository.deleteComment(cId);
+	public void deleteReply(int rId) {
+		replyMapperRepository.deleteReply(rId);
 	}
 	
 }

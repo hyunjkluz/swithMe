@@ -23,7 +23,7 @@ public class ReplyMapperRepository {
 		replyMapper.updateReply(reply);
 	}
 	
-	public void deleteComment(int cId) {
+	public void deleteReply(int cId) {
 		replyMapper.deleteReply(cId);
 	}
 	
