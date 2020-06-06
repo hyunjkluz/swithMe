@@ -1,36 +1,41 @@
 package ssd.pbl.model;
 
-import java.util.Date;
+import org.springframework.web.multipart.MultipartFile;
 
 public class BoardForm {
-	private Board board;
-	private int writer;
-	private int writerType;
-	private Date creationDate;
+	private String title;
+	private String type;
+	private String content;
+	//private MultipartFile upload;
+	private String upload;
 	
-	public Board getBoard() {
-		return board;
+	public String getTitle() {
+		return title;
 	}
-	public void setBoard(Board board) {
-		this.board = board;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public int getWriter() {
-		return writer;
+	public String getContent() {
+		return content;
 	}
-	public void setWriter(int writer) {
-		this.writer = writer;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public int getWriterType() {
-		return writerType;
+	public String getType() {
+		return type;
 	}
-	public void setWriterType(int writerType) {
-		this.writerType = writerType;
+	public void setType(String type) {
+		this.type = type;
 	}
-	public Date getCreationDate() {
-		return creationDate;
+	/*
+	 * public MultipartFile getUpload() { return upload; } public void
+	 * setUpload(MultipartFile upload) { this.upload = upload; }
+	 */
+	public String getUpload() {
+		return upload;
 	}
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+	public void setUpload(String upload) {
+		this.upload = upload;
 	}
 	
 }

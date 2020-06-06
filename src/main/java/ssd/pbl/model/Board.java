@@ -1,43 +1,52 @@
 package ssd.pbl.model;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Board {
-	private int bId;
-	private String title;
-	private String content;
-	private String type;
-	private MultipartFile upload;
+@SuppressWarnings("serial")
+public class Board implements Serializable{
+	private int boardId;
+	private int connectionId;
+	private BoardForm boardForm;
+	private int writerId;
+	private int writerType;
+	private Date creationDate;
 	
-	public int getbId() {
-		return bId;
+	public int getBoardId() {
+		return boardId;
 	}
-	public void setbId(int bId) {
-		this.bId = bId;
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
 	}
-	public String getTitle() {
-		return title;
+	public int getConnectionId() {
+		return connectionId;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setConnectionId(int connectionId) {
+		this.connectionId = connectionId;
 	}
-	public String getContent() {
-		return content;
+	public BoardForm getBoardForm() {
+		return boardForm;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setBoardForm(BoardForm boardForm) {
+		this.boardForm = boardForm;
 	}
-	public String getType() {
-		return type;
+	public int getWriterId() {
+		return writerId;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setWriterId(int writerId) {
+		this.writerId = writerId;
 	}
-	public MultipartFile getUpload() {
-		return upload;
+	public int getWriterType() {
+		return writerType;
 	}
-	public void setUpload(MultipartFile upload) {
-		this.upload = upload;
+	public void setWriterType(int writerType) {
+		this.writerType = writerType;
+	}
+	public Date getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 	
 }
