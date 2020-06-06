@@ -3,24 +3,58 @@
 
 <mapper namespace="ssd.pbl.repository.mapper.BoardMapper">
 	<cache />
- 	<select id="selectBoardList" resultType="BoardForm">
-   	
+ 	<select id="selectBoardList" parameterType="int" resultType="Board">
+   		SELECT ID AS boardId,
+   			   CLASS AS connectionId,
+   			   TITLE AS boardForm.title,
+   			   TYPE AS boardForm.type,
+   			   CONTENT AS boardForm.content,
+   			   UPLOAD AS boardForm.upload,
+   			   WRITER AS writer,
+   			   WRITERTYPE AS writerType,
+   			   REGISTEREDAT AS creationDate
+		FROM CLASSROOMBOARD
+		WHERE CLASS = #{connetionId}
+		ORDER BY REGISTEREDAT DESC
 	</select>
  	
- 	<select id="selectBoardById" resultType="BoardForm">
- 	
+ 	<select id="selectBoardById" parameterType="int" resultType="Board">
+ 		SELECT ID AS boardId,
+   			   CLASS AS connectionId,
+   			   TITLE AS boardForm.title,
+   			   TYPE AS boardForm.type,
+   			   CONTENT AS boardForm.content,
+   			   UPLOAD AS boardForm.upload,
+   			   WRITER AS writer,
+   			   WRITERTYPE AS writerType,
+   			   REGISTEREDAT AS creationDate
+		FROM CLASSROOMBOARD 
+		WHERE ID = #{boradId}
  	</select>
  	
- 	<insert id="insertBoard" >
- 	
+ 	<insert id="insertBoard" parameterType="Board">
+ 		INSERT INTO CLASSROOMBOARD(CLASS, TITLE, TYPE, CONTENT, UPLOAD, WRITER, WRITERTYPE, REGISTEREDAT, UPDATEDAT)
+		VALUES (
+			#{connectionId}
+			, #{boardForm.title}
+			, #{boardForm.type}
+			, #{boardForm.content}
+			, #{boardForm.upload, javaType=String, jdbcType=VARCHAR}
+			, #{writerId}
+			, #{writerType}
+			, SYSDATE
+			, SYSDATE
+		)
  	</insert>
  	
- 	<update id="updateBoard">
- 	
+ 	<update id="updateBoard" parameterType="Board">
+ 		UPDATE CLASSROOMBOARD SET TITLE = #{boardForm.title},  CONTENT = #{boardForm.content}, FILE = #{boardForm.upload} 
+		WHERE ID = #{boardId}
  	</update>
  	
- 	<delete id="deleteBoard">
- 	
+ 	<delete id="deleteBoard" parameterType="int">
+ 		DELETE FROM CLASSROOMBOARD 
+		WHERE ID = #{boardId}
  	</delete>
  
 </mapper>

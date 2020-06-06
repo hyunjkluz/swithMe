@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ssd.pbl.repository.mapper.CommentMapper">
+<mapper namespace="ssd.pbl.repository.mapper.ReplyMapper">
 	<cache />
-	<select id="selectAllReplyByBoardId" resultType="Reply">
-		
+	<select id="selectAllReplyByBoardId" parameterType="int" resultType="Reply">
+		SELECT ID AS replyId,
+			   CONTENT AS content,
+			   WRITER AS writerId,
+			   WRITERTYPE AS writerType,
+			   REGISTEREDAT AS registerdAt,
+			   UPDATEDAT AS updatedAt
+		FROM REPLY
+		WHERE BOARD = #{boardId}
+		ORDER BY REGISTEREDAT DESC
 	</select>
 
- 	<insert id="insertComment" >
- 		INSERT INTO COMMENT VALUES (?, ?, ?, ?, ?, ?, NULL);
+ 	<insert id="insertReply" parameterType="Reply">
+ 		INSERT INTO REPLY(CONTENT, BOARD, WRITER, WEITERTYPE, REGISTEREDAT, UPDATEDAT) 
+ 		VALUES (#{content}, #{boardId}, #{writerId}, #{writerType}, SYSDATE, SYSDATE)
  	</insert>
  	
- 	<update id="updateReply">
- 	
+ 	<update id="updateReply" parameterType="Reply">
+ 		UPDATE REPLY SET CONTENT = #{content} , UPDATEDAT = SYSDATE
+		WHERE ID = #{replyId}
  	</update>
  	
- 	<delete id="deleteReply">
- 	
+ 	<delete id="deleteReply" parameterType="int">
+ 		DELETE FROM REPLY
+		WHERE ID = #{replyId}
  	</delete>
  
 </mapper>
