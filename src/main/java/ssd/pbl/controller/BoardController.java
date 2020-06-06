@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ssd.pbl.model.BoardForm;
+import ssd.pbl.model.Board;
 import ssd.pbl.service.BoardService;
 import ssd.pbl.service.ReplyService;
 
@@ -51,7 +51,7 @@ public class BoardController {
 	@RequestMapping(value ="/board.do", method = RequestMethod.GET)
 	public String getPostForm(Model model) {
 		logger.info("BoardController-uploadNewPostForm");
-		model.addAttribute("boardForm", new BoardForm());
+		model.addAttribute("boardForm", new Board());
 		
 		List<String> boardTypes = new ArrayList<String>();
 		boardTypes.add("공지사항");
@@ -63,9 +63,9 @@ public class BoardController {
 	
 	//새로운 글 등록
 	@RequestMapping(value ="/board" , method = RequestMethod.POST)
-	public String uploadNewPost(@ModelAttribute("boardForm") BoardForm boardForm) throws Exception {
+	public String uploadNewPost(@ModelAttribute("boardForm") Board board) throws Exception {
 		logger.info("BoardController-uploadNewPost");
-		boardService.createBoard(boardForm);
+		boardService.createBoard(board);
 		return "board/MyClassMain";
 	}
 
@@ -74,7 +74,7 @@ public class BoardController {
 	public String getPostDetail(@RequestParam("boardId") int boardId, Model model) {
 		logger.info("BoardController-postDetail");
 		model.addAttribute("board", boardService.getBoard(boardId));
-		model.addAttribute("commentList", replyService.getAllComment(boardId));
+		model.addAttribute("replyList", replyService.getAllReply(boardId));
 		return "board/MyClassBoardDetail";
 	}
 	

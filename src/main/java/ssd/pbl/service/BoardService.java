@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ssd.pbl.model.Board;
 import ssd.pbl.model.BoardForm;
+import ssd.pbl.model.Board;
 import ssd.pbl.repository.mapper.BoardMapperRepository;
 
 
@@ -16,27 +16,27 @@ public class BoardService {
 	@Autowired
 	private BoardMapperRepository boardMapperRepository;
 
-	public List<Board> getBoardlist() {
+	public List<BoardForm> getBoardlist() {
 		return  boardMapperRepository.selectBoardList();
 	}
 	
-	public Board getBoard(int bId) {
+	public BoardForm getBoard(int bId) {
 		return boardMapperRepository.selectBoardById(bId);
 	}
 	
-	public void createBoard(BoardForm boardForm) {
-		boardMapperRepository.insertBoard(boardForm);
+	public void createBoard(Board board) {
+		boardMapperRepository.insertBoard(board);
 	}
 	
-	public void editBoard(BoardForm boardForm) {
-		boardMapperRepository.updateBoard(boardForm);
+	public void editBoard(Board board) {
+		boardMapperRepository.updateBoard(board);
 	}
 
 	public void deleteBoard(int bid) {
 		boardMapperRepository.deleteBoard(bid);
 	}
 	
-	public void updateBoard(BoardForm boardForm) {
-		boardMapperRepository.updateBoard(boardForm);
+	public void updateBoard(Board board) {
+		boardMapperRepository.updateBoard(board);
 	}
 }

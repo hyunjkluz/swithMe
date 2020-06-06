@@ -5,28 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ssd.pbl.model.Board;
 import ssd.pbl.model.BoardForm;
+import ssd.pbl.model.Board;
 import ssd.pbl.model.Reply;
 @Repository
 public class BoardMapperRepository {
 	@Autowired
 	private BoardMapper boardMapper;
 
-	public List<Board> selectBoardList() {
+	public List<BoardForm> selectBoardList() {
 		return boardMapper.selectBoardList();
 	}
 	
-	public Board selectBoardById(int bId) {
+	public BoardForm selectBoardById(int bId) {
 		return boardMapper.selectBoardById(bId);//boardMap.get(bId);
 	}
 	
-	public void insertBoard(BoardForm boardForm) {
-		boardMapper.insertBoard(boardForm);
+	public void insertBoard(Board board) {
+		boardMapper.insertBoard(board);
 	}
 	
-	public void updateBoard(BoardForm boardForm) {
-		boardMapper.updateBoard(boardForm);
+	public void updateBoard(Board board) {
+		boardMapper.updateBoard(board);
 	}
 	
 	public void deleteBoard(int bId) {

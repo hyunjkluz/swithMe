@@ -2,17 +2,17 @@ package ssd.pbl.repository.mapper;
 
 import java.util.List;
 
-import ssd.pbl.model.Board;
 import ssd.pbl.model.BoardForm;
+import ssd.pbl.model.Board;
 
 public interface BoardMapper {
-	List<Board> selectBoardList();
+	List<BoardForm> selectBoardList();
 	
-	Board selectBoardById(int bId);
+	BoardForm selectBoardById(int bId);
 	
-	void insertBoard(BoardForm boardForm);
+	void insertBoard(Board board);
 	
-	void updateBoard(BoardForm boardForm);
+	void updateBoard(Board board);
 	
 	void deleteBoard(int bId);
 }
