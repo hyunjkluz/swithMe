@@ -33,7 +33,7 @@ li {list-style: none; float: left; padding: 6px;}
 		<button type="button" onclick="">질문</button>
 		<button type="button" onclick="">과제</button>
 		
-		<button type="button" onclick="location.href='board.do' ">글작성</button>
+		<a href="<c:url value='/board.do' />">글작성</a>
 		<hr />
 		<br>
 		<table >
@@ -67,22 +67,7 @@ li {list-style: none; float: left; padding: 6px;}
 			  
 		</table>
 		<hr />
-		<%-- <div>
-		<ul>
-			<c:if test="${pageMaker.prev}">
-				<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
-			</c:if> 
-	
-			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-				<li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
-			</c:forEach>
-	
-			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
-			</c:if> 
-		</ul>
-		</div>
- --%>		</section>
+		</section>
 	</div>
 	
 	
