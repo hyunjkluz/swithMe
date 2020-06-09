@@ -12,14 +12,14 @@
 
 	<h2>선생님 매칭 정보 작성 - 과목 선택</h2>
 
-	<form:form modelAttribute="tmInfo" method="post" action="/swithMe/teacher/match/step2">
+	<form modelAttribute="tmInfo" method="post" action="/swithMe/teacher/match/step2">
 	
-		<input type="checkbox" name="subject" value="korean">국어 
-		<input type="checkbox" name="subject" value="math1">수학1 
-		<input type="checkbox" name="subject" value="math2">수학2 
-		<input type="checkbox" name="subject" value="midmath">중등수학 
-		<input type="checkbox" name="subject" value="elemath">초등수학 
-		<input type="checkbox" name="subject" value="english">영어 
+		<p>과목</p>
+		<form:errors path="subjectId" />
+		<form:select path="subjectId" multiple="false">
+			<form:options items="${subjects }" itemValue="id" itemLabel="name" />
+		</form:select>
+		<br>
 		
 		<br><br>
 		
@@ -31,6 +31,6 @@
 		<br><br>
 		<input type="submit" value="다음">
 		
-	</form:form>
+	</form>
 </body>
 </html>
