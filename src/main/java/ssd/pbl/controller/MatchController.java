@@ -2,6 +2,7 @@ package ssd.pbl.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ import ssd.pbl.service.SubjectService;
 
 @Controller
 @RequestMapping("/teacher/match")
-@SessionAttributes("tmInfo")
+@SessionAttributes("tminfo")
 public class MatchController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MatchController.class);
 	
@@ -32,10 +33,10 @@ public class MatchController {
 	private static final String STEP5_FORM_VIEW = "jointeacher/InputMInfoTeacherProfiles";
 	private static final String DONE = "jointeacher/InputMInfoTeacherFinish";
 	
-	@ModelAttribute("tmInfo")
+	@ModelAttribute("tminfo")
 	public MatchCommand formBacking() {
-		MatchCommand tmInfo = new MatchCommand();
-		return tmInfo;
+		MatchCommand tmf = new MatchCommand();
+		return tmf;
 	}   
 	
 	@Autowired
@@ -54,7 +55,8 @@ public class MatchController {
 	} // step2 > step1
 	
 	@RequestMapping(value = "/step2", method = RequestMethod.POST)
-	public String step2(@Valid @ModelAttribute("tmInfo") MatchCommand tmInfo, BindingResult result) {
+	public String step2(@Valid @ModelAttribute("tminfo") MatchCommand tmInfo, BindingResult result, 
+			HttpServletRequest request) {
 		System.out.println("command 객체: " + tmInfo);
 		// 유효성 검사
 		return STEP2_FORM_VIEW;
@@ -66,7 +68,7 @@ public class MatchController {
 	} // step3 > step2
 	
 	@RequestMapping(value = "/step3", method = RequestMethod.POST)
-	public String step3(@Valid @ModelAttribute("tmInfo") MatchCommand tmInfo, BindingResult result) {
+	public String step3(@Valid @ModelAttribute("tminfo") MatchCommand tmInfo, BindingResult result) {
 		System.out.println("command 객체: " + tmInfo);
 		// 유효성 검사
 		return STEP3_FORM_VIEW;
@@ -78,7 +80,7 @@ public class MatchController {
 	} // step4 > step3
 	
 	@RequestMapping(value = "/step4", method = RequestMethod.POST)
-	public String step4(@Valid @ModelAttribute("tmInfo") MatchCommand tmInfo, BindingResult result) {
+	public String step4(@Valid @ModelAttribute("tminfo") MatchCommand tmInfo, BindingResult result) {
 		System.out.println("command 객체: " + tmInfo);
 		return STEP4_FORM_VIEW;
 	}
