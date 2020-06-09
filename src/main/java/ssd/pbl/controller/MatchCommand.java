@@ -6,7 +6,7 @@ import ssd.pbl.model.TeacherMatchForm;
 
 public class MatchCommand {
 	private int id;
-	private SubjectLevel[] level;
+	private SubjectLevel[] sublevels;
 	private String gender;
 	private String time;
 	private Gu[] gu;
@@ -16,7 +16,7 @@ public class MatchCommand {
 	public MatchCommand(TeacherMatchForm tm) {
 		if(tm != null) {
 			id = tm.getId();
-			level = tm.getSubjectLevel();
+			sublevels = tm.getSubjectLevel();
 			gender = tm.getGender();
 			time = tm.getTime();
 			gu = tm.getGu();
@@ -36,11 +36,11 @@ public class MatchCommand {
 	}
 
 	public SubjectLevel[] getLevel() {
-		return level;
+		return sublevels;
 	}
 
-	public void setLevel(SubjectLevel[] level) {
-		this.level = level;
+	public void setLevel(SubjectLevel[] sublevels) {
+		this.sublevels = sublevels;
 	}
 
 	public String getGender() {
