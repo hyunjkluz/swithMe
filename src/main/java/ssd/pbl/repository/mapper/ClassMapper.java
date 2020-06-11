@@ -13,5 +13,7 @@ import ssd.pbl.model.ClassCard;
  */
 public interface ClassMapper {
 	List<ClassCard> selectAutoMatchClass();
+	
+	List<ClassCard> selectAllClass();
 
 }

@@ -22,5 +22,9 @@ public class ClassMapperRepository {
 	public List<ClassCard> selectAutoMatchClass() {
 		return classMapper.selectAutoMatchClass();
 	}
+	
+	public List<ClassCard> selectAllClass() {
+		return classMapper.selectAllClass();
+	}
 
 }
