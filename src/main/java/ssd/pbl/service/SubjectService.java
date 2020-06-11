@@ -36,13 +36,7 @@ public class SubjectService {
 	}
 
 	public List<SubjectTestPaper> getTestPaperBySubjectId(int subjectId) {
-//		SubjectTestPaper st1 = new SubjectTestPaper(4, 1, "문제1", "", 1);
-//		SubjectTestPaper st2 = new SubjectTestPaper(5, 1, "문제2", "", 3);
-//		SubjectTestPaper st3 = new SubjectTestPaper(6, 1, "문제2", "", 2);
-//		List<SubjectTestPaper> list = Arrays.asList(st1, st2, st3);
-
 		return subjectMapper.selectTestQuestionBySubjectId(subjectId);
-//		return list;
 	}
 
 }
