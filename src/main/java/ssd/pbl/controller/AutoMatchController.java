@@ -22,9 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ssd.pbl.model.Dong;
 import ssd.pbl.model.Gu;
+import ssd.pbl.model.RadioButton;
 import ssd.pbl.model.Sido;
 import ssd.pbl.model.StudentMatchForm;
+import ssd.pbl.model.StudentTest;
 import ssd.pbl.model.Subject;
+import ssd.pbl.model.SubjectTestPaper;
+import ssd.pbl.service.CharacterService;
 import ssd.pbl.service.RegionService;
 import ssd.pbl.service.SubjectService;
 
@@ -35,7 +39,8 @@ import ssd.pbl.service.SubjectService;
 
 @Controller
 @RequestMapping("/student/match")
-@SessionAttributes("studentMatchForm")
+@SessionAttributes({ "studentMatchForm", "subjects", "sidos", "gus", "dongs", "char1", "char2", "char3", "char4",
+		"char5" })
 public class AutoMatchController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AutoMatchController.class);
 
@@ -43,11 +48,8 @@ public class AutoMatchController {
 	private SubjectService subjectService;
 	@Autowired
 	private RegionService regionService;
-	
-	@ModelAttribute("subjects")
-	public List<Subject> subjFormBacking() {
-		return subjectService.getAllAubject();
-	}
+	@Autowired
+	private CharacterService characterService;
 
 	@ModelAttribute("studentMatchForm")
 	public StudentMatchForm formBacking() {
@@ -56,19 +58,72 @@ public class AutoMatchController {
 		return smf;
 	}
 
+	@ModelAttribute("subjects")
+	public List<Subject> subjFormBacking() {
+		return subjectService.getAllAubject();
+	}
+
+	@ModelAttribute("sidos")
+	public List<Sido> sidoFormBacking() {
+		return regionService.getAllSido();
+	}
+
+	@ModelAttribute("gus")
+	public List<Gu> guFormBacking() {
+		return regionService.getGuBySidoId(1);
+	}
+
+	@ModelAttribute("dongs")
+	public List<Dong> dongFormBacking() {
+		return regionService.getDongByGuId(1);
+	}
+
+	@ModelAttribute("char1")
+	public List<Character> character1FormBacking() {
+		return characterService.getTwoCharacterById(11, 12);
+	}
+
+	@ModelAttribute("char2")
+	public List<Character> character2FormBacking() {
+		return characterService.getTwoCharacterById(13, 14);
+	}
+
+	@ModelAttribute("char3")
+	public List<Character> character3FormBacking() {
+		return characterService.getTwoCharacterById(15, 16);
+	}
+
+	@ModelAttribute("char4")
+	public List<Character> character4FormBacking() {
+		return characterService.getTwoCharacterById(17, 18);
+	}
+
+	@ModelAttribute("char5")
+	public List<Character> character5FormBacking() {
+		return characterService.getTwoCharacterById(19, 20);
+	}
+
+	@ModelAttribute("levels")
+	public List<RadioButton> levelFormBacking() {
+		return Arrays.asList(new RadioButton("하", 1, null), new RadioButton("중", 2, null),
+				new RadioButton("상", 3, null));
+	}
+
+	@ModelAttribute("genders")
+	public List<RadioButton> genderFormBacking() {
+		return Arrays.asList(new RadioButton("성별 무관", 0, "any"), new RadioButton("여자", 0, "women"),
+				new RadioButton("남자", 0, "man"));
+	}
+
+	@ModelAttribute("times")
+	public List<RadioButton> timeFormBacking() {
+		return Arrays.asList(new RadioButton("오전", 0, "am"), new RadioButton("오후", 0, "pm"),
+				new RadioButton("저녁", 0, "eve"));
+	}
+
 	@RequestMapping(value = "/form.do", method = RequestMethod.GET)
-	public ModelAndView getAutoMatchForm() {
-		ModelAndView mav = new ModelAndView("automatch/InputAutoMInfoStudentClassInfo");
-
-		List<Sido> sidos = regionService.getAllSido();
-		List<Gu> gus = regionService.getGuBySidoId(1);
-		List<Dong> dongs = regionService.getDongByGuId(9);
-
-		mav.addObject("sidos", sidos);
-		mav.addObject("gus", gus);
-		mav.addObject("dongs", dongs);
-
-		return mav;
+	public String getAutoMatchForm() {
+		return "automatch/InputAutoMInfoStudentClassInfo";
 	}
 
 	@RequestMapping(value = "/step1", method = RequestMethod.GET)
@@ -100,26 +155,80 @@ public class AutoMatchController {
 	public String postAutoMathForm1(@Valid @ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm,
 			BindingResult bindingResult) {
 		LOGGER.info(sMatchForm.toString());
-		if (!bindingResult.hasErrors()) {
-			ArrayList<Integer> intDongIds = regionService.changDongStrToIntArray(sMatchForm.getDongIds());
-			sMatchForm.setDongIdArr(intDongIds);
+
+		if (bindingResult.hasErrors()) {
+			LOGGER.info("유효성 검사 실패");
+			return "automatch/InputAutoMInfoStudentClassInfo";
 		}
 
+		LOGGER.info("유효성 검사 완료");
+		ArrayList<Integer> intDongIds = regionService.changDongStrToIntArray(sMatchForm.getDongIds());
+		sMatchForm.setDongIdArr(intDongIds);
+
+		List<SubjectTestPaper> stp = subjectService.getTestPaperBySubjectId(1);
+		List<StudentTest> stList = new ArrayList<>();
+
+		for (SubjectTestPaper stpN : stp) {
+			stList.add(new StudentTest(stpN, ""));
+		}
+		sMatchForm.setSubjectTest(stList);
+
 		return "automatch/InputAutoMInfoLevelTest";
+
 	}
 
 	@RequestMapping(value = "/step2", method = RequestMethod.POST)
-	public String postAutoMathForm2() {
+	public String postAutoMathForm2(@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm) {
+
 		return "automatch/InputAutoMInfoMyChar";
 	}
 
 	@RequestMapping(value = "/step3", method = RequestMethod.POST)
-	public String postAutoMathForm3() {
+	public String postAutoMathForm3(@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm,
+			BindingResult bindingResult) {
+
+		if (sMatchForm.getCh1() < 1) {
+			bindingResult.rejectValue("ch1", "empty", "둘 둥 하나의 유형을 선택해주세요");
+		}
+
+		if (sMatchForm.getCh2() < 2) {
+			bindingResult.rejectValue("ch2", "empty", "둘 둥 하나의 유형을 선택해주세요");
+		}
+
+		if (sMatchForm.getCh3() < 3) {
+			bindingResult.rejectValue("ch3", "empty", "둘 둥 하나의 유형을 선택해주세요");
+		}
+
+		if (sMatchForm.getCh4() < 4) {
+			bindingResult.rejectValue("ch4", "empty", "둘 둥 하나의 유형을 선택해주세요");
+		}
+
+		if (sMatchForm.getCh4() < 5) {
+			bindingResult.rejectValue("ch5", "empty", "둘 둥 하나의 유형을 선택해주세요");
+		}
+
+		if (bindingResult.hasErrors()) {
+			LOGGER.info("step3: 유효성 검사 실패");
+			return "automatch/InputAutoMInfoMyChar";
+		}
+		LOGGER.info(sMatchForm.toString());
 		return "automatch/InputAutoMInfoAddInfo";
 	}
 
 	@RequestMapping(value = "/step4", method = RequestMethod.POST)
-	public String postAutoMathForm4() {
+	public String postAutoMathForm4(@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm,
+			BindingResult bindingResult) {
+		LOGGER.info(sMatchForm.toString());
+
+		if (sMatchForm.getMemo().trim().length() <= 0) {
+			bindingResult.rejectValue("memo", "empty", "성적을 입력해주세요");
+		}
+
+		if (bindingResult.hasErrors()) {
+			LOGGER.info("step4: 유효성 검사 실패");
+			return "automatch/InputAutoMInfoAddInfo";
+		}
+
 		return "automatch/AutoMInfoResult";
 	}
 
