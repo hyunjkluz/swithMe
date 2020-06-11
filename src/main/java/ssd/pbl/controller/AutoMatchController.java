@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -18,8 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import ssd.pbl.model.ClassCard;
 import ssd.pbl.model.Dong;
 import ssd.pbl.model.Gu;
 import ssd.pbl.model.RadioButton;
@@ -29,7 +33,9 @@ import ssd.pbl.model.StudentTest;
 import ssd.pbl.model.Subject;
 import ssd.pbl.model.SubjectTestPaper;
 import ssd.pbl.service.CharacterService;
+import ssd.pbl.service.ClassService;
 import ssd.pbl.service.RegionService;
+import ssd.pbl.service.StudentService;
 import ssd.pbl.service.SubjectService;
 
 /**
@@ -40,16 +46,20 @@ import ssd.pbl.service.SubjectService;
 @Controller
 @RequestMapping("/student/match")
 @SessionAttributes({ "studentMatchForm", "subjects", "sidos", "gus", "dongs", "char1", "char2", "char3", "char4",
-		"char5" })
+		"char5", "classCardList" })
 public class AutoMatchController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AutoMatchController.class);
 
+	@Autowired
+	private StudentService studentService;
 	@Autowired
 	private SubjectService subjectService;
 	@Autowired
 	private RegionService regionService;
 	@Autowired
 	private CharacterService characterService;
+	@Autowired
+	private ClassService classService;
 
 	@ModelAttribute("studentMatchForm")
 	public StudentMatchForm formBacking() {
@@ -121,6 +131,11 @@ public class AutoMatchController {
 				new RadioButton("저녁", 0, "eve"));
 	}
 
+	@ModelAttribute("classCardList")
+	public List<ClassCard> classCardFormBacking() {
+		return null;
+	}
+
 	@RequestMapping(value = "/form.do", method = RequestMethod.GET)
 	public String getAutoMatchForm() {
 		return "automatch/InputAutoMInfoStudentClassInfo";
@@ -188,23 +203,23 @@ public class AutoMatchController {
 			BindingResult bindingResult) {
 
 		if (sMatchForm.getCh1() < 1) {
-			bindingResult.rejectValue("ch1", "empty", "둘 둥 하나의 유형을 선택해주세요");
+			bindingResult.rejectValue("ch1", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 
 		if (sMatchForm.getCh2() < 2) {
-			bindingResult.rejectValue("ch2", "empty", "둘 둥 하나의 유형을 선택해주세요");
+			bindingResult.rejectValue("ch2", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 
 		if (sMatchForm.getCh3() < 3) {
-			bindingResult.rejectValue("ch3", "empty", "둘 둥 하나의 유형을 선택해주세요");
+			bindingResult.rejectValue("ch3", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 
 		if (sMatchForm.getCh4() < 4) {
-			bindingResult.rejectValue("ch4", "empty", "둘 둥 하나의 유형을 선택해주세요");
+			bindingResult.rejectValue("ch4", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 
 		if (sMatchForm.getCh4() < 5) {
-			bindingResult.rejectValue("ch5", "empty", "둘 둥 하나의 유형을 선택해주세요");
+			bindingResult.rejectValue("ch5", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 
 		if (bindingResult.hasErrors()) {
@@ -216,8 +231,9 @@ public class AutoMatchController {
 	}
 
 	@RequestMapping(value = "/step4", method = RequestMethod.POST)
-	public String postAutoMathForm4(@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm,
-			BindingResult bindingResult) {
+	public String postAutoMathForm4(@ModelAttribute("classCardList") List<ClassCard> ccList,
+			@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm, BindingResult bindingResult,
+			HttpServletRequest request) {
 		LOGGER.info(sMatchForm.toString());
 
 		if (sMatchForm.getMemo().trim().length() <= 0) {
@@ -229,7 +245,31 @@ public class AutoMatchController {
 			return "automatch/InputAutoMInfoAddInfo";
 		}
 
+		HttpSession session = request.getSession();
+		List<ClassCard> cc = classService.getAutoMatchClasses();
+		session.setAttribute("classCardList", cc);
+
 		return "automatch/AutoMInfoResult";
+	}
+
+	@RequestMapping(value = "/fin", method = RequestMethod.POST)
+	public String autoMatch(@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm,
+			BindingResult bindingResult, SessionStatus sessionStatus) {
+		if (sMatchForm.getTeacherId() < 1) {
+			bindingResult.rejectValue("teacherId", "empty", "선생님 선택 후 수업 신청 버튼을 눌러주세요!");
+		}
+
+		LOGGER.info("선택된 성생님 아이디 : " + sMatchForm.getTeacherId());
+
+		if (bindingResult.hasErrors()) {
+			LOGGER.info("fin:" + "유효성 검사 실패");
+			return "automatch/AutoMInfoResult";
+		}
+		
+//		studentService.postAutoMatching(sMatchForm);
+//		sessionStatus.isComplete();
+
+		return "match/ClassRequestFinish";
 	}
 
 }
