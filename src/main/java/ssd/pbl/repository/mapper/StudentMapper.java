@@ -3,6 +3,8 @@
  */
 package ssd.pbl.repository.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import ssd.pbl.model.StudentMatchForm;
 
 /**
@@ -12,10 +14,10 @@ import ssd.pbl.model.StudentMatchForm;
 public interface StudentMapper {
 	Integer insertStudentMatch(StudentMatchForm studentMatchForm);
 
-	Integer insertStudentRegion(int id, int dongId);
+	Integer insertStudentRegion(@Param("id") int id, @Param("dongId") int dongId);
 
-	Integer insertStudentCharacter(int id, int characterId);
+	Integer insertStudentCharacter(@Param("id")int id, @Param("characterId") int characterId);
 
-	Integer insertStudentTestResult(int id, int testId, String answer);
+	Integer insertStudentTestResult(@Param("id")int id, @Param("testId") int testId, @Param("answer") String answer);
 
 }
