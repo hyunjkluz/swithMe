@@ -35,5 +35,12 @@ public class StudentTest {
 	public void setStudentAnswer(String studentAnswer) {
 		this.studentAnswer = studentAnswer;
 	}
+	
+	public int gradeTest() {
+		if (studentAnswer.equals(this.studentTestPaper.getAnswer())) {
+			return 1;
+		}
+		return 0;
+	}
 
 }
