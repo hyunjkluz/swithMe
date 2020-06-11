@@ -18,6 +18,6 @@ public interface SubjectMapper {
 	Integer insertSubject(@Param("name") String name, @Param("category") String category);
 
 	List<Subject> selectAllSubject();
-
-	List<SubjectTestPaper> selectTestQuestionBySubjectId(int subjectId);
+	
+	List<SubjectTestPaper> selectTestQuestionBySubjectId(@Param("subjectId") int subjectId);
 }

@@ -4,19 +4,20 @@
 
 <mapper namespace="ssd.pbl.repository.mapper.SubjectMapper">
 	<cache />
-	
+
 	<insert id="insertSubject">
-		INSERT INTO subject (name, category) 
+		INSERT INTO subject (name, category)
 		VALUES (#{name}, #{category})
 	</insert>
 
 	<select id="selectAllSubject" resultType="Subject">
-		SELECT *
+		SELECT id, name, category
 		FROM Subject
 	</select>
 
-	<select id="selectTestQuestionBySubjectId" resultType="Subject">
-		SELECT *
+	<select id="selectTestQuestionBySubjectId" parameterType="int"
+		resultType="SubjectTestPaper">
+		SELECT id, subject AS subjectId, question, answer, ability
 		FROM subjectTestPaper
 		WHERE subject = #{subjectId}
 	</select>
