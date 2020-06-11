@@ -25,11 +25,12 @@ public class ClassService {
 	private ClassMapperRepository classMapperRepo;
 
 	public List<ClassCard> getAutoMatchClasses() {
-		List<ClassCard> list = classMapperRepo.selectAutoMatchClass();
-		LOGGER.info(list.get(0).toString());
-		return list;
+		return classMapperRepo.selectAutoMatchClass();
+	}
 
-//		return classMapperRepo.selectAutoMatchClass();
+	public List<ClassCard> getAllClass() {
+		return classMapperRepo.selectAllClass();
+
 	}
 
 }
