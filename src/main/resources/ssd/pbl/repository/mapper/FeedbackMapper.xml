@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssd.pbl.repository.mapper.FeedbackMapper">
+	<cache />
+	<select id="selectClassFeedBackByTeacherId"
+		resultType="ClassFeedback">
+		SELECT id, connection connectionId, rate, content, regieteredat registeredAt, updatedat updatedAt
+		FROM connection c
+		JOIN teacher t
+		ON t.id = #{teacherId} AND c.teacher = t.id
+		LEFT JOIN classFeedback cf
+		ON c.id = cf.connectionId
+	</select>
+
+</mapper>
