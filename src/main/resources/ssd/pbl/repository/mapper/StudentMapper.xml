@@ -3,7 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ssd.pbl.repository.mapper.StudentMapper">
-	<cache />
 
 	<insert id="insertStudentMatch" parameterType="studentMatchForm">
 		INSERT INTO
@@ -25,4 +24,35 @@
 		INSERT INTO studentTestResult (testPaper, studentMatch, answer, updatedAt) 
 		VALUES (#{testId}, #{id}, #{answer}, SYSDATE)
 	</insert>
+	
+	<select id="selectStudent" parameterType="java.lang.String" resultType="LoginForm">
+		SELECT STUDENT.EMAIL, STUDENT.PASSWORD 
+		FROM STUDENT 
+		WHERE STUDENT.EMAIL = #{email}
+	</select>
+	
+	<select id="selectCountStudentEmail" parameterType="string" resultType="int">
+		SELECT count(*)
+		FROM STUDENT
+		WHERE STUDENT.EMAIL = #{email}
+	</select>
+	
+	<select id="selectSchoolListBySchoolName" parameterType="java.lang.String" resultType="SchoolForm">
+   		SELECT id
+		FROM school
+		WHERE name like '%#{school}%'
+	</select>
+	
+	<select id="selectEmailByNameAndPhone" parameterType="FindIDForm" resultType="java.lang.String">
+		SELECT STUDENT.EMAIL
+		FROM STUDENT
+		WHERE STUDENT.NAME = #{name} AND STUDENT.PHONE = #{phone}
+	</select>
+	
+	<select id="selectStudentUserInfo" parameterType="java.lang.String" resultType="ssd.pbl.controller.UserSession">
+		SELECT s.id, s.name, i.PROFILEIMG
+		FROM student s, STUDENTINFO i
+		WHERE s.id = i.student AND s.email = #{email}
+	</select>
+	
 </mapper>
