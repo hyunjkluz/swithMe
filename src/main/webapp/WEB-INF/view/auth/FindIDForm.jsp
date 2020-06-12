@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
@@ -73,24 +76,28 @@
       <div class="find-id-title-area">
         <span class="find-id-title">아이디 찾기</span>
       </div>
+      <form:form modelAttribute="findIDForm" action="id" method="post">
       <div class="find-id-type">
         <div class="find-id-type-area">
-          <button class="find-id-type-btn">학생</button>
+        	<form:radiobutton path="type" value="student" label="학생" />
+			<form:radiobutton path="type" value="teacher" label="선생님" />
+          <!-- <button class="find-id-type-btn">학생</button>
         </div>
         <div class="find-id-type-area">
-          <button class="find-id-type-btn">선생님</button>
+          <button class="find-id-type-btn">선생님</button> -->
         </div>
       </div>
       <div class="find-id-input-area">
         <div class="find-id-input-content-area">
-          <input type="text" class="find-id-input-text" />
+          <form:input path="name" type="text" class="find-id-input-text" placeholder="이름" />
         </div>
         <div class="find-id-input-content-area">
-          <input type="number" class="find-id-input-text" />
+          <form:input path="phone" type="number" class="find-id-input-text" placeholder="전화번호" />
         </div>
       </div>
       <div class="find-id-btn-area">
-        <button class="find-id-btn">아이디 찾기</button>
+        <button type="submit" class="find-id-btn">아이디 찾기</button>
       </div>
+      </form:form>
     </div>
   </body>

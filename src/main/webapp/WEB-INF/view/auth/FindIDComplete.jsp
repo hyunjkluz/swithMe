@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
@@ -58,6 +61,7 @@
         cursor: pointer;
       }
     </style>
+    
   </head>
   <body>
     <div class="base-top">
@@ -71,11 +75,11 @@
       </div>
       <div class="find-id-complete-result-area">
         <div class="find-id-complete-result-content-area">
-          <span class="find-id-complete-result-text">아이디</span>
+          <span class="find-id-complete-result-text">${id}</span>
         </div>
       </div>
       <div class="find-id-complete-btn-area">
-        <button class="find-id-complete-btn">로그인</button>
+        <button class="find-id-complete-btn" id="login" onclick="location.href='/swithMe/auth/loginForm.do'">로그인</button>
       </div>
     </div>
   </body>

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
@@ -102,6 +105,7 @@
           <span class="join-term-procedure-content-text">가입 완료</span>
         </div>
       </div>
+      <form:form action="signup/type" method="GET">
       <div class="join-term-title-area">
         <span class="join-term-title">약관 동의</span>
       </div>
@@ -115,7 +119,8 @@
         <span class="join-term-confirm-text">본인의 위의 내용을 충분히 이해하고 이에 동의합니다.</span>
       </div>
       <div class="join-term-btn-area">
-        <button class="join-term-btn">계속</button>
+        <button type="submit" class="join-term-btn">계속</button>
       </div>
+      </form:form>
     </div>
   </body>
