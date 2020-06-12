@@ -8,18 +8,18 @@
 </head>
 <body>
 <div>
-	<div class="board_type">${board.type}</div>
-	<div class="board_title">${board.title}</div>
-	<div class="board_content">${board.content}</div>
-<%-- 	<div class="board_file">첨부파일<c:out value="${board.file}"/></div>
+	<div class="board_type">${board.boardForm.type}</div>
+	<div class="board_title">${board.boardForm.title}</div>
+	<div class="board_content">${board.boardForm.content}</div>
+<%-- 	<div class="board_file">첨부파일<c:out value="${board.upload}"/></div>
 	 --%>
 	 
 	<div style="margin-top : 20px">
-		<a href="<c:url value='/board/' />${board.bId}">수정</a>
-		<a href="<c:url value='/board/' />${board.bId}">삭제</a>
+		<a href="<c:url value='/board/' />${board.boardId}">수정</a>
+		<a href="<c:url value='/board/' />${board.boardId}">삭제</a>
 		<a href="<c:url value='/board/main' />">목록</a>
 	</div>
-
+<%-- 
 	<div style="padding-top: 10px">
 		<form:form name="form" modelAttribute="reply" method="post">
 		<form:hidden path="bid" id="bid"/>
@@ -37,7 +37,7 @@
 	<div  style="padding-top: 10px">
 		<h6 >Reply list</h6>
 		<div id="replyList"></div>
-	</div> 
+	</div>  --%>
 </div>		
 
 </body>
