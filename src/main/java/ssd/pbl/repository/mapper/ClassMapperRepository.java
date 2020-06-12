@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ssd.pbl.model.ClassCard;
+import ssd.pbl.model.ClassTeacherDetail;
 
 /**
  * @author kimhyunjin
@@ -25,6 +26,10 @@ public class ClassMapperRepository {
 	
 	public List<ClassCard> selectAllClass() {
 		return classMapper.selectAllClass();
+	}
+	
+	public ClassTeacherDetail selectClassTeacherDetailByClassId(int classId) {
+		return classMapper.selectClassTeacherDetailByClassId(classId);
 	}
 
 }
