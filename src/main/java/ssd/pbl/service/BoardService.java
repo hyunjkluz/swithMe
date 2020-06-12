@@ -20,7 +20,7 @@ public class BoardService {
 		return  boardMapperRepository.selectBoardList();
 	}
 	
-	public BoardForm getBoard(int bId) {
+	public Board getBoard(int bId) {
 		return boardMapperRepository.selectBoardById(bId);
 	}
 	

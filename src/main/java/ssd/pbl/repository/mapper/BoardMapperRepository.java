@@ -17,7 +17,7 @@ public class BoardMapperRepository {
 		return boardMapper.selectBoardList();
 	}
 	
-	public BoardForm selectBoardById(int bId) {
+	public Board selectBoardById(int bId) {
 		return boardMapper.selectBoardById(bId);//boardMap.get(bId);
 	}
 	
