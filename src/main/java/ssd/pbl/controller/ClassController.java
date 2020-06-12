@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ssd.pbl.model.ClassCard;
+import ssd.pbl.model.ClassTeacherDetail;
 import ssd.pbl.model.Subject;
 import ssd.pbl.service.ClassService;
 import ssd.pbl.service.SubjectService;
@@ -33,7 +34,7 @@ import ssd.pbl.service.SubjectService;
 @SessionAttributes("subjects")
 public class ClassController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClassController.class);
-	
+
 	@Autowired
 	private ClassService classService;
 	@Autowired
@@ -43,20 +44,25 @@ public class ClassController {
 	public List<Subject> subjectFormBacking() {
 		return subjectService.getAllAubject();
 	}
-	
+
 	@RequestMapping(value = "/class/{classId}", method = RequestMethod.GET)
-	public String getAutoMathForm2(@PathVariable int classId, Model model, HttpSession session) {
-		return "match/TeacherDetail";
+	public ModelAndView getAutoMathForm2(@PathVariable int classId, Model model, HttpSession session) {
+		ModelAndView mav = new ModelAndView("match/TeacherDetail");
+
+		ClassTeacherDetail ctd = classService.getClassTeacherDetailByClassId(classId);
+		mav.addObject("detail", ctd);
+
+		return mav;
 	}
 
 	@RequestMapping(value = "/main/class", method = RequestMethod.GET)
 	public ModelAndView getClassList() {
 		ModelAndView mav = new ModelAndView("main/FindClass");
 		mav.addObject("classCardList", classService.getAllClass());
-		
+
 		return mav;
 	}
-	
+
 //	@RequestMapping(value="/class/subject", method=RequestMethod.GET)
 //	@ResponseBody
 //	public List<ClassCard> getClassListSelectBySubjectId() {

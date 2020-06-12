@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ssd.pbl.model.ClassCard;
+import ssd.pbl.model.ClassTeacherDetail;
 import ssd.pbl.repository.mapper.ClassMapperRepository;
+import ssd.pbl.repository.mapper.FeedbackMapper;
 
 /**
  * @author kimhyunjin
@@ -23,6 +25,8 @@ public class ClassService {
 
 	@Autowired
 	private ClassMapperRepository classMapperRepo;
+	@Autowired
+	private FeedbackMapper feedbackMapper;
 
 	public List<ClassCard> getAutoMatchClasses() {
 		return classMapperRepo.selectAutoMatchClass();
@@ -31,6 +35,15 @@ public class ClassService {
 	public List<ClassCard> getAllClass() {
 		return classMapperRepo.selectAllClass();
 
+	}
+
+	public ClassTeacherDetail getClassTeacherDetailByClassId(int classId) {
+		ClassTeacherDetail ctd = classMapperRepo.selectClassTeacherDetailByClassId(classId);
+//		ctd.setFeedback(feedbackMapper.selectClassFeedBackByTeacherId(ctd.getTeacher().getId()));
+
+		LOGGER.info(ctd.toString());
+
+		return ctd;
 	}
 
 }

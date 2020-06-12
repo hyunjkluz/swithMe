@@ -9,20 +9,22 @@
 <title>SwithMe</title>
 </head>
 <body>
-	<form method="post" action="/swithMe/class/1/request">
+	<form:form modelAttribute="detail" method="post"
+		action="/swithMe/class/${detail.classId}/request">
 		<div>선생님 사진 보여주기</div>
 		<table border="1">
 			<tr>
-				<td>이름 (나이/성별)</td>
-				<td>김현진 (24/여)</td>
+				<td>이름</td>
+				<td>${detail.teacher.name}(${detail.teacherInfo.entranceYear}/${detail.teacherInfo.teacherGender == "WOMEN" ? "여자" : "남자"})</td>
 			</tr>
 			<tr>
 				<td>학력</td>
-				<td>동덕여자대학교 컴퓨터학과</td>
+				<td>${detail.teacherInfo.university.name }
+					${detail.teacherInfo.major.name }</td>
 			</tr>
 			<tr>
 				<td>과목 정보 (난이도)</td>
-				<td>수학(중)</td>
+				<td>${detail.subject.name }(${detail.ability == 1 ? "하" : detail.ability == 2 ? "중" : "상"})</td>
 			</tr>
 			<tr>
 				<td>수업 가능한 지역</td>
@@ -30,7 +32,10 @@
 			</tr>
 		</table>
 
-		<br> <input type="submit" value="수업 신청하기" /> <br> <br>
+		<br>
+		<input type="submit" value="수업 신청하기" />
+		<br>
+		<br>
 
 		<table border="1">
 			<tr>
@@ -40,6 +45,6 @@
 				<td>평가내용</td>
 			</tr>
 		</table>
-	</form>
+	</form:form>
 </body>
 </html>
