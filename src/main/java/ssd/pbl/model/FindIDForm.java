@@ -24,5 +24,4 @@ public class FindIDForm {
 		this.phone = phone;
 	}
 	
-	
 }
