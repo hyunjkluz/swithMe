@@ -7,30 +7,91 @@
 <html>
 <head>
 <title>Teacher Join STEP4</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-		function insertRegion() {
-			var newRegion = document.createElement('p');
-			var regionText = document.createTextNode('경기도 고양시 일산동구');
-	
-			newRegion.appendChild(regionText);
-			document.body.appendChild(newRegion);
-			console.log("추가");
+	function insertRegion() {
+		var selectedSido = document.getElementById('sido');
+		var selectedSidoTxt = selectedSido.options[selectedSido.selectedIndex].text;
+
+		var selectedGu = document.getElementById('gu');
+		var selectedGuTxt = selectedGu.options[selectedGu.selectedIndex].text;
+
+		var selectedDong = document.getElementById('dong');
+		var selectedDongTxt = selectedDong.options[selectedDong.selectedIndex].text;
+		var selectedDongVal = selectedDong.options[selectedDong.selectedIndex].value;
+
+		// id 배열 스트링으로 만들기
+		var txtVal = document.getElementById("dongIds").value;
+		if (txtVal == "") {
+			document.getElementById("dongIds").value = selectedDongVal;
+		} else {
+			document.getElementById("dongIds").value = txtVal + ","
+					+ selectedDongVal;
 		}
-	</script>
+
+		// 선택된 지역 표시 블록 생성
+		var newRegion = document.createElement('p');
+		var regionText = document.createTextNode(selectedSidoTxt + " "
+				+ selectedGuTxt + " " + selectedDongTxt);
+
+		newRegion.appendChild(regionText);
+		document.body.appendChild(newRegion);
+		console.log("추가");
+	}
+
+	function selectDong(e) {
+		const url = "http://localhost:8080/swithMe/gu/" + e.value;
+		console.log(url);
+		var target = document.getElementById("dong");
+		target.options.length = 0;
+		
+		$.ajax({
+			url : url,
+			type : "GET",
+			dataType : "json",
+			contentType : "application/json",
+			success : function(data) {
+				for (x in data) {
+				    var opt = document.createElement("option");
+				    opt.value = data[x].id;
+				    opt.innerHTML = data[x].name;
+				    target.appendChild(opt);
+				  } 
+			},
+			error : function(errorThrown) {
+				alert(errorThrown.statusText);
+			}
+		})
+	}
+</script>
 </head>
 <body>
 
 	<h2>선생님 매칭 정보 작성 - 정보 선택</h2>
-	<form method="post" action="/swithMe/teacher/match/step4">
+	<form:form modelAttribute="tmInfo" method="post" action="/swithMe/teacher/match/step4">
 
 		<p>수업 가능한 지역</p>
-		<select name="si">
-			<option value="seoul">서울시</option>
-			<option value="gyeonggiDo">경기도</option>
-		</select> <select name="dong">
-			<option value="seoul">서울시</option>
-			<option value="gyeonggiDo">경기도</option>
-		</select> <input type="button" value="추가" onclick="insertRegion();">
+		<form:errors path="dongIds" />
+		<select id="sido" name="sido">
+			<c:forEach items="${sidos}" var="sido">
+				<option value="${sido}">${sido.name}</option>
+			</c:forEach>
+		</select>
+
+		<select id="gu" name="gu" onchange="selectDong(this)">
+			<c:forEach items="${gus}" var="gu">
+				<option value="${gu.id}">${gu.name}</option>
+			</c:forEach>
+		</select>
+
+		<select id="dong" name="dong">
+			<c:forEach items="${dongs}" var="dong">
+				<option value="${dong.id}">${dong.name}</option>
+			</c:forEach>
+		</select>
+
+		<input type="button" value="추가" onclick="insertRegion();">
+
 		<div></div>
 
 		<table id="timetable">
@@ -91,6 +152,6 @@
 		<a href="<c:url value='/swithMe/teacher/match/step2'/>">이전 단계로</a> 
 		<input type="submit" value="다음" />
 
-	</form>
+	</form:form>
 </body>
 </html>

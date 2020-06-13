@@ -9,33 +9,33 @@
 <title>Teacher Join STEP5</title>
 </head>
 <body>
-	<form method="post" action="/swithMe/teacher/match/step5">
+	<form:form modelAttribute="tmInfo" method="post" action="/swithMe/teacher/match/step5">
 
 		<h2>선생님 매칭 정보 작성 - 유형 선택</h2>
 
-		<input type="radio" name="teachertype1" value="type1_1">유형1_1
-		<input type="radio" name="teachertype1" value="type1_2">유형1_2
-		
-		<br>
+		<form:radiobuttons items="${char1}" itemValue="id" itemLabel="name" path="ch1" /><br>
+			<form:errors path="ch1"/>
+		<br><br>
 
-		<input type="radio" name="teachertype2" value="type2_1">유형2_1
-		<input type="radio" name="teachertype2" value="type2_2">유형2_2
+		<form:radiobuttons items="${char2}" itemValue="id" itemLabel="name" path="ch2" /><br>
+			<form:errors path="ch2"/>
+		<br><br>
 
-		<br>
-		
-		<input type="radio" name="teachertype3" value="type3_1">유형3_1
-		<input type="radio" name="teachertype3" value="type3_2">유형3_2
+		<form:radiobuttons items="${char3}" itemValue="id" itemLabel="name" path="ch3" /><br>
+			<form:errors path="ch3"/>
+		<br><br>
 
-		<br>
+		<form:radiobuttons items="${char4}" itemValue="id" itemLabel="name" path="ch4" /><br>
+			<form:errors path="ch4"/>
+		<br><br>
 
-		<input type="radio" name="teachertype4" value="type4_1">유형4_1
-		<input type="radio" name="teachertype4" value="type4_2">유형4_2
-
-		<br>
+		<form:radiobuttons items="${char5}" itemValue="id" itemLabel="name" path="ch5" /><br>
+			<form:errors path="ch5"/>
+		<br><br>
 
 		<a href="<c:url value='/swithMe/teacher/match/step3'/>">이전 단계로</a> 
 		<input type="submit" value="다음" />
 
-	</form>
+	</form:form>
 </body>
 </html>

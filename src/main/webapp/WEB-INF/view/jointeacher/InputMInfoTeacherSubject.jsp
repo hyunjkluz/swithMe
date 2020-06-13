@@ -12,25 +12,23 @@
 
 	<h2>선생님 매칭 정보 작성 - 과목 선택</h2>
 
-	<form modelAttribute="tmInfo" method="post" action="/swithMe/teacher/match/step2">
+	<form:form modelAttribute="tmInfo" method="post" action="/swithMe/teacher/match/step2">
 	
-		<p>과목</p>
-		<form:errors path="subjectId" />
-		<form:select path="subjectId" multiple="false">
-			<form:options items="${subjects }" itemValue="id" itemLabel="name" />
+		<form:errors path="subjectName" />
+		<form:select path="subjectName" multiple="false">
+			<form:options items="${subjects}" itemValue="name" itemLabel="name" />
 		</form:select>
-		<br>
 		
 		<br><br>
 		
 		<p>수업 가능한 학생 선별 선택</p>
-		<input type="checkbox" name="gender" value="either" >성별 무관 
-		<input type="checkbox" name="gender" value="female">여자 
-		<input type="checkbox" name="gender" value="male" >남자 
+		<form:errors path="gender" />
+		<form:radiobuttons items="${genders}" itemValue="stringVal"
+			itemLabel="name" path="gender" />
 		
 		<br><br>
 		<input type="submit" value="다음">
 		
-	</form>
+	</form:form>
 </body>
 </html>
