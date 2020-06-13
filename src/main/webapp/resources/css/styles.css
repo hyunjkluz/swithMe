@@ -9517,7 +9517,7 @@ img::-moz-selection {
 #mainNav {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
-	background-color : #000000!important;
+	background-color : #fff362!important;
 }
 
 #mainNav .navbar-toggler {
@@ -9551,13 +9551,13 @@ img::-moz-selection {
 		Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
 		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	font-size: 0.95rem;
-	color: #fff;
+	color: #000;
 	letter-spacing: 0.0625em;
 }
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover
 	{
-	color: #fed136;
+	color: #626eff;
 }
 
 @media ( min-width : 992px) {
