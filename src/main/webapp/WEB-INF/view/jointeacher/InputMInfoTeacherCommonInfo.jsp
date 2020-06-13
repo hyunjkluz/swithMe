@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Teacher Join STEP4</title>
+<title>Teacher Join STEP3</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	function insertRegion() {
@@ -89,6 +89,8 @@
 				<option value="${dong.id}">${dong.name}</option>
 			</c:forEach>
 		</select>
+		
+		<form:input type="text" id="dongIds" path="dongIds" />
 
 		<input type="button" value="추가" onclick="insertRegion();">
 

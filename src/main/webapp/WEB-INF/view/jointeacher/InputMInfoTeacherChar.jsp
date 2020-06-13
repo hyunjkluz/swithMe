@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Teacher Join STEP5</title>
+<title>Teacher Join STEP4</title>
 </head>
 <body>
 	<form:form modelAttribute="tmInfo" method="post" action="/swithMe/teacher/match/step5">

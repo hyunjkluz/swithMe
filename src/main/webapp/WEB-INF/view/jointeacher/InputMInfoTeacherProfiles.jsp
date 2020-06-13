@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Teacher Join STEP1</title>
+<title>Teacher Join STEP5</title>
 </head>
 <body>
 	<form method="post" action="/swithMe/teacher/match/fin">
