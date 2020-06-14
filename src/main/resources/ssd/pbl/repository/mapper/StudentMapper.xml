@@ -6,8 +6,11 @@
 
 	<insert id="insertStudentMatch" parameterType="studentMatchForm">
 		INSERT INTO
-		studentMatch (level, teacherGender, grade, memo, registeredAt, updatedAt, testResult)
-		VALUES (#{level}, #{teacherGender}, #{grade}, #{memo}, SYSDATE, SYSDATE, #{testResult})
+		studentMatch (ability, teacherGender, grade, memo, registeredAt, updatedAt, testResult)
+		VALUES (#{level}, #{gender}, #{memo}, #{toTeacher}, SYSDATE, SYSDATE, #{testResult})
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			SELECT STUDENT_SEQ.currval FROM dual
+		</selectKey>
 	</insert>
 
 	<insert id="insertStudentRegion">
@@ -50,7 +53,7 @@
 	</select>
 	
 	<select id="selectStudentUserInfo" parameterType="java.lang.String" resultType="ssd.pbl.controller.UserSession">
-		SELECT s.id, s.name, i.PROFILEIMG
+		SELECT s.email, s.name, i.PROFILEIMG
 		FROM student s, STUDENTINFO i
 		WHERE s.id = i.student AND s.email = #{email}
 	</select>
