@@ -17,13 +17,14 @@
 		<div>
 			<p>수업 가능한 난이도 선택</p>
 			<c:out value="${tmInfo.subjectName}" />
-			<br>
+			<br><br>
 			<form:errors path="level" />
 			<form:radiobuttons items="${levels}" itemValue="intVal"
 				itemLabel="name" path="level" />
 		</div>
 
-		<a href="<c:url value='/swithMe/teacher/match/step1'/>">이전 단계로</a>
+		<br>
+		<a href="<c:url value='/teacher/match/step1'/>">이전 단계로</a>
 		<input type="submit" value="다음">
 
 	</form:form>

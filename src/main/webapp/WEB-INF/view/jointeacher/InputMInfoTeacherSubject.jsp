@@ -21,7 +21,7 @@
 		
 		<br><br>
 		
-		<p>수업 가능한 학생 선별 선택</p>
+		<p>수업 가능한 학생 성별 선택</p>
 		<form:errors path="gender" />
 		<form:radiobuttons items="${genders}" itemValue="stringVal"
 			itemLabel="name" path="gender" />
