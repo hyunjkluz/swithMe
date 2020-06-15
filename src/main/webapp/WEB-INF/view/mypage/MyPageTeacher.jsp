@@ -7,6 +7,21 @@
 <html>
 <head>
 <title>MyPageTeacher</title>
+<style>
+
+	.mypage-teacher-status {
+		margin: auto;
+        border: 1px solid black;
+        width: 600px;
+        padding: 30px 30px 30px 30px;
+	}
+	
+	table {
+		border-collapse: collapse;
+		border: 1px solid;
+	}
+	
+</style>
 </head>
 <body>
 
@@ -19,9 +34,9 @@
 
 	</div>
 
-	<div>
-		<p>수업 신청 현황</p>
-		<table id="timetable">
+	<div class="mypage-teacher-status">
+	<p> 수업 신청 현황 </p>
+	<table border="1px" id="status" width="200px">
 			<thead>
 				<tr>
 					<td>요청</td>
@@ -30,21 +45,21 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td></td>
-					<td></td>
+					<td>ㅇㅇㅇ학생<br>과목명</td>
+					<td><a href="<c:url value='/mypage/teacher/request'/>">신청 요청</a></td>
+				</tr>
+				<tr>
+					<td>ㅂㅂㅂ학생<br>과목명</td>
+					<td><a href="<c:url value='/mypage/teacher/class'/>">수업 중</a></td>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-				</tr>
-
+				
 			</tbody>
 		</table>
-
+	
 	</div>
 
 
