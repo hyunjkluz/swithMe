@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
@@ -77,8 +80,17 @@
 
       }
     </style>
+    
   </head>
   <body>
+  	<script type="text/javascript">
+    	function setTypeStudent() {
+    		var form = document.signupStudent;
+    		form.action = "<c:url value='/auth/signup' />";
+    		
+    		form.submit();
+    	}
+    </script>
     <div class="base-top">
 
     </div>
@@ -98,19 +110,23 @@
         <span class="join-term-title">회원가입 유형을 선택해주세요.</span>
       </div>
       <div class="join-type-select-area">
-        <div class="join-type-select-student">
+      	<form:form action="<c:url value='/auth/signup'/>" name="signupStudent" method="GET">
+        <div onclick="setTypeStudent()" class="join-type-select-student">
           <div class="join-type-select-text">
             <span>학생으로 회원가입</span>
+            <input type="hidden" value="student" name="type">
           </div>
         </div>
+        
+        </form:form>
+        <form:form action="<c:url value='/auth/signup'/>" name="signupTeacher" method="GET">
         <div class="join-type-select-teacher">
           <div class="join-type-select-text">
             <span>선생님으로 회원가입</span>
+            <input type="hidden" value="teacher" name="type">
           </div>
         </div>
-      </div>
-      <div class="join-term-btn-area">
-        <button class="join-term-btn">로그인</button>
+        </form:form>
       </div>
     </div>
   </body>

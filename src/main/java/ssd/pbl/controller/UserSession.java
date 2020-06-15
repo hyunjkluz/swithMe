@@ -4,21 +4,21 @@ import java.io.File;
 
 public class UserSession {
 	private String type;
-	private String id;
+	private String email;
 	private String name;
 	private File profileImg;
 	
 	public UserSession() {}
 	
-	public UserSession(String id) {
+	public UserSession(String email) {
 		super();
-		this.id = id;
+		this.email = email;
 	}
 	
 	public UserSession(String type, String id, String name, File profileImg) {
 		super();
 		this.type = type;
-		this.id = id;
+		this.email = email;
 		this.name = name;
 		this.profileImg = profileImg;
 	}
@@ -29,10 +29,10 @@ public class UserSession {
 		this.type = type;
 	}
 	public String getId() {
-		return id;
+		return email;
 	}
 	public void setId(String id) {
-		this.id = id;
+		this.email = id;
 	}
 	public String getName() {
 		return name;

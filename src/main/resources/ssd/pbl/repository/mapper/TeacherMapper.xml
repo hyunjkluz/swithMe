@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssd.pbl.repository.mapper.TeacherMapper">
+
+	<select id="selectEmailByNameAndPhone" parameterType="FindIDForm" resultType="java.lang.String">
+		SELECT TEACHER.EMAIL
+		FROM TEACHER
+		WHERE TEACHER.NAME = #{name} AND TEACHER.PHONE = #{phone}
+	</select>
+	
+	<select id="selectTeacherUserInfo" parameterType="java.lang.String" resultType="ssd.pbl.controller.UserSession">
+		SELECT t.email, t.name, i.PROFILEIMG
+		FROM TEACHER t, TEACHERINFO i
+		WHERE t.id = i.teacher AND t.email = #{email}
+	</select>
+	
+	<select id="selectTeacher" parameterType="java.lang.String" resultType="LoginForm">
+		SELECT TEACHER.EMAIL, TEACHER.PASSWORD 
+		FROM TEACHER 
+		WHERE TEACHER.EMAIL = #{email}
+	</select>
+	
+</mapper>

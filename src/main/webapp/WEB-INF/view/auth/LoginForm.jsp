@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
@@ -79,39 +82,46 @@
 
     </div>
     <div class="login-form">
-      <div class="login-student-detail">
-        <div class="login-title-student-area">
-          <span class="login-title-student-text">학생으로 로그인하기</span>
-        </div>
-        <div class="login-input-area">
-          <div class="login-input-content-area">
-            <input class="login-input" type="text" /><br>
-          </div>
-          <div class="login-input-content-area">
-            <input class="login-input" type="password" />
-          </div>
-        </div>
-        <div class="login-btn-area">
-          <button class="login-btn">로그인</button>
-        </div>
-      </div>
-      <div class="login-teacher-detail">
-        <div class="login-title-teacher-area">
-          <span class="login-title-teacher-text">선생님으로 로그인하기</span>
-        </div>
-        <div class="login-input-area">
-          <div class="login-input-content-area">
-            <input class="login-input" type="text" /><br>
-          </div>
-          <div class="login-input-content-area">
-            <input class="login-input" type="password" />
-          </div>
-        </div>
-        <div class="login-btn-area">
-          <button class="login-btn">로그인</button>
-        </div>
-      </div>
+    	<div class="login-student-detail">
+    		<form:form modelAttribute="loginForm" action="login" method="POST">
+		       <div class="login-title-student-area">
+		         <span class="login-title-student-text">학생으로 로그인하기</span>
+		       </div>
+		       <div class="login-input-area">
+		         <div class="login-input-content-area">
+		           <form:input path="email" class="login-input" type="text" />
+		           <form:errors path="email" />
+		         </div>
+		         <div class="login-input-content-area">
+		           <form:input path="password" class="login-input" type="password" />
+		           <form:errors path="password" />
+		         </div>
+		       </div>
+		       <div class="login-btn-area">
+		         <button type="submit" class="login-btn">로그인</button>
+		       </div>
+		       <input type="hidden" value="student" name="type">
+		  	</form:form>
+		</div>
+		<div class="login-teacher-detail">
+			<form:form modelAttribute="loginForm" action="login" method="POST">
+				<div class="login-title-teacher-area">
+					<span class="login-title-teacher-text">선생님으로 로그인하기</span>
+		       	</div>
+				<div class="login-input-area">
+		         <div class="login-input-content-area">
+		           <input class="login-input" type="text" /><br>
+		         </div>
+		         <div class="login-input-content-area">
+		           <input class="login-input" type="password" />
+		         </div>
+		       </div>
+		       <div class="login-btn-area">
+		         <button type="submit" class="login-btn">로그인</button>
+		       </div>
+		       <input type="hidden" value="teacher" name="type">
+		     </form:form>
+		</div>
     </div>
-
   </body>
 </html>
