@@ -32,8 +32,7 @@ li {list-style: none; float: left; padding: 6px;}
 		<button type="button" onclick="">공지사항</button>
 		<button type="button" onclick="">질문</button>
 		<button type="button" onclick="">과제</button>
-		
-		<a href="<c:url value='/board.do' />">글작성</a>
+		<a href="<c:url value='/connection/1/board.do' />">글작성</a>
 		<hr />
 		<br>
 		<table >
@@ -57,7 +56,7 @@ li {list-style: none; float: left; padding: 6px;}
 				<c:forEach var="board" items="${boardList}" varStatus="status">
 					  <tr>
 					    <th><c:out value="${status.index+1}" /></th>
-					    <th><a href="<c:url value='/board/' />${board.bId}">${board.title}</a></th>
+					    <th><a href="<c:url value='/connection/' />${board.connectionId}/board/${board.boardId}">${board.boardForm.title}</a></th>
 					    <th>${board.writerId}</th>
 					    <th><fmt:formatDate value="${board.creationDate}" pattern="yyyy-MM-dd"/></th>	    
 					  </tr>

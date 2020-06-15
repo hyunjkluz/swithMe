@@ -3,7 +3,7 @@
 
 <mapper namespace="ssd.pbl.repository.mapper.BoardMapper">
 	<cache />
- 	<select id="selectBoardList" parameterType="int" resultType="Board">
+ 	<!-- <select id="selectBoardList" parameterType="int" resultType="Board">
    		SELECT ID AS boardId,
    			   CLASS AS connectionId,
    			   TITLE AS boardForm.title,
@@ -16,15 +16,28 @@
 		FROM CLASSROOMBOARD
 		WHERE CLASS = #{connetionId}
 		ORDER BY REGISTEREDAT DESC
+	</select> -->
+	<select id="selectBoardList"  resultType="Board">
+   		SELECT ID AS boardId,
+   			   CLASS AS connectionId,
+   			   TITLE AS "boardForm.title",
+   			   TYPE AS "boardForm.type",
+   			   CONTENT AS "boardForm.content",
+   			   UPLOAD AS "boardForm.upload",
+   			   WRITER AS writer,
+   			   WRITERTYPE AS writerType,
+   			   REGISTEREDAT AS creationDate
+		FROM CLASSROOMBOARD
+		ORDER BY REGISTEREDAT DESC
 	</select>
  	
  	<select id="selectBoardById" parameterType="int" resultType="Board">
  		SELECT ID AS boardId,
    			   CLASS AS connectionId,
-   			   TITLE AS boardForm.title,
-   			   TYPE AS boardForm.type,
-   			   CONTENT AS boardForm.content,
-   			   UPLOAD AS boardForm.upload,
+   			   TITLE AS "boardForm.title",
+   			   TYPE AS "boardForm.type",
+   			   CONTENT AS "boardForm.content",
+   			   UPLOAD AS "boardForm.upload",
    			   WRITER AS writer,
    			   WRITERTYPE AS writerType,
    			   REGISTEREDAT AS creationDate
@@ -48,7 +61,7 @@
  	</insert>
  	
  	<update id="updateBoard" parameterType="Board">
- 		UPDATE CLASSROOMBOARD SET TITLE = #{boardForm.title},  CONTENT = #{boardForm.content}, FILE = #{boardForm.upload} 
+ 		UPDATE CLASSROOMBOARD SET TITLE = #{boardForm.title},  CONTENT = #{boardForm.content}, UPLOAD = #{boardForm.upload} 
 		WHERE ID = #{boardId}
  	</update>
  	

@@ -8,7 +8,7 @@ import ssd.pbl.model.Board;
 public interface BoardMapper {
 	List<BoardForm> selectBoardList();
 	
-	BoardForm selectBoardById(int bId);
+	Board selectBoardById(int bId);
 	
 	void insertBoard(Board board);
 	

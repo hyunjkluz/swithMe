@@ -9,9 +9,28 @@ public class Board implements Serializable{
 	private int connectionId;
 	private BoardForm boardForm;
 	private int writerId;
-	private int writerType;
+	private String writerType;
 	private Date creationDate;
 	
+	public Board() {
+		super();
+	}
+	public Board(int boardId, int connectionId, BoardForm boardForm, int writerId, String writerType,
+			Date creationDate) {
+		super();
+		this.boardId = boardId;
+		this.connectionId = connectionId;
+		this.boardForm = boardForm;
+		this.writerId = writerId;
+		this.writerType = writerType;
+		this.creationDate = creationDate;
+	}
+	public Board(int connectionId, BoardForm boardForm, int id, String type) {
+		this.connectionId = connectionId;
+		this.boardForm = boardForm;
+		this.writerId = id;
+		this.writerType = type;
+	}
 	public int getBoardId() {
 		return boardId;
 	}
@@ -36,10 +55,10 @@ public class Board implements Serializable{
 	public void setWriterId(int writerId) {
 		this.writerId = writerId;
 	}
-	public int getWriterType() {
+	public String getWriterType() {
 		return writerType;
 	}
-	public void setWriterType(int writerType) {
+	public void setWriterType(String writerType) {
 		this.writerType = writerType;
 	}
 	public Date getCreationDate() {

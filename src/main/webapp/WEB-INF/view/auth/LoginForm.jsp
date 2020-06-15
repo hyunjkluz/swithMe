@@ -90,11 +90,11 @@
 		       <div class="login-input-area">
 		         <div class="login-input-content-area">
 		           <form:input path="email" class="login-input" type="text" />
-		           <!--<form:errors path="email" /><br>-->
+		           <form:errors path="email" />
 		         </div>
 		         <div class="login-input-content-area">
 		           <form:input path="password" class="login-input" type="password" />
-		           <!--<form:errors path="password" />-->
+		           <form:errors path="password" />
 		         </div>
 		       </div>
 		       <div class="login-btn-area">

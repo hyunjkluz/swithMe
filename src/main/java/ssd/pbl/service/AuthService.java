@@ -28,13 +28,21 @@ public class AuthService {
 	}
 
 	public boolean login(LoginForm loginForm) throws Exception {
-		if (loginForm.getEmail() == null) {
+		if (loginForm.getEmail() == null || loginForm.getPassword() == null) {
 //			throw new IDPWNotMatchingException();
 			return false;
 		}
-		LoginForm dbLoginForm = studentMapperRepository.selectStudent(loginForm.getEmail());
 		
-		if (dbLoginForm.getPassword().equals(loginForm.getPassword()) && !(loginForm.getPassword() == null)) {
+		LoginForm dbLoginForm;
+		
+		if (loginForm.getType().equals("student")) {
+			dbLoginForm = studentMapperRepository.selectStudent(loginForm.getEmail());
+		} else {
+			dbLoginForm = teacherMapperRepository.selectTeacher(loginForm.getEmail());
+		}
+		
+		
+		if (dbLoginForm.getPassword().equals(loginForm.getPassword())) {
 //			throw new IDPWNotMatchingException();
 			return true;
 		} else {
@@ -46,14 +54,12 @@ public class AuthService {
 		if (loginForm.getType().equals("student")) {
 			return studentMapperRepository.selectStudentUserInfo(loginForm.getEmail());
 		} else {
-//			return teacherMapperRepository.selectTeacherUserInfo(loginForm.getEmail());
+			return teacherMapperRepository.selectTeacherUserInfo(loginForm.getEmail());
 		}
-		
-		return new UserSession();
 	}
 	
-	public void logout() {
-		
+	public void logout(HttpSession session) {
+		session.invalidate();
 	}
 	
 	public String findID(FindIDForm findIDForm) {

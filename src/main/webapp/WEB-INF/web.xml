@@ -8,8 +8,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<!-- 스프링의 환경설정 파일인 application-config.xml을 가장 먼저 참조한다-->
-		<param-value>classpath:spring/dataAccessContext.xml
-		classpath:spring/applicationConfig.xml</param-value>
+		<param-value>classpath*:spring/dataAccessContext.xml
+		classpath*:spring/applicationConfig.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>자동 매칭</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	function insertRegion() {
 		var selectedSido = document.getElementById('sido');
@@ -37,6 +38,31 @@
 		document.body.appendChild(newRegion);
 		console.log("추가");
 	}
+
+	function selectDong(e) {
+		const url = "http://localhost:8080/swithMe/gu/" + e.value;
+		console.log(url);
+		var target = document.getElementById("dong");
+		target.options.length = 0;
+		
+		$.ajax({
+			url : url,
+			type : "GET",
+			dataType : "json",
+			contentType : "application/json",
+			success : function(data) {
+				for (x in data) {
+				    var opt = document.createElement("option");
+				    opt.value = data[x].id;
+				    opt.innerHTML = data[x].name;
+				    target.appendChild(opt);
+				  } 
+			},
+			error : function(errorThrown) {
+				alert(errorThrown.statusText);
+			}
+		})
+	}
 </script>
 </head>
 <body>
@@ -52,22 +78,19 @@
 
 		<p>난이도</p>
 		<form:errors path="level" />
-		<input type="radio" name="level" value="1">하
-		<input type="radio" name="level" value="2">중
-		<input type="radio" name="level" value="3">상
-	
+		<form:radiobuttons items="${levels}" itemValue="intVal"
+			itemLabel="name" path="level" />
+
 		<p>선호하는 선생님 성별 선택</p>
 		<form:errors path="gender" />
-		<input type="radio" name="gender" value="any">성별 무관
-		<input type="radio" name="gender" value="women">여자
-		<input type="radio" name="gender" value="man">남자
-	
+		<form:radiobuttons items="${genders}" itemValue="stringVal"
+			itemLabel="name" path="gender" />
+
 		<p>수업 가능한 시간 선택</p>
 		<form:errors path="time" />
-		<input type="radio" name="time" value="am">오전
-		<input type="radio" name="time" value="pm">오후
-		<input type="radio" name="time" value="eve">저녁
-	
+		<form:radiobuttons items="${times}" itemValue="stringVal"
+			itemLabel="name" path="time" />
+
 		<p>수업 가능한 지역</p>
 		<form:errors path="dongIds" />
 		<select id="sido" name="sido">
@@ -76,9 +99,9 @@
 			</c:forEach>
 		</select>
 
-		<select id="gu" name="gu">
+		<select id="gu" name="gu" onchange="selectDong(this)">
 			<c:forEach items="${gus}" var="gu">
-				<option value="${gu}">${gu.name}</option>
+				<option value="${gu.id}">${gu.name}</option>
 			</c:forEach>
 		</select>
 

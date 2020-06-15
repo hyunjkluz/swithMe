@@ -22,6 +22,7 @@ import ssd.pbl.service.AuthService;
 
 @Controller
 @RequestMapping("/auth")
+@SessionAttributes("userSession")
 public class LogInOutController {
 	
 	@Autowired
@@ -34,7 +35,7 @@ public class LogInOutController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@Valid @ModelAttribute("loginForm") LoginForm loginForm,
-			@RequestParam("type") String type, BindingResult result, HttpSession session) throws Exception {
+			@RequestParam("type") String type, HttpSession session, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			return "auth/LoginForm";
 		}
@@ -43,7 +44,6 @@ public class LogInOutController {
 			if (authService.login(loginForm)) {
 				UserSession userSession = authService.getInfo(loginForm);
 				session.setAttribute("userSession", userSession);
-				
 				return "main";
 			} else {
 				return "auth/LoginForm";

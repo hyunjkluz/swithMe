@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:property-placeholder
-		location="classpath:spring/config/app.properties" />
+		location="classpath*:spring/config/app.properties" />
 
 	<!-- data source 설정 -->
 	<bean id="dataSource"
