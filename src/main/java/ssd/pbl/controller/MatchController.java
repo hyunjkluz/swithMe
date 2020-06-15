@@ -77,14 +77,20 @@ public class MatchController {
 	
 	@ModelAttribute("levels")
 	public List<RadioButton> levelFormBacking() {
-		return Arrays.asList(new RadioButton("하", 1, null), new RadioButton("중", 2, null),
-				new RadioButton("상", 3, null));
+		return Arrays.asList(new RadioButton("기초", 1, null), new RadioButton("보통", 2, null),
+				new RadioButton("심화", 3, null));
 	}
 
 	@ModelAttribute("genders")
 	public List<RadioButton> genderFormBacking() {
 		return Arrays.asList(new RadioButton("성별 무관", 0, "any"), new RadioButton("여자", 0, "women"),
 				new RadioButton("남자", 0, "man"));
+	}
+	
+	@ModelAttribute("times")
+	public List<RadioButton> timeFormBacking() {
+		return Arrays.asList(new RadioButton("오전", 0, "am"), new RadioButton("오후", 0, "pm"),
+				new RadioButton("저녁", 0, "eve"));
 	}
 	
 	@ModelAttribute("char1")
