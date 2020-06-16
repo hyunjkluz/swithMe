@@ -8,7 +8,19 @@
 <title>SwithMe</title>
 </head>
 <body>
-	<h1>메인페이지입니다.</h1>
-	${userSession.name}
+<div class="container">
+<%@ include file="include/main_header.jsp" %>
+</div>
+<div class="container">
+	<header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Welcome To Our Studio!</div>
+                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
+            </div>
+	</header>
+</div>
+<div class="container">
+<%@ include file="include/main_footer.jsp" %>
+</div >
 </body>
 </html>
