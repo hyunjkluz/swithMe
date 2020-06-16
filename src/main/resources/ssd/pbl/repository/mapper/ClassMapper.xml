@@ -4,62 +4,188 @@
 
 <mapper namespace="ssd.pbl.repository.mapper.ClassMapper">
 	<cache />
-	<select id="selectAutoMatchClass" resultType="ClassCard">
-		SELECT tc.id classId, tc.teacher "teacher.id", tch.name "teacher.name", tch.rank "teacher.rank", tch.rate "teacher.rate", 
-		tch.phone "teacher.phone", ti.teachergender "teacherInfo.teacherGender", ti.entranceyear "teacherInfo.entranceYear", 
-		ti.status "teacherInfo.status", ti.profileimg "teacherInfo.profileImg",
-		m.name "teacherInfo.major.name", m.id "teacherInfo.major.id", u.id "teacherInfo.university.id", u.name "teacherInfo.university.name",
-		s.id "subject.id", s.name "subject.name"
-		FROM TEACHERCLASS tc
-		INNER JOIN TEACHER tch
-		ON tc.teacher = tch.id
-		INNER JOIN TEACHERINFO ti
-		ON ti.teacher = tch.id
-		INNER JOIN SUBJECT s
-		ON s.id = tc.subject
-		INNER JOIN Major m
-		ON ti.major = m.id
-		INNER JOIN University u
-		ON m.university = u.id
-	</select>
-	
-	<select id="selectAllClass" resultType="ClassCard">
-		SELECT tc.id classId, tc.teacher "teacher.id", tch.name "teacher.name", tch.rank "teacher.rank", tch.rate "teacher.rate", 
-		tch.phone "teacher.phone", ti.teachergender "teacherInfo.teacherGender", ti.entranceyear "teacherInfo.entranceYear", 
-		ti.status "teacherInfo.status", ti.profileimg "teacherInfo.profileImg",
-		m.name "teacherInfo.major.name", m.id "teacherInfo.major.id", u.id "teacherInfo.university.id", u.name "teacherInfo.university.name",
-		s.id "subject.id", s.name "subject.name"
-		FROM TEACHERCLASS tc
-		INNER JOIN TEACHER tch
-		ON tc.teacher = tch.id
-		INNER JOIN TEACHERINFO ti
-		ON ti.teacher = tch.id
-		INNER JOIN SUBJECT s
-		ON s.id = tc.subject
-		INNER JOIN Major m
-		ON ti.major = m.id
-		INNER JOIN University u
-		ON m.university = u.id
-	</select>
-	
-	<select id="selectClassTeacherDetailByClassId" resultType="ClassTeacherDetail">
-		SELECT tc.id classId, tc.ability ability, tc.studentgender studentGender,
-        tc.teacher "teacher.id", tch.name "teacher.name", tch.rank "teacher.rank", tch.rate "teacher.rate", 
-		tch.phone "teacher.phone", ti.teachergender "teacherInfo.teacherGender", ti.entranceyear "teacherInfo.entranceYear", 
-		ti.status "teacherInfo.status", ti.profileimg "teacherInfo.profileImg",
-		m.name "teacherInfo.major.name", m.id "teacherInfo.major.id", u.id "teacherInfo.university.id", u.name "teacherInfo.university.name",
-		s.id "subject.id", s.name "subject.name"
-		FROM TEACHERCLASS tc
-		INNER JOIN TEACHER tch
-		ON tc.teacher = tch.id AND tc.id = 1
-		INNER JOIN TEACHERINFO ti
-		ON ti.teacher = tch.id
-		INNER JOIN SUBJECT s
-		ON s.id = tc.subject
+	<select id="selectAutoMatchClass"
+		parameterType="studentMatchForm" resultType="ClassCard">
+		SELECT DISTINCT tc.id
+		classId, tc.teacher "teacher.id", t.name
+		"teacher.name", t.rank
+		"teacher.rank", t.rate "teacher.rate",
+		ti.teachergender "teacherInfo.teacherGender", ti.entranceyear
+		"teacherInfo.entranceYear",
+		ti.status "teacherInfo.status",
+		ti.profileimg "teacherInfo.profileImg",
+		m.name
+		"teacherInfo.major.name", m.id "teacherInfo.major.id", u.id
+		"teacherInfo.university.id", u.name "teacherInfo.university.name"
+		FROM
+		teacherClass tc
+		JOIN teacherMatch tm
+		ON tc.subject = #{subjectId}
+		<choose>
+			<when test="level == 3">
+				AND tc.ability = 3
+			</when>
+			<when test="level == 2">
+				AND (tc.ability = 3 OR tc.ability = 2)
+			</when>
+			<otherwise>
+				AND (tc.ability = 3 OR tc.ability = 2 OR tc.ability = 1)
+			</otherwise>
+		</choose>
+		AND (tm.studentGender = 'ANY' OR tm.studentGender = #{gender})
+		AND
+		tc.teacher = tm.teacher
+		JOIN teacherTimes tt
+		ON tt.teacherMatch = tm.id
+		AND tt.time= #{time}
+		JOIN teacherRegion tr
+		ON tr.teacherMatch = tm.id
+		AND tr.dong IN
+		<foreach collection="dongIdArr" item="dId" index="index"
+			open="(" close=")" separator=",">
+			#{dId}
+		</foreach>
+		JOIN teacherCharacter tch
+		ON tch.teachermatch = tm.id
+		AND tch.character IN (#{ch1}, #{ch2}, #{ch3}, #{ch4}, #{ch5})
+		INNER JOIN
+		teacher t
+		ON t.id = tc.teacher
+		JOIN teacherInfo ti
+		ON ti.teacher =
+		tc.teacher
 		INNER JOIN Major m
 		ON ti.major = m.id
 		INNER JOIN University u
 		ON m.university = u.id
 	</select>
 
+	<select id="selectAllClass" resultType="ClassCard">
+		SELECT tc.id classId,
+		tc.teacher "teacher.id", tch.name "teacher.name", tch.rank
+		"teacher.rank", tch.rate "teacher.rate",
+		tch.phone "teacher.phone",
+		ti.teachergender "teacherInfo.teacherGender",
+		ti.entranceyear
+		"teacherInfo.entranceYear",
+		ti.status "teacherInfo.status",
+		ti.profileimg "teacherInfo.profileImg",
+		m.name
+		"teacherInfo.major.name", m.id "teacherInfo.major.id", u.id
+		"teacherInfo.university.id", u.name "teacherInfo.university.name",
+		s.id "subject.id", s.name "subject.name"
+		FROM TEACHERCLASS tc
+		INNER JOIN
+		TEACHER tch
+		ON tc.teacher = tch.id
+		INNER JOIN TEACHERINFO ti
+		ON
+		ti.teacher = tch.id
+		INNER JOIN SUBJECT s
+		ON s.id = tc.subject
+		INNER JOIN
+		Major m
+		ON ti.major = m.id
+		INNER JOIN University u
+		ON m.university = u.id
+	</select>
+
+	<select id="selectClassTeacherDetailByClassId"
+		resultMap="ctd">
+		SELECT tc.id, tc.ability, tc.studentGender,
+		s.id "subId", s.name "subName", s.category "subCategory",
+		t.id "teacherId", t.name "teacherName", t.rank "teacherRank", t.rate "teacherRate",
+		ti.teacherGender, ti.status " teacherStatus",
+		ti.entranceYear, ti.profileImg,
+		u.id "univId", u.name "univName", m.id "majorId", m.name "majorName",
+		tm.profileIntro, tm.profilestyle, 
+		tm.profilecareer, tm.studentGender,
+		tt.id "timeId", tt.time,
+		c.id "charId", c.name "charName", c.description "charDescription",
+		d.id "dongId", d.name "dongName"
+
+		FROM teacherClass tc
+		INNER JOIN subject s
+		ON tc.id = #{classId} AND tc.subject = s.id
+		INNER JOIN teacher t
+		ON t.id = tc.teacher
+		INNER JOIN teacherInfo ti
+		ON ti.teacher = t.id
+		INNER JOIN university u
+		ON u.id = ti.university
+		INNER JOIN major m
+		ON m.id = ti.major
+		INNER JOIN teacherMatch tm
+		ON tm.teacher = t.id
+		INNER JOIN teacherTimes tt
+		ON tt.teachermatch = tm.id
+		JOIN teacherCharacter tch
+		ON tch.teachermatch = tm.id
+		INNER JOIN character c
+		ON c.id = tch.character
+		INNER JOIN teacherRegion tr
+		ON tr.teachermatch = tm.id
+		INNER JOIN dong d
+		ON d.id = tr.dong
+
+	</select>
+
+<resultMap type="ClassTeacherDetail" id="ctd">
+	<id column="id" jdbcType="NUMERIC" property="classId" />
+	<result column="ability" jdbcType="VARCHAR" property="ability" />
+	<result column="studentGender" jdbcType="VARCHAR" property="studentGender" />
+
+	<association property="teacher" column="teacher" javaType="Teacher">
+		<id property="id" column="teacherId"/>
+		<result property="name" column="teacherName"/>
+		<result property="rank" column="teaherRank"/>
+		<result property="rate" column="teacherRate"/>
+	</association>
+	
+	<association property="teacherInfo" column="teacher" javaType="TeacherInfo">
+		<id property="id" column="id"/>
+		<result property="teacherGender" column="teacherGender"/>
+		<result property="status" column="teacherStatus"/>
+		<result property="entranceYear" column="entranceYear"/>
+		<result property="profileImg" column="profileImg"/>
+		<association property="university" column="university" javaType="University">
+			<id property="id" column="univId"/>
+			<result property="name" column="univName"/>
+		</association>
+		<association property="major" column="major" javaType="Major">
+			<id property="id" column="majorId"/>
+			<result property="name" column="majorName"/>
+		</association>
+	</association>
+	
+	<association property="teacherMatch" column="teacher" javaType="TeacherMatch">
+		<id property="id" column="id"/>
+		<result property="profileIntro" column="profileIntro"/>
+		<result property="profileCareer" column="profileCareer"/>
+		<result property="profileStyle" column="profileStyle"/>
+		<result property="studentGender" column="studentGender"/>
+	</association>
+	
+	<association property="subject" column="subject" javaType="Subject">
+		<id property="id" column="subId"/>
+		<result property="name" column="subName"/>
+		<result property="category" column="subCategory"/>
+	</association>
+	
+	<collection property="teacherTimes" ofType="TeacherTimes">
+		<id property="id" column="timeId"/>
+		<result property="time" column="time"/>
+	</collection>
+	
+	<collection property="teacherCharacter" ofType="Character">
+		<id property="id" column="charId"/>
+		<result property="name" column="charName"/>
+		<result property="description" column="charDescription"/>
+	</collection>
+	
+	<collection property="teacherRegion" ofType="Dong">
+		<id property="id" column="dongId"/>
+		<result property="name" column="dongName"/>
+	</collection>
+</resultMap>
 </mapper>

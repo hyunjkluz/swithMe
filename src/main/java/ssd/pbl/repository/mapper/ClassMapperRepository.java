@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import ssd.pbl.model.ClassCard;
 import ssd.pbl.model.ClassTeacherDetail;
+import ssd.pbl.model.StudentMatchForm;
 
 /**
  * @author kimhyunjin
@@ -20,8 +21,8 @@ public class ClassMapperRepository {
 	@Autowired
 	private ClassMapper classMapper;
 
-	public List<ClassCard> selectAutoMatchClass() {
-		return classMapper.selectAutoMatchClass();
+	public List<ClassCard> selectAutoMatchClass(StudentMatchForm stm) {
+		return classMapper.selectAutoMatchClass(stm);
 	}
 	
 	public List<ClassCard> selectAllClass() {
