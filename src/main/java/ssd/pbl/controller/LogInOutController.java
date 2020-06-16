@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import ssd.pbl.service.AuthService;
 @RequestMapping("/auth")
 @SessionAttributes("userSession")
 public class LogInOutController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(LogInOutController.class);
 	
 	@Autowired
 	private AuthService authService;
@@ -34,7 +37,9 @@ public class LogInOutController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("loginForm") LoginForm loginForm,
+	public String login(
+			@ModelAttribute("loginForwardAction") String forwardAction,
+			@Valid @ModelAttribute("loginForm") LoginForm loginForm,
 			@RequestParam("type") String type, HttpSession session, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			return "auth/LoginForm";
@@ -44,6 +49,13 @@ public class LogInOutController {
 			if (authService.login(loginForm)) {
 				UserSession userSession = authService.getInfo(loginForm);
 				session.setAttribute("userSession", userSession);
+				
+				LOGGER.info("이전 URL : " + forwardAction);
+				// 로그인 이전 페이지가 학생 자동매칭이면 다시 원래 페이지로 돌아감.
+				if (forwardAction.contains("/student/match")) {
+					LOGGER.info("자동매칭중");
+					return "redirect:http://localhost:8080/swithMe/student/match/step5";
+				}
 				return "main";
 			} else {
 				return "auth/LoginForm";
