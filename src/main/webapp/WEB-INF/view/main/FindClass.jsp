@@ -23,12 +23,62 @@
 	function search() {
 		var classIds = "";
 		$.each($("input[name='classId']:checked"), function() {
-			classIds += $(this).val() + ",";
+			classIds += $(this).val() + " ";
 		});
 		if (classIds == "") {
 			alert("검색하고싶은 과목을 골라주세요!")
 		} else {
 			console.log(classIds);
+			const url = "http://localhost:8080/swithMe/class/subject"
+			$
+					.ajax({
+						url : url,
+						type : "GET",
+						dataType : "json",
+						data : {
+							subIds : classIds,
+						},
+						contentType : "application/json",
+						success : function(cards) {
+							console.log(cards);
+							var classList = document
+									.getElementById("classList");
+							$('#classList').empty();
+
+							for ( var x in cards) {
+								var newDiv = document.createElement("div");
+								newDiv.className = "teacherClassCard";
+
+								var p = document.createElement("p");
+								p.innerHTML = cards[x].subject.name;
+
+								var h1 = document.createElement("h1");
+								h1.innerHTML = cards[x].teacher.name + "("
+										+ cards[x].teacherInfo.entranceYear
+										+ ")";
+
+								var h3 = document.createElement("h3");
+								h3.innerHTML = cards[x].teacherInfo.university.name
+										+ " " + cards[x].teacherInfo.major.name;
+
+								var aTag = document.createElement("a");
+								aTag.href = "<c:url value='/class/" + cards[x].classId + "'/>";
+								aTag.innerHTML = "프로필 상세보기";
+
+								newDiv.appendChild(p);
+								newDiv.appendChild(h1);
+								newDiv.appendChild(h3);
+								newDiv.appendChild(aTag);
+
+								classList.appendChild(newDiv);
+							}
+
+						},
+						error : function(errorThrown) {
+							alert(errorThrown.statusText);
+						}
+
+					});
 		}
 	}
 </script>
@@ -42,9 +92,10 @@
 		<button onclick="search()">과목별 수업 검색</button>
 	</div>
 
-	<div>
+	<div id="classList">
 		<c:forEach items="${classCardList }" var="cc" varStatus="i">
 			<div class="teacherClassCard">
+				<p>${cc.subject.name }</p>
 				<h1>${ cc.teacher.name}(${ cc.teacherInfo.entranceYear})</h1>
 				<h3>${cc.teacherInfo.university.name }/
 					${cc.teacherInfo.major.name }</h3>
