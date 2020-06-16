@@ -14,19 +14,21 @@ public class ClassFeedback {
 	private Integer connectionId;
 	private Double rate;
 	private String content;
+	private String subjectName;
 	private Date registeredAt;
 	private Date updatedAt;
 
 	public ClassFeedback() {
 	}
 
-	public ClassFeedback(Integer id, Integer connectionId, Double rate, String content, Date registeredAt,
-			Date updatedAt) {
+	public ClassFeedback(Integer id, Integer connectionId, Double rate, String content, String subjectName,
+			Date registeredAt, Date updatedAt) {
 		super();
 		this.id = id;
 		this.connectionId = connectionId;
 		this.rate = rate;
 		this.content = content;
+		this.subjectName = subjectName;
 		this.registeredAt = registeredAt;
 		this.updatedAt = updatedAt;
 	}
@@ -63,6 +65,14 @@ public class ClassFeedback {
 		this.content = content;
 	}
 
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
 	public Date getRegisteredAt() {
 		return registeredAt;
 	}
@@ -82,7 +92,7 @@ public class ClassFeedback {
 	@Override
 	public String toString() {
 		return "ClassFeedback [id=" + id + ", connectionId=" + connectionId + ", rate=" + rate + ", content=" + content
-				+ ", registeredAt=" + registeredAt + ", updatedAt=" + updatedAt + "]";
+				+ ", subjectName=" + subjectName + ", registeredAt=" + registeredAt + ", updatedAt=" + updatedAt + "]";
 	}
 
 }
