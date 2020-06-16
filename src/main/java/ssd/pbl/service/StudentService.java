@@ -19,7 +19,7 @@ public class StudentService {
 	@Autowired
 	private StudentMapperRepository studentMapperRepository;
 	
-	public int postAutoMatching(StudentMatchForm studentMatchForm) {
+	public int postAutoMatching(int studentId, StudentMatchForm studentMatchForm) {
 		int testResult = 0;
 		for (StudentTest st : studentMatchForm.getSubjectTest()) {
 			testResult += st.gradeTest();

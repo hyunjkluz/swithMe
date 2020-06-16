@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import ssd.pbl.model.ClassCard;
 import ssd.pbl.model.Dong;
@@ -180,7 +180,7 @@ public class AutoMatchController {
 		ArrayList<Integer> intDongIds = regionService.changDongStrToIntArray(sMatchForm.getDongIds());
 		sMatchForm.setDongIdArr(intDongIds);
 
-		List<SubjectTestPaper> stp = subjectService.getTestPaperBySubjectId(1);
+		List<SubjectTestPaper> stp = subjectService.getTestPaperBySubjectId(sMatchForm.getSubjectId());
 		List<StudentTest> stList = new ArrayList<>();
 
 		for (SubjectTestPaper stpN : stp) {
@@ -254,20 +254,21 @@ public class AutoMatchController {
 
 	@RequestMapping(value = "/fin", method = RequestMethod.POST)
 	public String autoMatch(@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm,
-			BindingResult bindingResult, SessionStatus sessionStatus) {
+			BindingResult bindingResult, SessionStatus sessionStatus, HttpServletRequest request) {
 		if (sMatchForm.getTeacherId() < 1) {
 			bindingResult.rejectValue("teacherId", "empty", "선생님 선택 후 수업 신청 버튼을 눌러주세요!");
 		}
-
-		LOGGER.info("선택된 성생님 아이디 : " + sMatchForm.getTeacherId());
 
 		if (bindingResult.hasErrors()) {
 			LOGGER.info("fin:" + "유효성 검사 실패");
 			return "automatch/AutoMInfoResult";
 		}
-		
-//		studentService.postAutoMatching(sMatchForm);
-//		sessionStatus.isComplete();
+
+		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		LOGGER.info("로그인된 유저 정보 : " + userSession.getId());
+
+//		studentService.postAutoMatching(userSession.getId(), sMatchForm);
+		sessionStatus.isComplete();
 
 		return "match/ClassRequestFinish";
 	}
