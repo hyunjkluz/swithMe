@@ -3,7 +3,9 @@
  */
 package ssd.pbl.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,7 +57,7 @@ public class ClassController {
 
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/class/{classId}/detail", method = RequestMethod.GET)
 	@ResponseBody
 	public ClassTeacherDetail getClassTeacherDetailJson(@PathVariable int classId) {
@@ -69,9 +72,24 @@ public class ClassController {
 		return mav;
 	}
 
-//	@RequestMapping(value="/class/subject", method=RequestMethod.GET)
-//	@ResponseBody
-//	public List<ClassCard> getClassListSelectBySubjectId() {
-//		
-//	}
+	@RequestMapping(value = "/class/subject", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ClassCard> getClassListSelectBySubjectId(@RequestParam Map<String, Object> param) {
+		String subIdString = param.get("subIds").toString();
+		String[] subIdSArr = subIdString.split(" ");
+		List<Integer> subIds = new ArrayList<>();
+
+		for (String s : subIdSArr) {
+			if (!s.equals(" ")) {
+				subIds.add(Integer.parseInt(s));
+			}
+		}
+		LOGGER.info(subIds.toString());
+
+		List<ClassCard> result = classService.getClassBySubjectId(subIds);
+		LOGGER.info(result.toString());
+
+		return result;
+//		return classService.getClassBySubjectId(subIds);
+	}
 }

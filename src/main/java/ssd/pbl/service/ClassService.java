@@ -47,4 +47,8 @@ public class ClassService {
 		return ctd;
 	}
 
+	public List<ClassCard> getClassBySubjectId(List<Integer> subIds) {
+		return classMapperRepo.selectClassBySubjectId(subIds);
+	}
+
 }
