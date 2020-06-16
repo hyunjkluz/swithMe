@@ -89,9 +89,10 @@
 				td4_1.innerHTML = "수업 가능한 시간";
 				var td4_2 = document.createElement("td");
 				var time = "";
-				for (var t in detail.teacherTimes) {
-					time += detail.teacherTimes[t].time == 'am' ? "오전 " : detail.teacherTimes[t].time == 'pm' ? "오후 "
-							: "저녁 "
+				for ( var t in detail.teacherTimes) {
+					time += detail.teacherTimes[t].time == 'am' ? "오전 "
+							: detail.teacherTimes[t].time == 'pm' ? "오후 "
+									: "저녁 "
 				}
 				td4_2.innerHTML = time;
 
@@ -104,8 +105,8 @@
 				td5_1.innerHTML = "수업 가능한 지역";
 				var td5_2 = document.createElement("td");
 				var region = "";
-				
-				for (var r in detail.teacherRegion) {
+
+				for ( var r in detail.teacherRegion) {
 					region += detail.teacherRegion[r].name + " ";
 				}
 				td5_2.innerHTML = region;
@@ -149,7 +150,6 @@
 				table.appendChild(tr3);
 
 				modal.appendChild(table);
-				
 
 			},
 			error : function(errorThrown) {
@@ -163,9 +163,7 @@
 	<spring:hasBindErrors name="studentMatchForm" />
 	<form:form modelAttribute="studentMatchForm" method="post"
 		action="/swithMe/student/match/fin">
-		<div id="ex1" class="modal">
-			
-		</div>
+		<div id="ex1" class="modal"></div>
 
 		<input type="submit" value="선생님 선택">
 		<br>
@@ -184,6 +182,10 @@
 					data-arg1="${cc.classId }">정보 보기</a>
 			</div>
 		</c:forEach>
+
+		<c:if test="${classCardList == null }">
+			<p>해당 조건을 가진 선생님이 없습니다.</p>
+		</c:if>
 	</form:form>
 </body>
 </html>
