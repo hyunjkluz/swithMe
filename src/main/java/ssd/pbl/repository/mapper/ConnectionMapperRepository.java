@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import ssd.pbl.model.ConnectionCard;
 
 @Repository
-public class ConnectionMapperRepository2 {
+public class ConnectionMapperRepository {
 	@Autowired
-	private ConnectionMapper2 connectionMaper2;
+	private ConnectionMapper connectionMaper;
 
 	public List<ConnectionCard> selectConnectionList(int sid) {
-		return connectionMaper2.selectConnectionList(sid);
+		return connectionMaper.selectConnectionList(sid);
 	}
 }

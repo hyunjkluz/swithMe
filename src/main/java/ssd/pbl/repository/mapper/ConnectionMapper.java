@@ -3,6 +3,9 @@
  */
 package ssd.pbl.repository.mapper;
 
+import java.util.List;
+
+import ssd.pbl.model.ConnectionCard;
 import ssd.pbl.model.StudentMatchForm;
 
 /**
@@ -11,5 +14,6 @@ import ssd.pbl.model.StudentMatchForm;
  */
 public interface ConnectionMapper {
 	Integer insertConnection(StudentMatchForm studentMatchForm);
-	
+
+	List<ConnectionCard> selectConnectionList(int sid);
 }

@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ssd.pbl.model.ConnectionCard;
-import ssd.pbl.repository.mapper.ConnectionMapperRepository2;
+import ssd.pbl.repository.mapper.ConnectionMapperRepository;
 
 
 @Service
-public class ConnectionService2 {
+public class ConnectionService {
 	@Autowired
-	private ConnectionMapperRepository2 connectionMapperRepository2;
+	private ConnectionMapperRepository connectionMapperRepository;
 
 	public List<ConnectionCard> getConnectionlist(int sid) {
-		return  connectionMapperRepository2.selectConnectionList(sid);
+		return  connectionMapperRepository.selectConnectionList(sid);
 	}
 
 }
