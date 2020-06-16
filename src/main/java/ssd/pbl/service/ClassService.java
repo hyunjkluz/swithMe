@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import ssd.pbl.model.ClassCard;
 import ssd.pbl.model.ClassTeacherDetail;
+import ssd.pbl.model.StudentMatchForm;
 import ssd.pbl.repository.mapper.ClassMapperRepository;
 import ssd.pbl.repository.mapper.FeedbackMapper;
 
@@ -28,8 +29,8 @@ public class ClassService {
 	@Autowired
 	private FeedbackMapper feedbackMapper;
 
-	public List<ClassCard> getAutoMatchClasses() {
-		return classMapperRepo.selectAutoMatchClass();
+	public List<ClassCard> getAutoMatchClasses(StudentMatchForm stm) {
+		return classMapperRepo.selectAutoMatchClass(stm);
 	}
 
 	public List<ClassCard> getAllClass() {
@@ -39,9 +40,9 @@ public class ClassService {
 
 	public ClassTeacherDetail getClassTeacherDetailByClassId(int classId) {
 		ClassTeacherDetail ctd = classMapperRepo.selectClassTeacherDetailByClassId(classId);
-//		ctd.setFeedback(feedbackMapper.selectClassFeedBackByTeacherId(ctd.getTeacher().getId()));
+		ctd.setFeedback(feedbackMapper.selectClassFeedBackByTeacherId(ctd.getTeacher().getId()));
 
-		LOGGER.info(ctd.toString());
+		LOGGER.info(ctd.getFeedback().toString());
 
 		return ctd;
 	}
