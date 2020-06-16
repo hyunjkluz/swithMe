@@ -46,13 +46,19 @@ public class ClassController {
 	}
 
 	@RequestMapping(value = "/class/{classId}", method = RequestMethod.GET)
-	public ModelAndView getAutoMathForm2(@PathVariable int classId, Model model, HttpSession session) {
+	public ModelAndView getClassTeacherDetail(@PathVariable int classId, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView("match/TeacherDetail");
 
 		ClassTeacherDetail ctd = classService.getClassTeacherDetailByClassId(classId);
 		mav.addObject("detail", ctd);
 
 		return mav;
+	}
+	
+	@RequestMapping(value = "/class/{classId}/detail", method = RequestMethod.GET)
+	@ResponseBody
+	public ClassTeacherDetail getClassTeacherDetailJson(@PathVariable int classId) {
+		return classService.getClassTeacherDetailByClassId(classId);
 	}
 
 	@RequestMapping(value = "/main/class", method = RequestMethod.GET)
