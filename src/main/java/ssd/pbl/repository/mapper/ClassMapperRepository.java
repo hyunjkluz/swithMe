@@ -29,6 +29,10 @@ public class ClassMapperRepository {
 		return classMapper.selectAllClass();
 	}
 	
+	public List<ClassCard> selectClassBySubjectId(List<Integer> subIds) {
+		return classMapper.selectClassBySubjectId(subIds);
+	}
+	
 	public ClassTeacherDetail selectClassTeacherDetailByClassId(int classId) {
 		return classMapper.selectClassTeacherDetailByClassId(classId);
 	}

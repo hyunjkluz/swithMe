@@ -66,25 +66,47 @@
 		"teacher.rank", tch.rate "teacher.rate",
 		tch.phone "teacher.phone",
 		ti.teachergender "teacherInfo.teacherGender",
-		ti.entranceyear
-		"teacherInfo.entranceYear",
+		ti.entranceyear "teacherInfo.entranceYear",
 		ti.status "teacherInfo.status",
 		ti.profileimg "teacherInfo.profileImg",
-		m.name
-		"teacherInfo.major.name", m.id "teacherInfo.major.id", u.id
-		"teacherInfo.university.id", u.name "teacherInfo.university.name",
+		m.name "teacherInfo.major.name", m.id "teacherInfo.major.id", u.id "teacherInfo.university.id", u.name "teacherInfo.university.name",
 		s.id "subject.id", s.name "subject.name"
 		FROM TEACHERCLASS tc
-		INNER JOIN
-		TEACHER tch
+		INNER JOIN TEACHER tch
 		ON tc.teacher = tch.id
 		INNER JOIN TEACHERINFO ti
-		ON
-		ti.teacher = tch.id
+		ON ti.teacher = tch.id
 		INNER JOIN SUBJECT s
 		ON s.id = tc.subject
-		INNER JOIN
-		Major m
+		INNER JOIN Major m
+		ON ti.major = m.id
+		INNER JOIN University u
+		ON m.university = u.id
+	</select>
+	
+	<select id="selectClassBySubjectId" resultType="ClassCard">
+		SELECT tc.id classId,
+		tc.teacher "teacher.id", tch.name "teacher.name", tch.rank
+		"teacher.rank", tch.rate "teacher.rate",
+		tch.phone "teacher.phone",
+		ti.teachergender "teacherInfo.teacherGender",
+		ti.entranceyear "teacherInfo.entranceYear",
+		ti.status "teacherInfo.status",
+		ti.profileimg "teacherInfo.profileImg",
+		m.name "teacherInfo.major.name", m.id "teacherInfo.major.id", u.id "teacherInfo.university.id", u.name "teacherInfo.university.name",
+		s.id "subject.id", s.name "subject.name"
+		FROM TEACHERCLASS tc
+		INNER JOIN SUBJECT s
+		ON s.id = tc.subject AND 
+		s.id IN
+		<foreach collection="subIds" item="subId" index="index" open="(" close=")" separator=","> 
+			#{subId}
+		</foreach>
+		INNER JOIN TEACHER tch
+		ON tc.teacher = tch.id
+		INNER JOIN TEACHERINFO ti
+		ON ti.teacher = tch.id
+		INNER JOIN Major m
 		ON ti.major = m.id
 		INNER JOIN University u
 		ON m.university = u.id

@@ -19,6 +19,8 @@ public interface ClassMapper {
 	List<ClassCard> selectAutoMatchClass(StudentMatchForm stm);
 
 	List<ClassCard> selectAllClass();
+	
+	List<ClassCard> selectClassBySubjectId(@Param("subIds") List<Integer> subIds);
 
 	ClassTeacherDetail selectClassTeacherDetailByClassId(@Param("classId") int classId);
 }
