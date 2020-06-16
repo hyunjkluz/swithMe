@@ -11,12 +11,10 @@
 <body>
 	<form:form modelAttribute="detail" method="post"
 		action="/swithMe/class/${detail.classId}/request">
-		<div>선생님 사진 보여주기</div>
+		<div>${detail.teacherInfo.profileImg }</div>
+
+		<h2>${detail.teacher.name}(${detail.teacherInfo.entranceYear}/${detail.teacherInfo.teacherGender == "WOMEN" ? "여자" : "남자"})</h2>
 		<table border="1">
-			<tr>
-				<td>이름</td>
-				<td>${detail.teacher.name}(${detail.teacherInfo.entranceYear}/${detail.teacherInfo.teacherGender == "WOMEN" ? "여자" : "남자"})</td>
-			</tr>
 			<tr>
 				<td>학력</td>
 				<td>${detail.teacherInfo.university.name }
@@ -27,8 +25,21 @@
 				<td>${detail.subject.name }(${detail.ability == 1 ? "하" : detail.ability == 2 ? "중" : "상"})</td>
 			</tr>
 			<tr>
+				<td>수업 희망 학생 성별</td>
+				<td>${detail.studentGender == 'ANY' ? "상관없음" : detail.studentGender == 'WOMEN' ? "여자 학생" : "남자 학생" }</td>
+			</tr>
+			<tr>
+				<td>수업 가능한 시간</td>
+				<td><c:forEach items="${detail.teacherTimes}" var="times"
+						varStatus="t">
+						${times.time == 'am' ? "오전" : times.time == 'pm' ? "오후" : "저녁" }
+					</c:forEach></td>
+			</tr>
+			<tr>
 				<td>수업 가능한 지역</td>
-				<td>지역 블록 반복</td>
+				<td><c:forEach items="${detail.teacherRegion }" var="dong">
+						${dong.name }	
+					</c:forEach></td>
 			</tr>
 		</table>
 
@@ -39,11 +50,50 @@
 
 		<table border="1">
 			<tr>
-				<td>과목이름 (평점)</td>
+				<td>자기소개서</td>
+				<td>${detail.teacherMatch.profileIntro }</td>
 			</tr>
 			<tr>
-				<td>평가내용</td>
+				<td>수업 경력</td>
+				<td>${detail.teacherMatch.profileCareer }</td>
 			</tr>
+			<tr>
+				<td>수업 스타일</td>
+				<td>${detail.teacherMatch.profileStyle }</td>
+			</tr>
+		</table>
+
+		<br>
+		<br>
+		<br>
+		<h4>수업 후기</h4>
+		<table border="1">
+			<%
+				int flag = 0;
+			%>
+			<c:forEach items="${detail.feedback }" var="fb">
+				<c:if test="${fb.id != null }">
+					<%
+						flag += 1;
+					%>
+					<tr>
+						<td colspan="2">과목이름 (${detail.teacher.rate })</td>
+					</tr>
+					<tr>
+						<td>${fb.content }</td>
+						<td>${fb.rate }</td>
+					</tr>
+				</c:if>
+			</c:forEach>
+			<%
+				if (flag == 0) {
+			%>
+			<tr>
+				<td colspan="2">아직 후기가 없습니다.</td>
+			</tr>
+			<%
+				}
+			%>
 		</table>
 	</form:form>
 </body>
