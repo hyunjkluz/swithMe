@@ -53,7 +53,7 @@
 	</select>
 	
 	<select id="selectStudentUserInfo" parameterType="java.lang.String" resultType="ssd.pbl.controller.UserSession">
-		SELECT s.email, s.name, i.PROFILEIMG
+		SELECT s.email, s.name, i.PROFILEIMG, s.id, s.step
 		FROM student s, STUDENTINFO i
 		WHERE s.id = i.student AND s.email = #{email}
 	</select>

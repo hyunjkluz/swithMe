@@ -19,6 +19,7 @@
             </div>
 	</header>
 </div>
+${userSession.email}<br>${userSession.name}<br>${userSession.id}<br>${userSession.type}<br>${userSession.step}
 <div class="container">
 <%@ include file="include/main_footer.jsp" %>
 </div >

@@ -93,8 +93,7 @@
 	<div class="base-top"></div>
 	<div class="login-form">
 		<div class="login-student-detail">
-			<form:form modelAttribute="loginForm" action="/swithMe/auth/login"
-				method="POST">
+			<form:form modelAttribute="loginForm" action="/swithMe/auth/login" method="POST">
 				<input type="hidden" value="${loginForwardAction}"
 					name="loginForwardAction" />
 				<div class="login-title-student-area">
@@ -117,7 +116,7 @@
 			</form:form>
 		</div>
 		<div class="login-teacher-detail">
-			<form:form modelAttribute="loginForm" action="login" method="POST">
+			<form:form modelAttribute="loginForm" action="/swithMe/auth/login" method="POST">
 				<input type="hidden" value="${loginForwardAction}"
 					name="loginForwardAction" />
 				<div class="login-title-teacher-area">
@@ -125,10 +124,12 @@
 				</div>
 				<div class="login-input-area">
 					<div class="login-input-content-area">
-						<input class="login-input" type="text" /><br>
+						<form:input path="email" class="login-input" type="text" />
+						<form:errors path="email" />
 					</div>
 					<div class="login-input-content-area">
-						<input class="login-input" type="password" />
+						<form:input path="password" class="login-input" type="password" />
+						<form:errors path="password" />
 					</div>
 				</div>
 				<div class="login-btn-area">

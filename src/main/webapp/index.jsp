@@ -7,5 +7,6 @@
 <h2>SSD Project : SwithMe</h2>
 <%session.setAttribute("type", "student"); %>
 <a href="<c:url value='/connection/' /><%=session.getAttribute("type")%>">나의 수업</a>
+${userSession.email}<br>${userSession.name}<br>${userSession.id}<br>${userSession.type}<br>${userSession.step}
 </body>
 </html>

@@ -33,7 +33,7 @@
 	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="main/class">과외 찾기</a></li>
 	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/connection/' /><%=session.getAttribute("type")%>">나의 수업</a></li>
 	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="auth/signUp.do">ㅇㅇㅇ선생님</a></li>
-	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="">로그아웃</a></li>
+	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="logout">로그아웃</a></li>
 	                    </ul>
                     </c:if>
                 </div>
