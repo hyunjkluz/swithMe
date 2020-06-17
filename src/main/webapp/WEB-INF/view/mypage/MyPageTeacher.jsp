@@ -39,16 +39,16 @@ th, td {
 }
 
 a.modalA:link, a.modalA:visited {
-  background-color: #ffbe0d;
-  color: white;
-  padding: 14px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+	background-color: #ffbe0d;
+	color: white;
+	padding: 14px 25px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
 }
 
 a.modalA:hover, a.modalA:active {
-  background-color: #ffe18f;
+	background-color: #ffe18f;
 }
 </style>
 <script type="text/javascript">
@@ -224,42 +224,6 @@ a.modalA:hover, a.modalA:active {
 							modal.appendChild(testResultTable);
 						}
 
-						//버튼도 추가
-						if (detail.step == 'REQUEST') {
-							var aTag = document.createElement("a");
-							aTag.className='modalA';
-							aTag.href = "<c:url value='/teacher/connection/"
-									+ connectionId + "?state=REJECT'/>";
-							aTag.innerHTML = "거절";
-
-							modal.appendChild(aTag);
-
-							aTag = document.createElement("a");
-							aTag.className='modalA';
-							aTag.href = "<c:url value='/teacher/connection/"
-									+ connectionId + "?state=MATCH'/>";
-							aTag.innerHTML = "수락";
-
-							modal.appendChild(aTag);
-						}
-						if (detail.step == 'MATCH') {
-							var aTag = document.createElement("a");
-							aTag.className='modalA';
-							aTag.href = "<c:url value='/teacher/connection/"
-									+ connectionId + "?state=REJECT'/>";
-							aTag.innerHTML = "거절";
-
-							modal.appendChild(aTag);
-
-							aTag = document.createElement("a");
-							aTag.className='modalA';
-							aTag.href = "<c:url value='/teacher/connection/"
-									+ connectionId + "?state=CLASS'/>";
-							aTag.innerHTML = "최종 수락";
-
-							modal.appendChild(aTag);
-						}
-
 					},
 					error : function(error) {
 						alert(errorThrown.statusText);
@@ -298,7 +262,7 @@ a.modalA:hover, a.modalA:active {
 									<p>수업중</p>
 									<br>
 									<a
-										href="<c:url value='/teacher/connection/${conn.connectionId}?state=FINISH'/>">수업
+										href="<c:url value='/connection/${conn.connectionId}/step?step=FINISH&type=teacher'/>">수업
 										종료</a>
 								</c:when>
 								<c:when test="${conn.step == 'REJECT' }">
@@ -310,13 +274,18 @@ a.modalA:hover, a.modalA:active {
 								<c:when test="${conn.step == 'MATCH' }">
 									<p>
 										<a href="#ex1" rel="modal:open" onclick="setConnection()"
-											data-arg1="${conn.connectionId }">요청 확인</a>
+											data-arg1="${conn.connectionId }">요청 확인</a> <br/> 
+										<a href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>	&nbsp;&nbsp;
+										<a href="<c:url value='/connection/${conn.connectionId}/step?step=CLASS&type=teacher'/>">최종 수락</a>
 									</p>
 								</c:when>
 								<c:otherwise>
+								<!-- step == 'REQUEST' -->
 									<p>
 										<a href="#ex1" rel="modal:open" onclick="setConnection()"
-											data-arg1="${conn.connectionId }">수업 요청</a>
+											data-arg1="${conn.connectionId }">수업 요청</a><br/> 
+										<a href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>	&nbsp;&nbsp;
+										<a href="<c:url value='/connection/${conn.connectionId}/step?step=MATCH&type=teacher'/>">수락</a>
 									</p>
 								</c:otherwise>
 							</c:choose></td>
