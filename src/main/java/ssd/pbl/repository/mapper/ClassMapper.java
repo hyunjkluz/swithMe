@@ -4,6 +4,7 @@
 package ssd.pbl.repository.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +24,6 @@ public interface ClassMapper {
 	List<ClassCard> selectClassBySubjectId(@Param("subIds") List<Integer> subIds);
 
 	ClassTeacherDetail selectClassTeacherDetailByClassId(@Param("classId") int classId);
+	
+	Map<String,Integer> selectTeacherAndSubjectByClassId(@Param("classId") int classId);
 }

@@ -152,62 +152,73 @@
 
 	</select>
 
-<resultMap type="ClassTeacherDetail" id="ctd">
-	<id column="id" jdbcType="NUMERIC" property="classId" />
-	<result column="ability" jdbcType="VARCHAR" property="ability" />
-	<result column="studentGender" jdbcType="VARCHAR" property="studentGender" />
-
-	<association property="teacher" column="teacher" javaType="Teacher">
-		<id property="id" column="teacherId"/>
-		<result property="name" column="teacherName"/>
-		<result property="rank" column="teaherRank"/>
-		<result property="rate" column="teacherRate"/>
-	</association>
+	<resultMap type="ClassTeacherDetail" id="ctd">
+		<id column="id" jdbcType="NUMERIC" property="classId" />
+		<result column="ability" jdbcType="VARCHAR" property="ability" />
+		<result column="studentGender" jdbcType="VARCHAR" property="studentGender" />
 	
-	<association property="teacherInfo" column="teacher" javaType="TeacherInfo">
-		<id property="id" column="id"/>
-		<result property="teacherGender" column="teacherGender"/>
-		<result property="status" column="teacherStatus"/>
-		<result property="entranceYear" column="entranceYear"/>
-		<result property="profileImg" column="profileImg"/>
-		<association property="university" column="university" javaType="University">
-			<id property="id" column="univId"/>
-			<result property="name" column="univName"/>
+		<association property="teacher" column="teacher" javaType="Teacher">
+			<id property="id" column="teacherId"/>
+			<result property="name" column="teacherName"/>
+			<result property="rank" column="teaherRank"/>
+			<result property="rate" column="teacherRate"/>
 		</association>
-		<association property="major" column="major" javaType="Major">
-			<id property="id" column="majorId"/>
-			<result property="name" column="majorName"/>
+		
+		<association property="teacherInfo" column="teacher" javaType="TeacherInfo">
+			<id property="id" column="id"/>
+			<result property="teacherGender" column="teacherGender"/>
+			<result property="status" column="teacherStatus"/>
+			<result property="entranceYear" column="entranceYear"/>
+			<result property="profileImg" column="profileImg"/>
+			<association property="university" column="university" javaType="University">
+				<id property="id" column="univId"/>
+				<result property="name" column="univName"/>
+			</association>
+			<association property="major" column="major" javaType="Major">
+				<id property="id" column="majorId"/>
+				<result property="name" column="majorName"/>
+			</association>
 		</association>
-	</association>
+		
+		<association property="teacherMatch" column="teacher" javaType="TeacherMatch">
+			<id property="id" column="id"/>
+			<result property="profileIntro" column="profileIntro"/>
+			<result property="profileCareer" column="profileCareer"/>
+			<result property="profileStyle" column="profileStyle"/>
+			<result property="studentGender" column="studentGender"/>
+		</association>
+		
+		<association property="subject" column="subject" javaType="Subject">
+			<id property="id" column="subId"/>
+			<result property="name" column="subName"/>
+			<result property="category" column="subCategory"/>
+		</association>
+		
+		<collection property="teacherTimes" ofType="TeacherTimes">
+			<id property="id" column="timeId"/>
+			<result property="time" column="time"/>
+		</collection>
+		
+		<collection property="teacherCharacter" ofType="Character">
+			<id property="id" column="charId"/>
+			<result property="name" column="charName"/>
+			<result property="description" column="charDescription"/>
+		</collection>
+		
+		<collection property="teacherRegion" ofType="Dong">
+			<id property="id" column="dongId"/>
+			<result property="name" column="dongName"/>
+		</collection>
+	</resultMap>
 	
-	<association property="teacherMatch" column="teacher" javaType="TeacherMatch">
-		<id property="id" column="id"/>
-		<result property="profileIntro" column="profileIntro"/>
-		<result property="profileCareer" column="profileCareer"/>
-		<result property="profileStyle" column="profileStyle"/>
-		<result property="studentGender" column="studentGender"/>
-	</association>
+	<select id="selectTeacherAndSubjectByClassId" resultMap="teahcerAndSubject">
+		SELECT teacher, subject
+		FROM teacherClass
+		WHERE id = #{classId}
+	</select>
 	
-	<association property="subject" column="subject" javaType="Subject">
-		<id property="id" column="subId"/>
-		<result property="name" column="subName"/>
-		<result property="category" column="subCategory"/>
-	</association>
-	
-	<collection property="teacherTimes" ofType="TeacherTimes">
-		<id property="id" column="timeId"/>
-		<result property="time" column="time"/>
-	</collection>
-	
-	<collection property="teacherCharacter" ofType="Character">
-		<id property="id" column="charId"/>
-		<result property="name" column="charName"/>
-		<result property="description" column="charDescription"/>
-	</collection>
-	
-	<collection property="teacherRegion" ofType="Dong">
-		<id property="id" column="dongId"/>
-		<result property="name" column="dongName"/>
-	</collection>
-</resultMap>
+	<resultMap type="map" id="teahcerAndSubject">
+		<result column="teacher" property="teacherId"/>
+		<result column="subject" property="subjectId"/>
+	</resultMap>
 </mapper>

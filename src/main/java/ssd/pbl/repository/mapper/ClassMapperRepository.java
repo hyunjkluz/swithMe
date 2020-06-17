@@ -4,6 +4,7 @@
 package ssd.pbl.repository.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,6 +36,10 @@ public class ClassMapperRepository {
 	
 	public ClassTeacherDetail selectClassTeacherDetailByClassId(int classId) {
 		return classMapper.selectClassTeacherDetailByClassId(classId);
+	}
+	
+	public Map<String,Integer> selectTeacherAndSubjectByClassId(int classId) {
+		return classMapper.selectTeacherAndSubjectByClassId(classId);
 	}
 
 }
