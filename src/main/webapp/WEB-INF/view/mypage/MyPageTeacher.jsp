@@ -262,13 +262,13 @@ a.modalA:hover, a.modalA:active {
 									<p>수업중</p>
 									<br>
 									<a
-										href="<c:url value='/connection/${conn.connectionId}/step?step=FINISH&type=teacher'/>">수업
+										href="<c:url value='/connection/${conn.connectionId}/step?step=REVIEW&type=teacher'/>">수업
 										종료</a>
 								</c:when>
 								<c:when test="${conn.step == 'REJECT' }">
 									<p>수업 거절</p>
 								</c:when>
-								<c:when test="${conn.step == 'FINISH' }">
+								<c:when test="${conn.step == 'FINISH' || conn.step == 'REVIEW' }">
 									<p>수업 종료</p>
 								</c:when>
 								<c:when test="${conn.step == 'MATCH' }">
