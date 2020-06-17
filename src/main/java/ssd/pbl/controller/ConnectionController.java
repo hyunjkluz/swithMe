@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import ssd.pbl.model.RequestTeacher;
 import ssd.pbl.model.StudentRequest;
 import ssd.pbl.service.ClassService;
 import ssd.pbl.service.ConnectionService;
+import ssd.pbl.service.TeacherService;
 
 /**
  * @author kimhyunjin
@@ -38,17 +40,31 @@ public class ConnectionController {
 	private ClassService classService;
 	@Autowired
 	private ConnectionService connectionService;
+	@Autowired
+	private TeacherService teacherService;
 
 	// 수업 상세보기 > 수업 요청 전송
 	@RequestMapping(value = "/class/{classId}/request", method = RequestMethod.POST)
-	public String postClassNewRequest(@PathVariable int classId, HttpServletRequest request) {
+	public ModelAndView postClassNewRequest(@PathVariable int classId, HttpServletRequest request) {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		LOGGER.info("로그인된 유저 정보 : " + userSession.getId());
 
+		if (!userSession.getType().equals("student")) {
+			return new ModelAndView("main/FindClass");
+		}
+		ModelAndView mav = new ModelAndView("match/ClassRequestFinish");
+		
 		Map<String, Integer> classDetailId = classService.getTeacherAndSubjectByClassId(classId);
-//		Integer connectionId = connectionService.postConnection(userSession.getId(), classDetailId.get("teacherId"), classDetailId.get("subjectId"), null);
-
-		return "match/ClassRequestFinish";
+		Integer teacherId = Integer.parseInt(String.valueOf(classDetailId.get("teacherId")));
+		Integer subjectId = Integer.parseInt(String.valueOf(classDetailId.get("subjectId")));
+		
+		Integer connectionId = connectionService.postConnection(userSession.getId(), teacherId, subjectId, null);
+		
+		String teacherName = teacherService.getTeacherByid(teacherId).getName();
+		
+		mav.addObject("name", teacherName);
+ 
+		return mav;
 	}
 
 	// 나의 수업-학생

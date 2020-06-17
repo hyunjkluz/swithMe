@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import ssd.pbl.model.ClassCard;
@@ -37,6 +38,7 @@ import ssd.pbl.service.ClassService;
 import ssd.pbl.service.RegionService;
 import ssd.pbl.service.StudentService;
 import ssd.pbl.service.SubjectService;
+import ssd.pbl.service.TeacherService;
 
 /**
  * @author kimhyunjin
@@ -60,6 +62,8 @@ public class AutoMatchController {
 	private CharacterService characterService;
 	@Autowired
 	private ClassService classService;
+	@Autowired
+	private TeacherService teacherService;
 
 	@ModelAttribute("studentMatchForm")
 	public StudentMatchForm formBacking() {
@@ -253,7 +257,7 @@ public class AutoMatchController {
 	}
 
 	@RequestMapping(value = "/fin", method = RequestMethod.POST)
-	public String autoMatch(@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm,
+	public ModelAndView autoMatch(@ModelAttribute("studentMatchForm") StudentMatchForm sMatchForm,
 			BindingResult bindingResult, SessionStatus sessionStatus, HttpServletRequest request) {
 		if (sMatchForm.getTeacherId() < 1) {
 			bindingResult.rejectValue("teacherId", "empty", "선생님 선택 후 수업 신청 버튼을 눌러주세요!");
@@ -261,16 +265,26 @@ public class AutoMatchController {
 
 		if (bindingResult.hasErrors()) {
 			LOGGER.info("fin:" + "유효성 검사 실패");
-			return "automatch/AutoMInfoResult";
+			return new ModelAndView("automatch/AutoMInfoResult");
 		}
 
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		LOGGER.info("로그인된 유저 정보 : " + userSession.getId());
 
-		studentService.postAutoMatching(userSession.getId(), sMatchForm);
-		sessionStatus.isComplete();
+		if (!userSession.getType().equals("student")) {
+			return new ModelAndView("main/FindClass");
+		}
 
-		return "match/ClassRequestFinish";
+		studentService.postAutoMatching(userSession.getId(), sMatchForm);
+		
+		ModelAndView mav = new ModelAndView("match/ClassRequestFinish");
+		String teacherName = teacherService.getTeacherByid(sMatchForm.getTeacherId()).getName();
+		
+		mav.addObject("name", teacherName);
+
+		sessionStatus.isComplete();
+		
+		return mav;
 	}
 
 }
