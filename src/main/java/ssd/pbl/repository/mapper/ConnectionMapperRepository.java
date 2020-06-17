@@ -15,4 +15,8 @@ public class ConnectionMapperRepository {
 	public List<ConnectionCard> selectConnectionList(int sid) {
 		return connectionMaper.selectConnectionList(sid);
 	}
+	
+	public Integer insertConnection(Integer studentId, Integer teacherId, Integer subjectId, Integer studentMatchId) {
+		return connectionMaper.insertConnection(studentId, teacherId, subjectId, studentMatchId);
+	}
 }
