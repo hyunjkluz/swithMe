@@ -28,6 +28,7 @@ import ssd.pbl.model.ClassTeacherDetail;
 import ssd.pbl.model.Subject;
 import ssd.pbl.service.ClassService;
 import ssd.pbl.service.SubjectService;
+import ssd.pbl.service.TeacherService;
 
 /**
  * @author kimhyunjin
@@ -42,6 +43,8 @@ public class ClassController {
 	private ClassService classService;
 	@Autowired
 	private SubjectService subjectService;
+	@Autowired
+	private TeacherService teacherService;
 
 	@ModelAttribute("subjects")
 	public List<Subject> subjectFormBacking() {
@@ -67,9 +70,22 @@ public class ClassController {
 	}
 
 	@RequestMapping(value = "/main/class", method = RequestMethod.GET)
-	public ModelAndView getClassList() {
+	public ModelAndView getClassList(HttpSession session) {
 		ModelAndView mav = new ModelAndView("main/FindClass");
+		
 		mav.addObject("classCardList", classService.getAllClass());
+		
+		UserSession userSession = (UserSession) session.getAttribute("userSession");
+		if (userSession != null && userSession.getType().equals("teacher")) {
+			Integer teacherMatchId = teacherService.getTeacherMatchIdByTeacherId(userSession.getId());
+			LOGGER.info("선생님 매치 아이디 : " + teacherMatchId);
+			
+			if (teacherMatchId == null) {
+				mav.addObject("isMatchId", false);
+			} else {
+				mav.addObject("isMatchId", true);
+			}
+		}
 
 		return mav;
 	}

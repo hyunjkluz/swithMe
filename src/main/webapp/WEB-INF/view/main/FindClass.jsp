@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -30,61 +31,69 @@
 		} else {
 			console.log(classIds);
 			const url = "http://localhost:8080/swithMe/class/subject"
-			$
-					.ajax({
-						url : url,
-						type : "GET",
-						dataType : "json",
-						data : {
-							subIds : classIds,
-						},
-						contentType : "application/json",
-						success : function(cards) {
-							console.log(cards);
-							var classList = document
-									.getElementById("classList");
-							$('#classList').empty();
+			$.ajax({
+				url : url,
+				type : "GET",
+				dataType : "json",
+				data : {
+					subIds : classIds,
+				},
+				contentType : "application/json",
+				success : function(cards) {
+					var classList = document.getElementById("classList");
+					$('#classList').empty();
 
-							for ( var x in cards) {
-								var newDiv = document.createElement("div");
-								newDiv.className = "teacherClassCard";
+					for ( var x in cards) {
+						var newDiv = document.createElement("div");
+						newDiv.className = "teacherClassCard";
 
-								var p = document.createElement("p");
-								p.innerHTML = cards[x].subject.name;
+						var p = document.createElement("p");
+						p.innerHTML = cards[x].subject.name;
 
-								var h1 = document.createElement("h1");
-								h1.innerHTML = cards[x].teacher.name + "("
-										+ cards[x].teacherInfo.entranceYear
-										+ ")";
+						var h1 = document.createElement("h1");
+						h1.innerHTML = cards[x].teacher.name + "("
+								+ cards[x].teacherInfo.entranceYear
+								+ ")";
 
-								var h3 = document.createElement("h3");
-								h3.innerHTML = cards[x].teacherInfo.university.name
-										+ " " + cards[x].teacherInfo.major.name;
+						var h3 = document.createElement("h3");
+						h3.innerHTML = cards[x].teacherInfo.university.name
+								+ " " + cards[x].teacherInfo.major.name;
 
-								var aTag = document.createElement("a");
-								aTag.href = "<c:url value='/class/" + cards[x].classId + "'/>";
-								aTag.innerHTML = "프로필 상세보기";
+						var aTag = document.createElement("a");
+						aTag.href = "<c:url value='/class/" + cards[x].classId + "'/>";
+						aTag.innerHTML = "프로필 상세보기";
 
-								newDiv.appendChild(p);
-								newDiv.appendChild(h1);
-								newDiv.appendChild(h3);
-								newDiv.appendChild(aTag);
+						newDiv.appendChild(p);
+						newDiv.appendChild(h1);
+						newDiv.appendChild(h3);
+						newDiv.appendChild(aTag);
 
-								classList.appendChild(newDiv);
-							}
+						classList.appendChild(newDiv);
+					}
 
-						},
-						error : function(errorThrown) {
-							alert(errorThrown.statusText);
-						}
+				},
+				error : function(errorThrown) {
+					alert(errorThrown.statusText);
+				}
 
-					});
+			});
 		}
 	}
 </script>
 </head>
 <body>
-	<div>
+	<div class="container">
+		<%@ include file="../include/main_header.jsp" %>
+	</div>
+	
+	<c:if test="${userSession.type == 'teacher' && isMatchId == false }">
+		<div class="container">
+			매칭 정보를 작성해야 수업을 작성할 수 있습니다.
+			<a href="<c:url value='/teacher/match/form.do'/>">매칭정보 작성하기</a>
+		</div>
+	</c:if>
+	
+	<div class="container">
 		<c:forEach items="${subjects }" var="s">
 			<input type="checkbox" class="subjectCheckbox" name="classId"
 				value="${s.id }" />${s.name }
@@ -92,7 +101,7 @@
 		<button onclick="search()">과목별 수업 검색</button>
 	</div>
 
-	<div id="classList">
+	<div id="classList" class="container">
 		<c:forEach items="${classCardList }" var="cc" varStatus="i">
 			<div class="teacherClassCard">
 				<p>${cc.subject.name }</p>
