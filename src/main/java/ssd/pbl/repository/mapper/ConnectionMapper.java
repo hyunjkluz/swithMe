@@ -26,4 +26,6 @@ public interface ConnectionMapper {
 	List<ConnectionCard> selectStudentsConnectionByStudentId(@Param("studentId") int studentId);
 	
 	StudentRequest selectStudentRequestByConnectionId(@Param("connectionId") int connectionId);
+	
+	Integer updateConnectionState(@Param("connectionId") Integer connectionId, @Param("step") String step);
 }

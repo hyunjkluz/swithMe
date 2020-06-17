@@ -147,4 +147,10 @@
 			</collection>
 		</association>
 	</resultMap>
+	
+	<update id="updateConnectionState">
+		UPDATE connection
+		SET step = #{step}
+		WHERE id = #{connectionId}
+	</update>
 </mapper>
