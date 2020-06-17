@@ -22,4 +22,10 @@
 		WHERE TEACHER.EMAIL = #{email}
 	</select>
 	
+	<select id="selectTeacherById" resultType="teacher">
+		SELECT id, email, name, phone
+		FROM teacher
+		WHERE id = #{id} 
+	</select>
+	
 </mapper>
