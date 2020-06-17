@@ -7,21 +7,266 @@
 <html>
 <head>
 <title>MyPageTeacher</title>
-<style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
-	.mypage-teacher-status {
-		margin: auto;
-        border: 1px solid black;
-        width: 600px;
-        padding: 30px 30px 30px 30px;
-	}
-	
-	table {
-		border-collapse: collapse;
-		border: 1px solid;
-	}
-	
+<!-- jQuery Modal -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<style>
+.mypage-teacher-status {
+	margin: auto;
+	border: 1px solid black;
+	width: 600px;
+	padding: 30px 30px 30px 30px;
+}
+
+table, td, th {
+	border: 1px solid #ddd;
+	text-align: left;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	padding: 15px;
+}
+
+a.modalA:link, a.modalA:visited {
+  background-color: #ffbe0d;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a.modalA:hover, a.modalA:active {
+  background-color: #ffe18f;
+}
 </style>
+<script type="text/javascript">
+	function setConnection(e) {
+		var modal = document.getElementById("ex1");
+		$('#ex1').empty();
+
+		const connectionId = event.target.getAttribute('data-arg1');
+		const url = "http://localhost:8080/swithMe/connection/" + connectionId
+				+ "/detail";
+
+		$
+				.ajax({
+					url : url,
+					type : "GET",
+					dateType : "json",
+					contentType : "application/json",
+					success : function(detail) {
+						console.log(detail);
+
+						var table = document.createElement('table');
+
+						var tr = document.createElement('tr');
+
+						var td1 = document.createElement('td');
+						td1.innerHTML = '이름';
+						var td2 = document.createElement('td');
+						var sGender = detail.studentInfo.studentGender == 'WOMEN' ? "여자 학생"
+								: "남자 학생";
+						td2.innerHTML = detail.student.name + "(" + sGender
+								+ ")";
+
+						tr.appendChild(td1);
+						tr.appendChild(td2);
+						table.appendChild(tr);
+
+						tr = document.createElement('tr');
+						td1 = document.createElement('td');
+						td1.innerHTML = '학교';
+						td2 = document.createElement('td');
+						td2.innerHTML = detail.studentInfo.school.name + "("
+								+ detail.studentInfo.schoolType + ") "
+								+ detail.studentInfo.status + "중";
+
+						tr.appendChild(td1);
+						tr.appendChild(td2);
+						table.appendChild(tr);
+
+						if (detail.step == 'MATCH') {
+							tr = document.createElement('tr');
+							td1 = document.createElement('td');
+							td1.innerHTML = '전화번호';
+							td2 = document.createElement('td');
+							td2.innerHTML = detail.student.phone;
+
+							tr.appendChild(td1);
+							tr.appendChild(td2);
+							table.appendChild(tr);
+						}
+
+						modal.appendChild(table);
+
+						if (detail.studentMatch != null
+								&& detail.studentMatch.id != null) {
+							tr = document.createElement('tr');
+							td1 = document.createElement('td');
+							td1.innerHTML = '본인이 생각하는 과목 수준';
+							td2 = document.createElement('td');
+							td2.innerHTML = detail.studentMatch.ability == 1 ? '하'
+									: detail.studentMatch.ability == 2 ? '중'
+											: '상';
+
+							tr.appendChild(td1);
+							tr.appendChild(td2);
+							table.appendChild(tr);
+
+							tr = document.createElement('tr');
+							td1 = document.createElement('td');
+							td1.innerHTML = '수업 가능한 시간';
+							td2 = document.createElement('td');
+							var time = "";
+							for ( var t in detail.studentMatch.times) {
+								time += detail.studentMatch.times[t].time == 'am' ? "오전 "
+										: detail.studentMatch.times[t].time == 'pm' ? "오후 "
+												: "저녁 "
+							}
+							td2.innerHTML = time;
+
+							tr.appendChild(td1);
+							tr.appendChild(td2);
+							table.appendChild(tr);
+
+							tr = document.createElement('tr');
+							td1 = document.createElement('td');
+							td1.innerHTML = '수업 가능한 지역';
+							td2 = document.createElement('td');
+							var region = "";
+							for ( var r in detail.studentMatch.studentRegion) {
+								region += detail.studentMatch.studentRegion[r].name
+										+ " ";
+							}
+							td2.innerHTML = region;
+
+							tr.appendChild(td1);
+							tr.appendChild(td2);
+							table.appendChild(tr);
+
+							tr = document.createElement('tr');
+							td1 = document.createElement('td');
+							td1.innerHTML = '성적 메모';
+							td2 = document.createElement('td');
+							td2.innerHTML = detail.studentMatch.grade;
+
+							tr.appendChild(td1);
+							tr.appendChild(td2);
+							table.appendChild(tr);
+
+							tr = document.createElement('tr');
+							td1 = document.createElement('td');
+							td1.innerHTML = '선생님게 하고싶은 말';
+							td2 = document.createElement('td');
+							td2.innerHTML = detail.studentMatch.memo;
+
+							tr.appendChild(td1);
+							tr.appendChild(td2);
+							table.appendChild(tr);
+
+							var testResultTable = document
+									.createElement('table');
+
+							for ( var t in detail.studentMatch.test) {
+
+								tr = document.createElement('tr');
+
+								var nTd1 = document.createElement('td')
+								nTd1.setAttribute('colspan', 2);
+								nTd1.innerHTML = (t + 1) + "번 문제";
+
+								tr.appendChild(nTd1);
+								testResultTable.appendChild(tr);
+
+								tr = document.createElement('tr');
+								var nTd2 = document.createElement('td');
+								nTd2.innerHTML = '문제';
+								var nTd3 = document.createElement('td');
+								nTd3.innerHTML = detail.studentMatch.test[t].studentTestPaper.question;
+
+								tr.appendChild(nTd2);
+								tr.appendChild(nTd3);
+								testResultTable.appendChild(tr);
+
+								tr = document.createElement('tr');
+								nTd2 = document.createElement('td');
+								nTd2.innerHTML = '문제의 답';
+								nTd3 = document.createElement('td');
+								nTd3.innerHTML = detail.studentMatch.test[t].studentTestPaper.answer;
+
+								tr.appendChild(nTd2);
+								tr.appendChild(nTd3);
+								testResultTable.appendChild(tr);
+
+								tr = document.createElement('tr');
+								nTd2 = document.createElement('td');
+								nTd2.innerHTML = '제출된 답';
+								nTd3 = document.createElement('td');
+								nTd3.innerHTML = detail.studentMatch.test[t].studentAnswer;
+
+								tr.appendChild(nTd2);
+								tr.appendChild(nTd3);
+								testResultTable.appendChild(tr);
+							}
+
+							modal.appendChild(testResultTable);
+						}
+
+						//버튼도 추가
+						if (detail.step == 'REQUEST') {
+							var aTag = document.createElement("a");
+							aTag.className='modalA';
+							aTag.href = "<c:url value='/teacher/connection/"
+									+ connectionId + "?state=REJECT'/>";
+							aTag.innerHTML = "거절";
+
+							modal.appendChild(aTag);
+
+							aTag = document.createElement("a");
+							aTag.className='modalA';
+							aTag.href = "<c:url value='/teacher/connection/"
+									+ connectionId + "?state=MATCH'/>";
+							aTag.innerHTML = "수락";
+
+							modal.appendChild(aTag);
+						}
+						if (detail.step == 'MATCH') {
+							var aTag = document.createElement("a");
+							aTag.className='modalA';
+							aTag.href = "<c:url value='/teacher/connection/"
+									+ connectionId + "?state=REJECT'/>";
+							aTag.innerHTML = "거절";
+
+							modal.appendChild(aTag);
+
+							aTag = document.createElement("a");
+							aTag.className='modalA';
+							aTag.href = "<c:url value='/teacher/connection/"
+									+ connectionId + "?state=CLASS'/>";
+							aTag.innerHTML = "최종 수락";
+
+							modal.appendChild(aTag);
+						}
+
+					},
+					error : function(error) {
+						alert(errorThrown.statusText);
+					}
+				});
+	}
+</script>
 </head>
 <body>
 
@@ -29,14 +274,15 @@
 
 		<!-- 프로필 사진 -->
 
-		<a href="<c:url value=''/>">회원 정보 수정</a> &nbsp; 
-		<a href="<c:url value=''/>">매칭 정보 수정</a>
+		<a href="<c:url value=''/>">회원 정보 수정</a> &nbsp; <a
+			href="<c:url value=''/>">매칭 정보 수정</a>
 
 	</div>
 
 	<div class="mypage-teacher-status">
-	<p> 수업 신청 현황 </p>
-	<table border="1px" id="status" width="200px">
+		<p>수업 신청 현황</p>
+		<div id="ex1" class="modal"></div>
+		<table border="1px" id="status" width="200px">
 			<thead>
 				<tr>
 					<td>요청</td>
@@ -44,22 +290,41 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>ㅇㅇㅇ학생<br>과목명</td>
-					<td><a href="<c:url value='/mypage/teacher/request'/>">신청 요청</a></td>
-				</tr>
-				<tr>
-					<td>ㅂㅂㅂ학생<br>과목명</td>
-					<td><a href="<c:url value='/mypage/teacher/class'/>">수업 중</a></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-				</tr>
-				
+				<c:forEach items="${connections }" var="conn">
+					<tr>
+						<td>${conn.student }(${conn.subject })</td>
+						<td><c:choose>
+								<c:when test="${conn.step == 'CLASS' }">
+									<p>수업중</p>
+									<br>
+									<a
+										href="<c:url value='/teacher/connection/${conn.connectionId}?state=FINISH'/>">수업
+										종료</a>
+								</c:when>
+								<c:when test="${conn.step == 'REJECT' }">
+									<p>수업 거절</p>
+								</c:when>
+								<c:when test="${conn.step == 'FINISH' }">
+									<p>수업 종료</p>
+								</c:when>
+								<c:when test="${conn.step == 'MATCH' }">
+									<p>
+										<a href="#ex1" rel="modal:open" onclick="setConnection()"
+											data-arg1="${conn.connectionId }">요청 확인</a>
+									</p>
+								</c:when>
+								<c:otherwise>
+									<p>
+										<a href="#ex1" rel="modal:open" onclick="setConnection()"
+											data-arg1="${conn.connectionId }">수업 요청</a>
+									</p>
+								</c:otherwise>
+							</c:choose></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
-	
+
 	</div>
 
 
