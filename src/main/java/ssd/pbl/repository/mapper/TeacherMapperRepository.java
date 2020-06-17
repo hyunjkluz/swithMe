@@ -29,4 +29,8 @@ public class TeacherMapperRepository {
 	public Teacher selectTeacherById(Integer id) {
 		return teacherMapper.selectTeacherById(id);
 	}
+	
+	public Integer selectTeacherMatchIdByTeacherId(Integer teacherId) {
+		return teacherMapper.selectTeacherMatchIdByTeacherId(teacherId);
+	}
 }

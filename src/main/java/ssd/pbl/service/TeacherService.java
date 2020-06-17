@@ -21,5 +21,9 @@ public class TeacherService {
 	public Teacher getTeacherByid(Integer teacherId) {
 		return teacherMapperRepo.selectTeacherById(teacherId);
 	}
+	
+	public Integer getTeacherMatchIdByTeacherId(Integer teacherId) {
+		return teacherMapperRepo.selectTeacherMatchIdByTeacherId(teacherId);
+	}
 
 }

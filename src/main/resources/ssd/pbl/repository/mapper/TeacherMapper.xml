@@ -28,4 +28,10 @@
 		WHERE id = #{id} 
 	</select>
 	
+	<select id="selectTeacherMatchIdByTeacherId" resultType="Integer">
+		SELECT id
+		FROM teacherMatch
+		WHERE teacher = #{teacherId}
+	</select>
+	
 </mapper>

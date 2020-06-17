@@ -15,4 +15,6 @@ public interface TeacherMapper {
 	LoginForm selectTeacher(String email);
 	
 	Teacher selectTeacherById(@Param("id") Integer id);
+	
+	Integer selectTeacherMatchIdByTeacherId(@Param("teacherId") Integer teacherId);
 }
