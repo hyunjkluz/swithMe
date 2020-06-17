@@ -58,6 +58,13 @@ public class LogInOutController {
 					LOGGER.info("자동매칭중");
 					return "redirect:http://localhost:8080/swithMe/student/match/step5";
 				}
+				if (forwardAction.contains("/class") && forwardAction.contains("/request")) {
+					LOGGER.info("일반 수업 신청");
+					String[] paths = forwardAction.split("/");
+					String classId = paths[5];
+
+					return "redirect:http://localhost:8080/swithMe/class/" + classId;
+				}
 				
 				// 로그인 이전 페이지가 학생/선생님 마이페이지
 				if (forwardAction.contains("/mypage/teacher.do")) {
