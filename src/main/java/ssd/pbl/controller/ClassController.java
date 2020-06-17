@@ -48,6 +48,7 @@ public class ClassController {
 		return subjectService.getAllAubject();
 	}
 
+	// 수업 상세 페이지
 	@RequestMapping(value = "/class/{classId}", method = RequestMethod.GET)
 	public ModelAndView getClassTeacherDetail(@PathVariable int classId, Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView("match/TeacherDetail");
@@ -58,6 +59,7 @@ public class ClassController {
 		return mav;
 	}
 
+	// 수업 상세 페이지 모달용
 	@RequestMapping(value = "/class/{classId}/detail", method = RequestMethod.GET)
 	@ResponseBody
 	public ClassTeacherDetail getClassTeacherDetailJson(@PathVariable int classId) {
@@ -72,6 +74,7 @@ public class ClassController {
 		return mav;
 	}
 
+	// 선택한 과목별로 수업 필터링
 	@RequestMapping(value = "/class/subject", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ClassCard> getClassListSelectBySubjectId(@RequestParam Map<String, Object> param) {
@@ -90,6 +93,6 @@ public class ClassController {
 		LOGGER.info(result.toString());
 
 		return result;
-//		return classService.getClassBySubjectId(subIds);
 	}
+
 }
