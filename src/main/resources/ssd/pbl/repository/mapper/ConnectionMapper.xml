@@ -7,7 +7,7 @@
 
 	<insert id="insertConnection" parameterType="studentMatchForm">
 		INSERT INTO connection (student, teacher, step, subject, studentMatch, registeredAt, updatedAt) 
-		VALUES (#{studentId}, #{teacherId},  ‘DEMO’, #{subjectId}, #{studentMathId, javaType=int, jdbcType=NUMERIC}, SYSDATE, SYSDATE)
+		VALUES (#{studentId}, #{teacherId},  'REQUEST', #{subjectId}, #{studentMatchId, javaType=int, jdbcType=NUMERIC}, SYSDATE, SYSDATE)
 		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
 			SELECT CONNECTION_SEQ.currval FROM dual
 		</selectKey>
