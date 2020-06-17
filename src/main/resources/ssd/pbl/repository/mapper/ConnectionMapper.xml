@@ -171,5 +171,16 @@
 		JOIN major m
 		ON m.id = ti.major
 	</select>
+	
+	<select id="selectConnectionCardByConnectionId" resultType="ConnectionCard">
+		SELECT c.id connectionId, c.step step, t.name teacher, sub.name subject
+		FROM connection c
+		JOIN student s
+		ON c.id = #{connectionId} AND s.id = c.student
+		JOIN subject sub
+		ON sub.id = c.subject
+		JOIN teacher t
+		ON t.id = c.teacher 
+	</select>
 
 </mapper>

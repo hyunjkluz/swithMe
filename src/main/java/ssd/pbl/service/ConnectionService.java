@@ -42,4 +42,8 @@ public class ConnectionService {
 	public RequestTeacher getResuestTeacherByConnectionId(Integer connectionId) {
 		return connectionMapperRepository.selectResuestTeacherByConnectionId(connectionId);
 	}
+	
+	public ConnectionCard getConnectionCardByConnectionId(Integer connectionId) {
+		return connectionMapperRepository.selectConnectionCardByConnectionId(connectionId);
+	}
 }

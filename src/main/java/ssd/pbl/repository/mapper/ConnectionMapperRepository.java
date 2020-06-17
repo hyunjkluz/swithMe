@@ -41,4 +41,8 @@ public class ConnectionMapperRepository {
 	public RequestTeacher selectResuestTeacherByConnectionId(Integer connectionId) {
 		return connectionMaper.selectResuestTeacherByConnectionId(connectionId);
 	}
+	
+	public ConnectionCard selectConnectionCardByConnectionId(Integer connectionId) {
+		return connectionMaper.selectConnectionCardByConnectionId(connectionId);
+	}
 }

@@ -31,4 +31,6 @@ public interface ConnectionMapper {
 	Integer updateConnectionState(@Param("connectionId") Integer connectionId, @Param("step") String step);
 	
 	RequestTeacher selectResuestTeacherByConnectionId(@Param("connectionId") Integer connectionId);
+	
+	ConnectionCard selectConnectionCardByConnectionId(@Param("connectionId") int connectionId);
 }
