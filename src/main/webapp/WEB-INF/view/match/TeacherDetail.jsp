@@ -44,7 +44,9 @@
 		</table>
 
 		<br>
-		<input type="submit" value="수업 신청하기" />
+		<c:if test="${userSession == null || userSession.type == 'student'}">
+			<input type="submit" value="수업 신청하기" />
+		</c:if>
 		<br>
 		<br>
 
