@@ -16,8 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.WebUtils;
 
+import ssd.pbl.model.StudentRequest;
 import ssd.pbl.service.ClassService;
 import ssd.pbl.service.ConnectionService;
 
@@ -52,7 +54,7 @@ public class ConnectionController {
 	public String getAllStudentConnection(Model model, HttpSession session) {
 		LOGGER.info("ConnectionController2-getAllStudentConnection");
 		UserSession userSession= (UserSession) session.getAttribute("userSession");
-		String email = userSession.getId();
+//		String email = userSession.getId();
 		
 		//model.addAttribute("connectionList", connectionService.getConnectionlist(sid));
 		return "board/MyClassList";
@@ -64,6 +66,13 @@ public class ConnectionController {
 		LOGGER.info("ConnectionController2-getAllTeacherConnection");
 		model.addAttribute("connectionList", null);
 		return "board/MyClassList";
+	}
+	
+	// 요청정보 > JSON
+	@RequestMapping(value="/connection/{connectionId}/detail", method=RequestMethod.GET)
+	@ResponseBody
+	public StudentRequest getStudentRequestDetail(@PathVariable int connectionId) {
+		return connectionService.getStudentRequestByConnectionId(connectionId);
 	}
 
 }
