@@ -18,6 +18,8 @@ public interface StudentMapper {
 	Integer insertStudentMatch(StudentMatchForm studentMatchForm);
 
 	Integer insertStudentRegion(@Param("id") int id, @Param("dongId") int dongId);
+	
+	Integer insertStudentTime(@Param("id") int id, @Param("time") String time);
 
 	Integer insertStudentCharacter(@Param("id")int id, @Param("characterId") int characterId);
 

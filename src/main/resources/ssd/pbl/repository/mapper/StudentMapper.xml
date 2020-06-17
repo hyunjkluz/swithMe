@@ -9,13 +9,18 @@
 		studentMatch (ability, teacherGender, grade, memo, registeredAt, updatedAt, testResult)
 		VALUES (#{level}, #{gender}, #{memo}, #{toTeacher}, SYSDATE, SYSDATE, #{testResult})
 		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
-			SELECT STUDENT_SEQ.currval FROM dual
+			SELECT STUDENTMATCH_SEQ.currval FROM dual
 		</selectKey>
 	</insert>
 
 	<insert id="insertStudentRegion">
 		INSERT INTO studentRegion (studentMatch, dong) 
 		VALUES (#{id}, #{dongId})
+	</insert>
+	
+	<insert id="insertStudentTime">
+		INSERT INTO studentTimes (studentMatch, time) 
+		VALUES (#{id}, #{time})
 	</insert>
 	
 	<insert id="insertStudentCharacter">

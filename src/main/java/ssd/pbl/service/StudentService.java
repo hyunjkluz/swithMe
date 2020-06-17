@@ -26,7 +26,7 @@ public class StudentService {
 		}
 		studentMatchForm.setTestResult(testResult);
 		
-		int studentMatchId = studentMapperRepository.insertStudentMatch(studentMatchForm);
+		int studentMatchId = studentMapperRepository.insertStudentMatch(studentId, studentMatchForm);
 		
 		return studentMatchId;
 	}

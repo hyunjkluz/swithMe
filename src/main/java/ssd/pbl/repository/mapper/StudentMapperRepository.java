@@ -16,12 +16,14 @@ import ssd.pbl.model.StudentTest;
 
 @Repository
 public class StudentMapperRepository {
-	
+
 	@Autowired
 	private StudentMapper studentMapper;
+	@Autowired
+	private ConnectionMapper connectionMapper;
 
 	@Transactional
-	public Integer insertStudentMatch(StudentMatchForm studentMatchForm) throws DataAccessException {
+	public Integer insertStudentMatch(Integer studentId, StudentMatchForm studentMatchForm) throws DataAccessException {
 		studentMapper.insertStudentMatch(studentMatchForm);
 		int studentMatchId = studentMatchForm.getId();
 
@@ -30,6 +32,9 @@ public class StudentMapperRepository {
 			studentMapper.insertStudentRegion(studentMatchId, dongId);
 		}
 
+		// 수업 시간 insert
+		studentMapper.insertStudentTime(studentMatchId, studentMatchForm.getTime());
+				
 		// 성향 insert
 		studentMapper.insertStudentCharacter(studentMatchId, studentMatchForm.getCh1());
 		studentMapper.insertStudentCharacter(studentMatchId, studentMatchForm.getCh2());
@@ -42,6 +47,9 @@ public class StudentMapperRepository {
 			studentMapper.insertStudentTestResult(studentMatchId, st.getStudentTestPaper().getId(),
 					st.getStudentAnswer());
 		}
+
+		System.out.println("매칭 정보 아이디 : " + studentMatchId);
+		connectionMapper.insertConnection(studentId, studentMatchForm.getTeacherId(), studentMatchForm.getSubjectId(), studentMatchId);
 
 		return studentMatchId;
 	}
@@ -61,7 +69,7 @@ public class StudentMapperRepository {
 	public LoginForm selectStudent(String email) {
 		return studentMapper.selectStudent(email);
 	}
-	
+
 	public boolean selectCountStudentEmail(String email) {
 		if (studentMapper.selectCountStudentEmail(email) == 0) {
 			return false;
@@ -69,15 +77,15 @@ public class StudentMapperRepository {
 			return true;
 		}
 	}
-		
+
 	public List<SchoolForm> selectSchool(String school) {
 		return studentMapper.selectSchoolListBySchoolName(school);
 	}
-	
+
 	public String selectEmailByNameAndPhone(FindIDForm findIDForm) {
 		return studentMapper.selectEmailByNameAndPhone(findIDForm);
 	}
-	
+
 	public UserSession selectStudentUserInfo(String email) {
 		return studentMapper.selectStudentUserInfo(email);
 	}
