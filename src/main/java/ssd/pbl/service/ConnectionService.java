@@ -18,5 +18,9 @@ public class ConnectionService {
 	public List<ConnectionCard> getConnectionlist(int sid) {
 		return  connectionMapperRepository.selectConnectionList(sid);
 	}
+	
+	public Integer postConnection(Integer studentId, Integer teacherId, Integer subjectId, Integer studentMatchId) {
+		return connectionMapperRepository.insertConnection(studentId, teacherId, subjectId, studentMatchId);
+	}
 
 }
