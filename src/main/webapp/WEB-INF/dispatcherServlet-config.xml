@@ -51,6 +51,7 @@
 			<mvc:mapping path="/class/{classId}/request"/>
 			<mvc:mapping path="/mypage/teacher.do"/>
 			<mvc:mapping path="/mypage/student.do"/>
+			<mvc:mapping path="/review/connection/{connectionId}"/>
 			<bean class="ssd.pbl.controller.LoginInterceptor" />
 		</mvc:interceptor> 
 	</mvc:interceptors>
