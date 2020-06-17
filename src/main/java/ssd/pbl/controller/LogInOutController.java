@@ -1,13 +1,9 @@
 package ssd.pbl.controller;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +24,6 @@ import ssd.pbl.service.AuthService;
 @RequestMapping("/auth")
 @SessionAttributes("userSession")
 public class LogInOutController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(LogInOutController.class);
 	
 	@Autowired
 	private AuthService authService;
@@ -39,9 +34,8 @@ public class LogInOutController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute("loginForwardAction") String forwardAction,
-			@Valid @ModelAttribute("loginForm") LoginForm loginForm,
-			@RequestParam("type") String type, HttpSession session, BindingResult result, Model model) throws Exception {
+	public String login(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult result,
+			@RequestParam("type") String type, HttpSession session, Model model) throws Exception {
 		if (result.hasErrors()) {
 			return "auth/LoginForm";
 		}
@@ -51,30 +45,6 @@ public class LogInOutController {
 				UserSession userSession = authService.getInfo(loginForm);
 				userSession.setType(type);
 				session.setAttribute("userSession", userSession);
-				
-				LOGGER.info("이전 URL : " + forwardAction);
-				// 로그인 이전 페이지가 학생 자동매칭이면 다시 원래 페이지로 돌아감.
-				if (forwardAction.contains("/student/match")) {
-					LOGGER.info("자동매칭중");
-					return "redirect:http://localhost:8080/swithMe/student/match/step5";
-				}
-				if (forwardAction.contains("/class") && forwardAction.contains("/request")) {
-					LOGGER.info("일반 수업 신청");
-					String[] paths = forwardAction.split("/");
-					String classId = paths[5];
-
-					return "redirect:http://localhost:8080/swithMe/class/" + classId;
-				}
-				
-				// 로그인 이전 페이지가 학생/선생님 마이페이지
-				if (forwardAction.contains("/mypage/teacher.do")) {
-					return "redirect:http://localhost:8080/swithMe/mypage/teacher.do";
-				}
-				
-				if (forwardAction.contains("/mypage/student.do")) {
-					return "redirect:http://localhost:8080/swithMe/mypage/student.do";
-				}
-				
 				return "main";
 			} else {
 				return "auth/LoginForm";
@@ -88,10 +58,9 @@ public class LogInOutController {
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
-//		authService.logout(session);
-		session.removeAttribute("userSession");
-//		session.invalidate();
+	public String logout(HttpSession session, SessionStatus status) {
+		status.setComplete();
+//		session.removeAttribute("userSession");
 		return "redirect:/";
 	}
 	
