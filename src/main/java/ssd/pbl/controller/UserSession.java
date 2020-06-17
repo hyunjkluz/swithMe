@@ -7,17 +7,18 @@ public class UserSession {
 	private String email;
 	private String name;
 	private File profileImg;
-	private String id;
+	private Integer id;
 	private String step;
-	
-	public UserSession() {}
-	
+
+	public UserSession() {
+	}
+
 	public UserSession(String email) {
 		super();
 		this.email = email;
 	}
-	
-	public UserSession(String type, String email, String name, File profileImg, String id, String step) {
+
+	public UserSession(String type, String email, String name, File profileImg, Integer id, String step) {
 		super();
 		this.type = type;
 		this.email = email;
@@ -30,30 +31,31 @@ public class UserSession {
 	public String getType() {
 		return type;
 	}
-	
+
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	public String getId() {
+
+	public Integer getId() {
 		return id;
 	}
-	
-	public void setId(String id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public File getProfileImg() {
 		return profileImg;
 	}
-	
+
 	public void setProfileImg(File profileImg) {
 		this.profileImg = profileImg;
 	}
@@ -73,6 +75,5 @@ public class UserSession {
 	public void setStep(String step) {
 		this.step = step;
 	}
-	
-	
+
 }
