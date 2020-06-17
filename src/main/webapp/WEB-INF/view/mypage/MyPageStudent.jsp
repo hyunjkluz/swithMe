@@ -139,7 +139,7 @@ th, td {
 								<c:when test="${conn.step == 'REVIEW' }">
 									<p>수업 완료</p>
 									<br />
-									<a href="<c:url value='/connection/${conn.connectionId}/review.do'/>">수업 후기 작성하기</a>
+									<a href="<c:url value='/review/connection/${conn.connectionId}'/>">수업 후기 작성하기</a>
 								</c:when>
 								<c:when test="${conn.step == 'CLASS' }">
 									<p>수업 중</p>
