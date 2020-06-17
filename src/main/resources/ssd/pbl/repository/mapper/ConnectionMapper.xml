@@ -153,4 +153,23 @@
 		SET step = #{step}
 		WHERE id = #{connectionId}
 	</update>
+
+	<select id="selectResuestTeacherByConnectionId" resultType="RequestTeacher">
+		SELECT c.id "connectionId", c.step "step",
+		t.id "teacher.id", t.name "teacher.name", t.phone "teacher.phone", ti.profileImg "teacherInfo.profileImg",
+		ti.teacherGender "teacherInfo.teacherGender", ti.entranceyear "teacherInfo.entranceYear", ti.status "teacherInfo.status",
+		u.id "teacherInfo.university.id", u.name "teacherInfo.university.name", m.id "teacherInfo.major.id", m.name "teacherInfo.major.name"
+		FROM connection c
+		JOIN teacher t
+		ON c.id = #{connectionId} AND c.teacher = t.id
+		JOIN teacherInfo ti
+		ON ti.teacher = t.id
+		JOIN subject s
+		ON s.id = c.subject
+		JOIN university u
+		ON u.id = ti.university
+		JOIN major m
+		ON m.id = ti.major
+	</select>
+
 </mapper>

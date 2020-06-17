@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import ssd.pbl.model.ConnectionCard;
+import ssd.pbl.model.RequestTeacher;
 import ssd.pbl.model.StudentMatchForm;
 import ssd.pbl.model.StudentRequest;
 
@@ -28,4 +29,6 @@ public interface ConnectionMapper {
 	StudentRequest selectStudentRequestByConnectionId(@Param("connectionId") int connectionId);
 	
 	Integer updateConnectionState(@Param("connectionId") Integer connectionId, @Param("step") String step);
+	
+	RequestTeacher selectResuestTeacherByConnectionId(@Param("connectionId") Integer connectionId);
 }
