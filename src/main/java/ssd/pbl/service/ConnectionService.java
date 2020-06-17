@@ -33,4 +33,8 @@ public class ConnectionService {
 	public StudentRequest getStudentRequestByConnectionId(Integer connectionId) {
 		return connectionMapperRepository.selectStudentRequestByConnectionId(connectionId);
 	}
+	
+	public Integer putConnectionState(Integer connectionId, String step) {
+		return connectionMapperRepository.updateConnectionState(connectionId, step);
+	}
 }
