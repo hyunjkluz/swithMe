@@ -60,7 +60,6 @@ public class LogInOutController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session, SessionStatus status) {
 		status.setComplete();
-//		session.removeAttribute("userSession");
 		return "redirect:/";
 	}
 	
