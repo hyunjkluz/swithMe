@@ -18,4 +18,133 @@
 		FROM CONNECTION
 		WHERE CONNECTION.STUDENT = #{sid}
 	</select>
+	
+	<select id="selectTeachersConnectionByTeacherId" resultType="ConnectionCard">
+		SELECT c.id connectionId, c.step step, s.name student, sub.name subject
+		FROM connection c
+		JOIN teacher t
+		ON t.id = #{teacherId} AND t.id = c.teacher
+		JOIN subject sub
+		ON sub.id = c.subject
+		JOIN student s
+		ON s.id = c.student
+	</select>
+	
+	<select id="selectStudentsConnectionByStudentId" resultType="ConnectionCard">
+		SELECT c.id connectionId, c.step step, t.name teacher, sub.name subject
+		FROM connection c
+		JOIN student s
+		ON s.id = #{studentId} AND s.id = c.student
+		JOIN subject sub
+		ON sub.id = c.subject
+		JOIN teacher t
+		ON t.id = c.teacher
+	</select>
+	
+	<select id="selectStudentRequestByConnectionId" resultMap="sr">
+		SELECT c.id id, c.step step,
+		s.id "studentId", s.name "studentName", s.phone "studentPhone",
+		sub.id "subId", sub.name "subName", sub.category "subCategory",
+		si.id "studentInfoId", si.studentgender "studentGender", 
+		si.schooltype "schoolType", si.status "schoolStatus", si.schoolcategory "schoolCategory",
+		si.grade "schoolGrade", si.profileimg "profileImg",
+		sch.id "schoolId", sch.name "schoolName",
+		sm.id "studentMatchId", sm.ability "matchAbility", sm.teachergender "teacherGender", 
+		sm.memo "matchMemo", sm.grade "matchGrade", sm.testresult "testResult",
+		str.answer "testAnswer", stp.question "testPaperQuestion", stp.answer "testPaperAnswer", stp.ability "testPaperAbility",
+		st.id "timeId", st.time "time",
+		d.id "dongId", d.name "dongName",
+		chr.id "charId", chr.name "charName", chr.description "charDesc"
+		FROM connection c
+		JOIN student s
+		ON c.id = #{connectionId} AND s.id = c.student
+		JOIN studentInfo si
+		ON si.student = s.id
+		JOIN school sch
+		ON sch.id = si.school
+		LEFT JOIN studentMatch sm
+		ON c.studentmatch = sm.id
+		LEFT JOIN studentTestResult str
+		ON str.studentmatch = sm.id
+		LEFT JOIN subjectTestPaper stp
+		ON str.testpaper = stp.id
+		LEFT JOIN studentTimes st
+		ON st.studentmatch = sm.id
+		LEFT JOIN studentRegion sr
+		ON sr.studentmatch = sm.id
+		LEFT JOIN dong d
+		ON d.id = sr.dong
+		LEFT JOIN studentCharacter sc
+		ON sc.studentmatch = sm.id
+		LEFT JOIN character chr
+		ON chr.id = sc.character
+		JOIN subject sub
+		ON sub.id = c.subject
+	</select>
+	
+	<resultMap type="StudentRequest" id="sr">
+		<id property="id" column="id"/>
+		<result property="step" column="step"/>
+		
+		<association property="subject" column="subject" javaType="Subject">
+			<id property="id" column="subId"/>
+			<result property="name" column="subName"/>
+			<result property="category" column="subCategory"/>
+		</association>
+		
+		<association property="student" column="student" javaType="Student">
+			<id property="id" column="studentId"/>
+			<result property="name" column="studentName"/>
+			<result property="phone" column="studentPhone"/>
+		</association>
+		
+		<association property="studentInfo" column="student" javaType="StudentInfo">
+			<id property="id" column="studentInfoId"/>
+			<result property="studentGender" column="studentGender"/>
+			<result property="schoolCategory" column="schoolCategory"/>
+			<result property="schoolType" column="schoolType"/>
+			<result property="status" column="schoolStatus"/>
+			<result property="grade" column="schoolGrade"/>
+			<result property="profileImg" column="profileImg"/>
+			<association property="school" column="school" javaType="SchoolForm">
+				<id property="id" column="schoolId"/>
+				<result property="name" column="schoolName"/>
+			</association>
+		</association>
+		
+		<association property="studentMatch" column="student" javaType="studentMatch">
+			<id property="id" column="studentMatchId"/>
+			<result property="ability" column="matchAbility"/>
+			<result property="teacherGender" column="teacherGender"/>
+			<result property="grade" column="matchGrade"/>
+			<result property="memo" column="matchMemo"/>
+			<result property="testResult" column="testResult"/>
+			
+			<collection property="times" ofType="StudentTimes">	
+				<id property="id" column="timeId"/>
+				<result property="time" column="time"/>
+			</collection>
+			
+			<collection property="studentRegion" ofType="Dong">
+				<id property="id" column="dongId"/>
+				<result property="name" column="dongName"/>
+			</collection>
+			
+			<collection property="studentCharacter" ofType="Character">
+				<id property="id" column="charId"/>
+				<result property="name" column="charName"/>
+				<result property="description" column="charDes"/>
+			</collection>
+			
+			<collection property="test" ofType="StudentTest">
+				<result property="studentAnswer" column="testAnswer"/>
+				<association property="studentTestPaper" column="testPaper" javaType="SubjectTestPaper">
+					<id property="id" column="testPaperId"/>
+					<result property="question" column="testPaperQuestion"/>
+					<result property="answer" column="testPaperAnswer"/>
+					<result property="ability" column="testPaperAbility"/>
+				</association>
+			</collection>
+		</association>
+	</resultMap>
 </mapper>

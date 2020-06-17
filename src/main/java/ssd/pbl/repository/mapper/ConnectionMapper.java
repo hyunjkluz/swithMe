@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 
 import ssd.pbl.model.ConnectionCard;
 import ssd.pbl.model.StudentMatchForm;
+import ssd.pbl.model.StudentRequest;
 
 /**
  * @author kimhyunjin
@@ -19,4 +20,10 @@ public interface ConnectionMapper {
 			@Param("subjectId") Integer subjectId, @Param("studentMatchId") Integer studentMatchId);
 
 	List<ConnectionCard> selectConnectionList(int sid);
+	
+	List<ConnectionCard> selectTeachersConnectionByTeacherId(@Param("teacherId") int teacherId);
+	
+	List<ConnectionCard> selectStudentsConnectionByStudentId(@Param("studentId") int studentId);
+	
+	StudentRequest selectStudentRequestByConnectionId(@Param("connectionId") int connectionId);
 }
