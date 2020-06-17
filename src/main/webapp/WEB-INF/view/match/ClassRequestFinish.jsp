@@ -9,7 +9,7 @@
 	<title>SwithMe</title>
 </head>
 <body>
-	@@@ 선생님께 수업 요청이전송되었습니다.
+	${name } 선생님께 수업 요청이전송되었습니다.
 	<a href="<c:url value='/main'/>">홈으로</a>
 
 </body>
