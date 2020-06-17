@@ -48,6 +48,7 @@
 	<mvc:interceptors> 
 		<mvc:interceptor>
 			<mvc:mapping path="/student/match/fin"/>
+			<mvc:mapping path="/class/{classId}/request"/>
 			<bean class="ssd.pbl.controller.LoginInterceptor" />
 		</mvc:interceptor> 
 	</mvc:interceptors>

@@ -27,20 +27,19 @@ import ssd.pbl.service.AuthService;
 @SessionAttributes("userSession")
 public class LogInOutController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LogInOutController.class);
-	
+
 	@Autowired
 	private AuthService authService;
-	
+
 	@RequestMapping(value = "/loginForm.do", method = RequestMethod.GET)
 	public String getLoginForm(@ModelAttribute("loginForm") LoginForm loginForm) {
 		return "auth/LoginForm";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(
-			@ModelAttribute("loginForwardAction") String forwardAction,
-			@Valid @ModelAttribute("loginForm") LoginForm loginForm,
-			@RequestParam("type") String type, HttpSession session, BindingResult result, Model model) throws Exception {
+	public String login(@ModelAttribute("loginForwardAction") String forwardAction,
+			@Valid @ModelAttribute("loginForm") LoginForm loginForm, @RequestParam("type") String type,
+			HttpSession session, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			return "auth/LoginForm";
 		}
@@ -49,28 +48,34 @@ public class LogInOutController {
 			if (authService.login(loginForm)) {
 				UserSession userSession = authService.getInfo(loginForm);
 				session.setAttribute("userSession", userSession);
-				
+
 				LOGGER.info("이전 URL : " + forwardAction);
 				// 로그인 이전 페이지가 학생 자동매칭이면 다시 원래 페이지로 돌아감.
 				if (forwardAction.contains("/student/match")) {
 					LOGGER.info("자동매칭중");
 					return "redirect:http://localhost:8080/swithMe/student/match/step5";
 				}
+				if (forwardAction.contains("/class")) {
+					LOGGER.info("수업요청 중");
+					String[] paths = forwardAction.split("/");
+					String classId = paths[5];
+
+					return "redirect:http://localhost:8080/swithMe/class/" + classId;
+				}
 				return "main";
 			} else {
 				return "auth/LoginForm";
 			}
-			
+
 		} catch (IDPWNotMatchingException e) {
-			result.reject("invalidIdOrPassword", 
-					new Object[] { loginForm.getEmail() }, null);
+			result.reject("invalidIdOrPassword", new Object[] { loginForm.getEmail() }, null);
 			return "auth/LoginForm";
 		}
 	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
 		return "main/index.do";
 	}
-	
+
 }
