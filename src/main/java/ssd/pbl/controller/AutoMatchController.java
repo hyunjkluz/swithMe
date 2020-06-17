@@ -267,7 +267,7 @@ public class AutoMatchController {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		LOGGER.info("로그인된 유저 정보 : " + userSession.getId());
 
-//		studentService.postAutoMatching(userSession.getId(), sMatchForm);
+		studentService.postAutoMatching(userSession.getId(), sMatchForm);
 		sessionStatus.isComplete();
 
 		return "match/ClassRequestFinish";
