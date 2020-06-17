@@ -25,6 +25,10 @@
 				<td>${detail.subject.name }(${detail.ability == 1 ? "하" : detail.ability == 2 ? "중" : "상"})</td>
 			</tr>
 			<tr>
+				<td>평점</td>
+				<td>${detail.teacher.rate}점</td>
+			</tr>
+			<tr>
 				<td>수업 희망 학생 성별</td>
 				<td>${detail.studentGender == 'ANY' ? "상관없음" : detail.studentGender == 'WOMEN' ? "여자 학생" : "남자 학생" }</td>
 			</tr>
@@ -79,7 +83,7 @@
 						flag += 1;
 					%>
 					<tr>
-						<td colspan="2">과목이름 (${detail.teacher.rate })</td>
+						<td colspan="2">${fb.subjectName } 과목 수강 후기 (${fb.rate }점)</td>
 					</tr>
 					<tr>
 						<td>${fb.content }</td>
