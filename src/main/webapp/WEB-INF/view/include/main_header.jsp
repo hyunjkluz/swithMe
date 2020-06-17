@@ -24,16 +24,21 @@
                 <div class="collapse navbar-collapse" id="navbar_out">
                 	<c:if test="${empty userSession}" >
 	                    <ul class="navbar-nav text-uppercase ml-auto">
-	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="auth/loginForm.do">로그인</a></li>
-	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="auth/signUp.do">회원가입</a></li>
+	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/auth/loginForm.do'/>">로그인</a></li>
+	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/auth/signUp.do'/>">회원가입</a></li>
 	                    </ul>
                     </c:if>
                     <c:if test="${not empty userSession}" >
 	                     <ul class="navbar-nav text-uppercase ml-auto">
-	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="main/class">과외 찾기</a></li>
+	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/main/class'/>">과외 찾기</a></li>
 	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/connection/' /><%=session.getAttribute("type")%>">나의 수업</a></li>
-	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="auth/signUp.do">ㅇㅇㅇ선생님</a></li>
-	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="logout">로그아웃</a></li>
+	                        <c:if test="${userSession.type == 'student' }">
+	                        	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/mypage/student.do'/>">${userSession.name } 학생</a></li>
+	                        </c:if>
+	                        <c:if test="${userSession.type == 'teacher' }">
+	                        	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/mypage/teacher.do'/>">${userSession.name } 선생님</a></li>
+	                        </c:if>
+	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='logout'/>logout">로그아웃</a></li>
 	                    </ul>
                     </c:if>
                 </div>
