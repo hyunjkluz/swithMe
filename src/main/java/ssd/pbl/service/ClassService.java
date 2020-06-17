@@ -4,6 +4,7 @@
 package ssd.pbl.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +50,10 @@ public class ClassService {
 
 	public List<ClassCard> getClassBySubjectId(List<Integer> subIds) {
 		return classMapperRepo.selectClassBySubjectId(subIds);
+	}
+
+	public Map<String, Integer> getTeacherAndSubjectByClassId(int classId) {
+		return classMapperRepo.selectTeacherAndSubjectByClassId(classId);
 	}
 
 }
