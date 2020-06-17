@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ssd.pbl.model.ConnectionCard;
+import ssd.pbl.model.RequestTeacher;
 import ssd.pbl.model.StudentRequest;
 import ssd.pbl.repository.mapper.ConnectionMapperRepository;
 
@@ -36,5 +37,9 @@ public class ConnectionService {
 	
 	public Integer putConnectionState(Integer connectionId, String step) {
 		return connectionMapperRepository.updateConnectionState(connectionId, step);
+	}
+	
+	public RequestTeacher getResuestTeacherByConnectionId(Integer connectionId) {
+		return connectionMapperRepository.selectResuestTeacherByConnectionId(connectionId);
 	}
 }

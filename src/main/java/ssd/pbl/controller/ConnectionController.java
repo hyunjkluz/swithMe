@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.WebUtils;
 
+import ssd.pbl.model.RequestTeacher;
 import ssd.pbl.model.StudentRequest;
 import ssd.pbl.service.ClassService;
 import ssd.pbl.service.ConnectionService;
@@ -75,6 +76,12 @@ public class ConnectionController {
 	@ResponseBody
 	public StudentRequest getStudentRequestDetail(@PathVariable int connectionId) {
 		return connectionService.getStudentRequestByConnectionId(connectionId);
+	}
+
+	@RequestMapping(value = "/connection/{connectionId}/teacher/detail", method = RequestMethod.GET)
+	@ResponseBody
+	public RequestTeacher getRequestTeacherDetail(@PathVariable int connectionId) {
+		return connectionService.getResuestTeacherByConnectionId(connectionId);
 	}
 
 	// 커넥션 상태 변경
