@@ -26,10 +26,9 @@ public class MyPageController {
 
 	@RequestMapping(value = "/student.do", method = RequestMethod.GET)
 	public ModelAndView mypagestudent(HttpSession session) {
-//		UserSession userSession = (UserSession) session.getAttribute("userSession");
-
-		List<ConnectionCard> studentConnections = connectionService.getStudentsConnection(4);
-//		List<ConnectionCard> studentConnections = connectionService.getStudentsConnection(userSession.getId());
+		UserSession userSession = (UserSession) session.getAttribute("userSession");
+		
+		List<ConnectionCard> studentConnections = connectionService.getStudentsConnection(userSession.getId());
 
 		ModelAndView mav = new ModelAndView("mypage/MyPageStudent");
 		mav.addObject("connections", studentConnections);
