@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import ssd.pbl.model.ClassFeedback;
+import ssd.pbl.model.ReviewForm;
 import ssd.pbl.model.StudentMatchForm;
 
 /**
@@ -17,4 +18,5 @@ import ssd.pbl.model.StudentMatchForm;
 public interface FeedbackMapper {
 	List<ClassFeedback> selectClassFeedBackByTeacherId(@Param("teacherId") int teacherId);
 
+	Integer insertFeedback(ReviewForm reviewForm);
 }

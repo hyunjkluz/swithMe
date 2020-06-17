@@ -17,5 +17,10 @@
 		JOIN subject s
 		ON s.id = c.subject
 	</select>
+	
+	<insert id="insertFeedback" parameterType="ReviewForm">
+		INSERT INTO classFeedback (connection, rate, content, registeredAt, updatedAt) 
+		VALUES (#{connectionId}, #{rate}, '${review}', sysdate, sysdate)
+	</insert>
 
 </mapper>
