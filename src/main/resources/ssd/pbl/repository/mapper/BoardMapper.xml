@@ -24,7 +24,7 @@
    			   TYPE AS "boardForm.type",
    			   CONTENT AS "boardForm.content",
    			   UPLOAD AS "boardForm.upload",
-   			   WRITER AS writer,
+   			   WRITER AS writerId,
    			   WRITERTYPE AS writerType,
    			   REGISTEREDAT AS creationDate
 		FROM CLASSROOMBOARD
@@ -38,7 +38,7 @@
    			   TYPE AS "boardForm.type",
    			   CONTENT AS "boardForm.content",
    			   UPLOAD AS "boardForm.upload",
-   			   WRITER AS writer,
+   			   WRITER AS writerId,
    			   WRITERTYPE AS writerType,
    			   REGISTEREDAT AS creationDate
 		FROM CLASSROOMBOARD 
@@ -60,8 +60,8 @@
 		)
  	</insert>
  	
- 	<update id="updateBoard" parameterType="Board">
- 		UPDATE CLASSROOMBOARD SET TITLE = #{boardForm.title},  CONTENT = #{boardForm.content}, UPLOAD = #{boardForm.upload} 
+ 	<update id="updateBoard" parameterType="BoardForm">
+ 		UPDATE CLASSROOMBOARD SET TITLE = #{boardForm.title},  CONTENT = #{boardForm.content}, UPLOAD = #{boardForm.upload, javaType=String, jdbcType=VARCHAR} 
 		WHERE ID = #{boardId}
  	</update>
  	
