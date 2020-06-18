@@ -13,11 +13,44 @@
 		</selectKey>
 	</insert>
 
-	<select id="selectConnectionList" parameterType="int" resultType="ConnectionCard">
+	<!-- <select id="selectConnectionList" parameterType="int" resultType="ConnectionCard">
 		SELECT CONNECTION.ID AS connectionId
 		FROM CONNECTION
-		WHERE CONNECTION.STUDENT = #{sid}
+		WHERE CONNECTION.STEP = "CLASS" AND CONNECTION.#{param1} = #{param2}
+		<choose>
+			<when test = "#{param1}.equals('student')">
+				CONNECTION.STUDENT = #{param2}
+			</when>
+			<when test = "#{param1}.equals('teacher')">
+				CONNECTION.TEACHER = #{param2}
+			</when>
+		</choose>
+	</select> -->
+	
+	<select id="selectMyClassTeachersConnectionByTeacherId" resultType="ConnectionCard">
+		SELECT c.id connectionId, c.step step, s.name student, sub.name subject
+		FROM connection c
+		JOIN teacher t
+		ON t.id = #{teacherId} AND t.id = c.teacher
+		JOIN subject sub
+		ON sub.id = c.subject
+		JOIN student s
+		ON s.id = c.student
+		where c.step = 'CLASS'
 	</select>
+	
+	<select id="selectMyClassStudentsConnectionByStudentId" resultType="ConnectionCard">
+		SELECT c.id connectionId, c.step step, t.name teacher, sub.name subject
+		FROM connection c
+		JOIN student s
+		ON s.id = #{studentId} AND s.id = c.student
+		JOIN subject sub
+		ON sub.id = c.subject
+		JOIN teacher t
+		ON t.id = c.teacher
+		where c.step = 'CLASS'
+	</select>
+	
 	
 	<select id="selectTeachersConnectionByTeacherId" resultType="ConnectionCard">
 		SELECT c.id connectionId, c.step step, s.name student, sub.name subject
