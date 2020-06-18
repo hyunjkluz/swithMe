@@ -119,8 +119,8 @@ public class AutoMatchController {
 
 	@ModelAttribute("levels")
 	public List<RadioButton> levelFormBacking() {
-		return Arrays.asList(new RadioButton("하", 1, null), new RadioButton("중", 2, null),
-				new RadioButton("상", 3, null));
+		return Arrays.asList(new RadioButton("기초", 1, null), new RadioButton("보통", 2, null),
+				new RadioButton("심화", 3, null));
 	}
 
 	@ModelAttribute("genders")
