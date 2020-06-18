@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -11,17 +11,24 @@
 </head>
 <body>
 <div>
-<form:form modelAttribute="boardForm" enctype="mutipart/form-data" action="/swithMe/connection/1/board">
+<%@ include file="../include/main_header.jsp" %>
+</div>
+<div class="container">
+<section id="page-section">
+<form:form modelAttribute="boardForm" enctype="mutipart/form-data" action='/swithMe/connection/${connectionId}/board'>
 	<form:select path="type" items="${boardTypes}" />
 	<br>
-	제목: <input type="text" name="title" /><br/>
-	내용: <textarea name="content"></textarea><br/>
+	제목: <input type="text" name="title" />${boardForm.title}<br/>
+	내용: <textarea name="content">${boardForm.content}</textarea><br/>
 	<input type="file" name="upload">
 	<br>
-	<input type="submit" value="등록"/>
-	<a href="<c:url value='/connection/1/board/main' />">취소</a>
+	<input type="submit" value="저장"/>
+	<a href="<c:url value='/connection/${connectionId}/board/main' />">취소</a>
 </form:form>
-
+</section>
 </div>
+<div class="container">
+<%@ include file="../include/main_footer.jsp" %>
+</div >
 </body>
 </html>
