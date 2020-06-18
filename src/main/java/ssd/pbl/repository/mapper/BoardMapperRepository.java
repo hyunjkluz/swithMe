@@ -13,8 +13,8 @@ public class BoardMapperRepository {
 	@Autowired
 	private BoardMapper boardMapper;
 
-	public List<BoardForm> selectBoardList() {
-		return boardMapper.selectBoardList();
+	public List<BoardForm> selectBoardList(int connectionId) {
+		return boardMapper.selectBoardList(connectionId);
 	}
 	
 	public Board selectBoardById(int bId) {
@@ -25,12 +25,12 @@ public class BoardMapperRepository {
 		boardMapper.insertBoard(board);
 	}
 	
-	public void updateBoard(Board board) {
-		boardMapper.updateBoard(board);
+	public void updateBoard(int boardId, BoardForm boardForm) {
+		boardMapper.updateBoard(boardId, boardForm);
 	}
 	
-	public void deleteBoard(int bId) {
-		boardMapper.deleteBoard(bId);
+	public void deleteBoard(int boardId) {
+		boardMapper.deleteBoard(boardId);
 	}
 	
 	private ReplyMapper replyMapper;

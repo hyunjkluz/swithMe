@@ -1,38 +1,29 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 <head>
-
 <title>My Class</title>
 </head>
-<style>
-.main .menu{
-	float: left; width: 200px;
-}
-.main .board{
-	float: left;
-}
-li {list-style: none; float: left; padding: 6px;}
-</style>
 <body>
-<div class="main" >
-	<div class="menu" >
-		<section>
+<div class="container">
+<%@ include file="../include/main_header.jsp" %>
+</div>
+<div class="container">
+<section id="page-section">
+	<div >
 		<select>
 		<c:forEach var="connectioncard" items="${connectioncards}" >
 			<option><c:out value="${connectioncard.subject}" />-<c:out value="${connectioncard.teacher.name}" /></option>
 		</c:forEach>
 		</select>
-		</section>
 	</div>
-	<div class="board" >
-		<section id="container">
+	<div >
 		<button type="button" onclick="">공지사항</button>
 		<button type="button" onclick="">질문</button>
 		<button type="button" onclick="">과제</button>
-		<a href="<c:url value='/connection/1/board.do' />">글작성</a>
+		<a href="<c:url value='/connection/${connectionId}/board.do' />">글작성</a>
 		<hr />
 		<br>
 		<table >
@@ -66,11 +57,11 @@ li {list-style: none; float: left; padding: 6px;}
 			  
 		</table>
 		<hr />
-		</section>
 	</div>
-	
-	
+	</section>
 </div>
-
+<div class="container">
+<%@ include file="../include/main_footer.jsp" %>
+</div >
 </body>
 </html>

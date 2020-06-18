@@ -20,7 +20,11 @@ public interface ConnectionMapper {
 	Integer insertConnection(@Param("studentId") Integer studentId, @Param("teacherId") Integer teacherId,
 			@Param("subjectId") Integer subjectId, @Param("studentMatchId") Integer studentMatchId);
 
-	List<ConnectionCard> selectConnectionList(int sid);
+	//List<ConnectionCard> selectConnectionList(int sid);
+	List<ConnectionCard> selectMyClassTeachersConnectionByTeacherId(int teacherId);
+	
+	List<ConnectionCard> selectMyClassStudentsConnectionByStudentId(int studentId);
+
 	
 	List<ConnectionCard> selectTeachersConnectionByTeacherId(@Param("teacherId") int teacherId);
 	
