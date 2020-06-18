@@ -104,7 +104,7 @@ public class ConnectionController {
 	@RequestMapping(value = "/connection/{connectionId}/step", method = RequestMethod.GET)
 	public String changeConnectionState(@PathVariable int connectionId, @RequestParam("step") String step,
 			@RequestParam("type") String type) {
-		String[] states = { "REJECT", "MATCH", "FINISH", "CLASS" };
+		String[] states = { "REJECT", "MATCH", "FINISH", "CLASS", "REVIEW" };
 
 		if (Arrays.stream(states).anyMatch(step::equals)) {
 
@@ -112,14 +112,14 @@ public class ConnectionController {
 
 			connectionService.putConnectionState(connectionId, step);
 			if (type.equals("teacher")) {
-				return "redirect:localhost:8080/swithMe/mypage/teacher.do";
+				return "redirect:http://localhost:8080/swithMe/mypage/teacher.do";
 			}
 			if (type.equals("student")) {
-				return "redirect:localhost:8080/swithMe/mypage/student.do";
+				return "redirect:http://localhost:8080/swithMe/mypage/student.do";
 			}
 		}
 
-		return "/main/class";
+		return "redirect:http://localhost:8080/swithMe/main/class";
 
 	}
 
