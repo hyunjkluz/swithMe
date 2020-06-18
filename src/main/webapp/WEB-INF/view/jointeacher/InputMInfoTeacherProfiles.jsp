@@ -45,7 +45,7 @@
 			<br>
 			<form:textarea class="form-control" name="introduction2" rows="10" cols="40" 
 			path="intro2"
-			placeholder="EX)자체 제작 문법 교재로 기초부터 심화까지 문제풀이 위주의 수업을 진행합니다."/>
+			placeholder="EX) 자체 제작 문법 교재로 기초부터 심화까지 문제풀이 위주의 수업을 진행합니다."/>
 
 			<br><br>
 			<button class="btn btn-outline-warning cc_pointer" type="button"
