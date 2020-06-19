@@ -9,6 +9,10 @@
 <title>로그인</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" href="" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/util.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.min.css' />">
 <style type="text/css">
 .body {
 	text-align: center;
@@ -18,59 +22,44 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 800px;
-	margin: auto;
+	background: #e6e6e6;
 }
 
 .login-student-detail {
 	display: block;
 	flex: 1;
-	background-color: #F3D55B;
+	background-color: #FFF362;
 }
 
 .login-teacher-detail {
 	display: block;
 	flex: 1;
-	background-color: #F1C232;
+	background-color: #FFF9B1;
 }
 
-.login-title-student-area {
-	width: 150px;
+.login-title-area {
+	width: 400px;
 	margin: auto;
 	padding: 50px 0 25px 0;
 }
 
-.login-title-student-text {
-	width: 150px;
-	font-size: 15px;
-	font-weight: bold;
-}
-
-.login-title-teacher-area {
-	width: 170px;
-	margin: auto;
-	padding: 50px 0 25px 0;
-}
-
-.login-title-teacher-text {
-	width: 170px;
-	font-size: 15px;
-	font-weight: bold;
+.wrap-login-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .login-input-area {
-	width: 170px;
 	margin: auto;
-	padding: 25px 0 25px 0;
+}
+
+.wrap-login-input-content-area {
+	margin-bottom: 17px;
 }
 
 .login-input-content-area {
-	padding: 5px 0 5px 0;
-}
-
-.login-input {
-	width: 160px;
-	padding: 5px 0 5px 0;
+	width: 400px;
+	margin: auto;
 }
 
 .login-btn-area {
@@ -86,31 +75,40 @@
 	outline: 0;
 	border-radius: 3px;
 	cursor: pointer;
+	background-color: #626EFF;
+  	border-color: #626EFF;
 }
 </style>
 </head>
 <body>
 	<div class="base-top"></div>
 	<div class="login-form">
+	<div class="container-contact100" style="width: 70%;">
 		<div class="login-student-detail">
 			<form:form modelAttribute="loginForm" action="/swithMe/auth/login" method="POST">
 				<input type="hidden" value="${loginForwardAction}"
 					name="loginForwardAction" />
-				<div class="login-title-student-area">
-					<span class="login-title-student-text">학생으로 로그인하기</span>
+				<div class="login-title-area">
+					<div class="wrap-login-title">
+						<span class="login-title-text contact100-form-title">학생으로 로그인하기</span>
+					</div>
 				</div>
 				<div class="login-input-area">
-					<div class="login-input-content-area">
-						<form:input path="email" class="login-input" type="text" />
-						<form:errors path="email" />
+					<div class="wrap-login-input-content-area">
+						<div class="wrap-input100 login-input-content-area">
+							<form:input path="email" class="input100" type="text" placeholder="아이디" />
+							<form:errors path="email" />
+						</div>
 					</div>
-					<div class="login-input-content-area">
-						<form:input path="password" class="login-input" type="password" />
-						<form:errors path="password" />
+					<div class="wrap-login-input-content-area">
+						<div class="wrap-input100 login-input-content-area">
+							<form:input path="password" class="input100" type="password" placeholder="비밀번호" />
+							<form:errors path="password" />
+						</div>
 					</div>
 				</div>
 				<div class="login-btn-area">
-					<button type="submit" class="login-btn">로그인</button>
+					<button type="submit" class="login-btn btn btn-primary">로그인</button>
 				</div>
 				<input type="hidden" value="student" name="type">
 			</form:form>
@@ -119,25 +117,33 @@
 			<form:form modelAttribute="loginForm" action="/swithMe/auth/login" method="POST">
 				<input type="hidden" value="${loginForwardAction}"
 					name="loginForwardAction" />
-				<div class="login-title-teacher-area">
-					<span class="login-title-teacher-text">선생님으로 로그인하기</span>
+				<div class="login-title-area">
+					<div class="wrap-login-title">
+						<span class="login-title-text contact100-form-title">선생님으로 로그인하기</span>
+					</div>
 				</div>
 				<div class="login-input-area">
-					<div class="login-input-content-area">
-						<form:input path="email" class="login-input" type="text" />
-						<form:errors path="email" />
+					<div class="wrap-login-input-content-area">
+						<div class="wrap-input100 login-input-content-area">
+							<form:input path="email" class="input100 login-input" type="text" placeholder="아이디" />
+							<form:errors path="email" />
+						</div>
 					</div>
-					<div class="login-input-content-area">
-						<form:input path="password" class="login-input" type="password" />
-						<form:errors path="password" />
+					<div class="wrap-login-input-content-area">
+						<div class="wrap-input100 login-input-content-area">
+							<form:input path="password" class="input100 login-input" type="password" placeholder="비밀번호" />
+							<form:errors path="password" />
+						</div>
 					</div>
 				</div>
 				<div class="login-btn-area">
-					<button type="submit" class="login-btn">로그인</button>
+					<button type="submit" class="login-btn btn btn-primary">로그인</button>
 				</div>
 				<input type="hidden" value="teacher" name="type">
 			</form:form>
 		</div>
 	</div>
+	</div>
 </body>
 </html>
+					

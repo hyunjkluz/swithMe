@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
-    <title>아이디 찾기 결과</title>
+    <title>인증번호 입력</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="" />
     <style type="text/css">
@@ -59,13 +62,15 @@
       <div class="find-pw-identify-title-area">
         <span class="find-pw-identify-title">인증번호 입력</span>
       </div>
+      <form action="<c:url value='/auth/find/pw/identify' />" method="post">
       <div class="find-pw-identify-input-area">
         <div class="find-pw-identify-input-content-area">
-          <input type="number" class="find-pw-identify-input-text" />
+          <input name="certificationNum" type="text" class="find-pw-identify-input-text" placeholder="인증번호 입력" />
         </div>
       </div>
       <div class="find-pw-identify-btn-area">
-        <button class="find-pw-identify-btn">인증하기</button>
+        <button type="submit" class="find-pw-identify-btn">인증하기</button>
       </div>
+      </form>
     </div>
   </body>

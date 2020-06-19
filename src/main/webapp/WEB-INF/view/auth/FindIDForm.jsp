@@ -9,6 +9,10 @@
     <title>아이디 찾기</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="" />
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/util.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.min.css' />">
     <style type="text/css">
       .body {
         text-align: center;
@@ -16,17 +20,18 @@
       .find-id-form {
         width: 500px;
         margin: auto;
-        border: 1px solid gray;
+        background-color: #FFF362;
       }
       .find-id-title-area {
-        width: 108px;
+        width: 100%
         margin: auto;
-        padding: 50px 0 30px 0;
+        padding: 50px 0 0 0;
       }
-      .find-id-title {
-        font-size: 20px;
-        font-weight: bold;
-      }
+      .wrap-title {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	  }
       .find-id-type {
         display: flex;
         justify-content: center;
@@ -69,30 +74,29 @@
     </style>
   </head>
   <body>
-    <div class="base-top">
-
-    </div>
+    <%@ include file="../include/main_header.jsp" %>
     <div class="find-id-form">
       <div class="find-id-title-area">
-        <span class="find-id-title">아이디 찾기</span>
+      	<div class="wrap-title">
+        	<span class="find-id-title contact100-form-title">아이디 찾기</span>
+      	</div>
       </div>
       <form:form modelAttribute="findIDForm" action="id" method="post">
       <div class="find-id-type">
         <div class="find-id-type-area">
         	<form:radiobutton path="type" value="student" label="학생" />
-			<form:radiobutton path="type" value="teacher" label="선생님" />
-          <!-- <button class="find-id-type-btn">학생</button>
-        </div>
-        <div class="find-id-type-area">
-          <button class="find-id-type-btn">선생님</button> -->
+			<form:radiobutton path="type" value="teacher" label="선생님" /><br>
+			<form:errors path="type" />
         </div>
       </div>
       <div class="find-id-input-area">
         <div class="find-id-input-content-area">
-          <form:input path="name" type="text" class="find-id-input-text" placeholder="이름" />
+          <form:input path="name" type="text" class="input100 " placeholder="이름" />
+          <form:errors path="name" />
         </div>
         <div class="find-id-input-content-area">
-          <form:input path="phone" type="number" class="find-id-input-text" placeholder="전화번호" />
+          <form:input path="phone" type="number" class="input100 find-id-input-text" placeholder="전화번호" />
+          <form:errors path="phone" />
         </div>
       </div>
       <div class="find-id-btn-area">
@@ -100,4 +104,5 @@
       </div>
       </form:form>
     </div>
+    <%@ include file="../include/main_footer.jsp" %>
   </body>

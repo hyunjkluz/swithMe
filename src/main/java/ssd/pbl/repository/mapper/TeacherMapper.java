@@ -4,7 +4,9 @@ import org.apache.ibatis.annotations.Param;
 
 import ssd.pbl.controller.UserSession;
 import ssd.pbl.model.FindIDForm;
+import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
+import ssd.pbl.model.ResetPWForm;
 import ssd.pbl.model.Teacher;
 
 public interface TeacherMapper {
@@ -17,4 +19,8 @@ public interface TeacherMapper {
 	Teacher selectTeacherById(@Param("id") Integer id);
 	
 	Integer selectTeacherMatchIdByTeacherId(@Param("teacherId") Integer teacherId);
+	
+	Integer selectTeacherByEmailAndName(FindPWForm findPWForm);
+	
+	void updateTeacherPW(ResetPWForm resetPWForm);
 }

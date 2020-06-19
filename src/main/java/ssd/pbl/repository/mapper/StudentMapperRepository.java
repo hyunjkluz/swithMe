@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ssd.pbl.controller.UserSession;
 import ssd.pbl.model.FindIDForm;
+import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
+import ssd.pbl.model.ResetPWForm;
 import ssd.pbl.model.SchoolForm;
 import ssd.pbl.model.StudentMatchForm;
 import ssd.pbl.model.StudentTest;
@@ -88,5 +90,13 @@ public class StudentMapperRepository {
 
 	public UserSession selectStudentUserInfo(String email) {
 		return studentMapper.selectStudentUserInfo(email);
+	}
+	
+	public Integer selectStudentByEmailAndName(FindPWForm findPWForm) {
+		return studentMapper.selectStudentByEmailAndName(findPWForm);
+	}
+	
+	public void updateStudentPW(ResetPWForm resetPWForm) {
+		studentMapper.updateStudentPW(resetPWForm);
 	}
 }
