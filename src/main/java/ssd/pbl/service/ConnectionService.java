@@ -15,9 +15,18 @@ public class ConnectionService {
 	@Autowired
 	private ConnectionMapperRepository connectionMapperRepository;
 
-	public List<ConnectionCard> getConnectionlist(int sid) {
-		return connectionMapperRepository.selectConnectionList(sid);
+	/*
+	 * public List<ConnectionCard> getConnectionlist(int sid) { return
+	 * connectionMapperRepository.selectConnectionList(sid); }
+	 */
+	public List<ConnectionCard> getMyClassTeachersConnection(Integer teacherId) {
+		return connectionMapperRepository.selectMyClassTeachersConnectionByTeacherId(teacherId);
 	}
+
+	public List<ConnectionCard> getMyClassStudentsConnection(Integer studentId) {
+		return connectionMapperRepository.selectMyClassStudentsConnectionByStudentId(studentId);
+	}
+	
 
 	public Integer postConnection(Integer studentId, Integer teacherId, Integer subjectId, Integer studentMatchId) {
 		return connectionMapperRepository.insertConnection(studentId, teacherId, subjectId, studentMatchId);

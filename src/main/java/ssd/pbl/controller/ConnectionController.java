@@ -68,24 +68,27 @@ public class ConnectionController {
 	}
 
 	// 나의 수업-학생
-	@RequestMapping(value = "/connection/student", method = RequestMethod.GET)
-	public String getAllStudentConnection(Model model, HttpSession session) {
-		LOGGER.info("ConnectionController2-getAllStudentConnection");
-		UserSession userSession = (UserSession) session.getAttribute("userSession");
-//		String email = userSession.getId();
+		@RequestMapping(value = "/connection/student", method = RequestMethod.GET)
+		public String getAllStudentConnection(Model model, HttpSession session) {
+			LOGGER.info("ConnectionController-getAllStudentConnection");
+			UserSession userSession= (UserSession) session.getAttribute("userSession");
+			int sid = userSession.getId();
+			model.addAttribute("connectionList", connectionService.getMyClassStudentsConnection(sid));
 
-		// model.addAttribute("connectionList",
-		// connectionService.getConnectionlist(sid));
-		return "board/MyClassList";
-	}
+			return "board/MyClassList";
+		}
 
-	// 나의 수업-선생님
-	@RequestMapping(value = "/connection/teacher", method = RequestMethod.GET)
-	public String getAllTeacherConnection(Model model) {
-		LOGGER.info("ConnectionController2-getAllTeacherConnection");
-		model.addAttribute("connectionList", null);
-		return "board/MyClassList";
-	}
+		// 나의 수업-선생님
+		@RequestMapping(value = "/connection/teacher", method = RequestMethod.GET)
+		public String getAllTeacherConnection(Model model,HttpSession session) {
+			LOGGER.info("ConnectionController-getAllTeacherConnection");
+			UserSession userSession= (UserSession) session.getAttribute("userSession");
+			int tid = userSession.getId();
+			model.addAttribute("connectionList", connectionService.getMyClassTeachersConnection(tid));
+			
+			return "board/MyClassList";
+		}
+
 
 	// 요청정보 > JSON
 	@RequestMapping(value = "/connection/{connectionId}/detail", method = RequestMethod.GET)
@@ -104,7 +107,7 @@ public class ConnectionController {
 	@RequestMapping(value = "/connection/{connectionId}/step", method = RequestMethod.GET)
 	public String changeConnectionState(@PathVariable int connectionId, @RequestParam("step") String step,
 			@RequestParam("type") String type) {
-		String[] states = { "REJECT", "MATCH", "FINISH", "CLASS" };
+		String[] states = { "REJECT", "MATCH", "FINISH", "CLASS", "REVIEW" };
 
 		if (Arrays.stream(states).anyMatch(step::equals)) {
 
@@ -112,14 +115,14 @@ public class ConnectionController {
 
 			connectionService.putConnectionState(connectionId, step);
 			if (type.equals("teacher")) {
-				return "redirect:localhost:8080/swithMe/mypage/teacher.do";
+				return "redirect:http://localhost:8080/swithMe/mypage/teacher.do";
 			}
 			if (type.equals("student")) {
-				return "redirect:localhost:8080/swithMe/mypage/student.do";
+				return "redirect:http://localhost:8080/swithMe/mypage/student.do";
 			}
 		}
 
-		return "/main/class";
+		return "redirect:http://localhost:8080/swithMe/main/class";
 
 	}
 

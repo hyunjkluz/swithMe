@@ -24,7 +24,7 @@
 
 		<!-- Bean Validation API -->
 		<bean-validation-api.version>2.0.1.Final</bean-validation-api.version>
-		<hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
+		<hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
 
 		<!-- Logging -->
 		<logback.version>1.0.13</logback.version>
@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.9.10.4</version>
+			<version>2.10.0.pr1</version>
 		</dependency>
 
 		<!-- Other Web dependencies -->
