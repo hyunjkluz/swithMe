@@ -78,6 +78,24 @@
 	background-color: #626EFF;
   	border-color: #626EFF;
 }
+
+.login-find-id-btn {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin: 0 10px 30px 0;
+}
+
+.login-find-pw-btn {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 0 0 30px 10px;
+}
+
+.login-find-atag {
+	text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -112,6 +130,9 @@
 				</div>
 				<input type="hidden" value="student" name="type">
 			</form:form>
+			<div class="login-find-id-btn">
+				<a href="<c:url value='/auth/find/id.do' />" class="login-find-atag">아이디 찾기</a>
+			</div>
 		</div>
 		<div class="login-teacher-detail">
 			<form:form modelAttribute="loginForm" action="/swithMe/auth/login" method="POST">
@@ -141,6 +162,10 @@
 				</div>
 				<input type="hidden" value="teacher" name="type">
 			</form:form>
+			<div class="login-find-pw-btn">
+				<a href="<c:url value='/auth/find/pw.do'/>" class="login-find-atag">비밀번호 찾기</a>
+				
+			</div>
 		</div>
 	</div>
 	</div>
