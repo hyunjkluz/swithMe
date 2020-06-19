@@ -61,6 +61,7 @@
 		ON sub.id = c.subject
 		JOIN student s
 		ON s.id = c.student
+		ORDER BY c.registeredat DESC
 	</select>
 	
 	<select id="selectStudentsConnectionByStudentId" resultType="ConnectionCard">
@@ -72,6 +73,7 @@
 		ON sub.id = c.subject
 		JOIN teacher t
 		ON t.id = c.teacher
+		ORDER BY c.registeredat DESC
 	</select>
 	
 	<select id="selectStudentRequestByConnectionId" resultMap="sr">
