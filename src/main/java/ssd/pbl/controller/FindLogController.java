@@ -30,6 +30,13 @@ public class FindLogController {
 	@Autowired
 	private AuthService authService;
 	
+	@ModelAttribute("findPWForm")
+	public FindPWForm setEmptyFindPWForm() {
+
+	    return new FindPWForm();
+
+	}
+	
 	@RequestMapping(value = "/id.do", method = RequestMethod.GET)
 	public String getFindIDForm(@ModelAttribute("findIDForm") FindIDForm findIDForm) {		
 		return "auth/FindIDForm";
