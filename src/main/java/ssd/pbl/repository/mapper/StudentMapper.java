@@ -4,7 +4,9 @@ import java.util.List;
 
 import ssd.pbl.controller.UserSession;
 import ssd.pbl.model.FindIDForm;
+import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
+import ssd.pbl.model.ResetPWForm;
 import ssd.pbl.model.SchoolForm;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,4 +36,10 @@ public interface StudentMapper {
 	String selectEmailByNameAndPhone(FindIDForm findIDForm);
 	
 	UserSession selectStudentUserInfo(String email);
+	
+	Integer updateStudentPW(String pw);
+	
+	Integer selectStudentByEmailAndName(FindPWForm findPWForm);
+	
+	void updateStudentPW(ResetPWForm resetPWForm);
 }

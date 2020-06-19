@@ -17,7 +17,7 @@ public class ReplyService {
 		return replyMapperRepository.selectAllReplyByBoardId(bId);
 	}
 	
-	public void createReply(Reply reply) {
+	public void saveReply(Reply reply) {
 		replyMapperRepository.insertReply(reply);
 	}
 	

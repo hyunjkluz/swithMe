@@ -1,8 +1,13 @@
 package ssd.pbl.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class FindPWForm {
+	@NotEmpty(message="타입을 설정해주세요.")
 	private String type;
+	@NotEmpty(message="이메일을 입력해주세요.")
 	private String email;
+	@NotEmpty(message="이름을 입력해주세요.")
 	private String name;
 	
 	public String getType() {

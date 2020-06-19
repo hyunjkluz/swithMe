@@ -9,6 +9,7 @@ public class UserSession {
 	private File profileImg;
 	private Integer id;
 	private String step;
+	private String key;
 
 	public UserSession() {
 	}
@@ -26,6 +27,14 @@ public class UserSession {
 		this.profileImg = profileImg;
 		this.id = id;
 		this.step = step;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	public String getType() {

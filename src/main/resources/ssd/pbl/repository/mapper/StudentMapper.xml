@@ -63,4 +63,16 @@
 		WHERE s.id = i.student AND s.email = #{email}
 	</select>
 	
+	<update id="updateStudentPW">
+		UPDATE STUDENT
+		SET STUDENT.PASSWORD = #{password}
+		WHERE EMAIL = #{email}
+	</update>
+	
+	<select id="selectStudentByEmailAndName" parameterType="FindPWForm" resultType="int">
+		SELECT STUDENT.ID
+		FROM STUDENT
+		WHERE STUDENT.EMAIL = #{email} AND STUDENT.NAME = #{name}
+	</select>
+	
 </mapper>

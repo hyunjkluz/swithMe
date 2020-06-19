@@ -73,7 +73,7 @@ public class LogInOutController {
 					return "redirect:http://localhost:8080/swithMe/mypage/student.do";
 				}
 				
-				return "main";
+				return "redirect:/main";
 			} else {
 				return "auth/LoginForm";
 			}
@@ -88,7 +88,7 @@ public class LogInOutController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session, SessionStatus status) {
 		status.setComplete();
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 }

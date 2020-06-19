@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
@@ -73,24 +76,27 @@
       <div class="find-pw-title-area">
         <span class="find-pw-title">비밀번호 찾기</span>
       </div>
+      <form:form modelAttribute="findPWForm" action="pw" method="post">
       <div class="find-pw-type">
         <div class="find-pw-type-area">
-          <button class="find-pw-type-btn">학생</button>
-        </div>
-        <div class="find-pw-type-area">
-          <button class="find-pw-type-btn">선생님</button>
+          	<form:radiobutton path="type" value="student" label="학생" />
+			<form:radiobutton path="type" value="teacher" label="선생님" /><br>
+			<form:errors path="type" />
         </div>
       </div>
       <div class="find-pw-input-area">
         <div class="find-pw-input-content-area">
-          <input type="email" class="find-pw-input-text" />
+          <form:input path="email" type="text" class="find-pw-input-text" placeholder="이메일" />
+          <form:errors path="email" />
         </div>
         <div class="find-pw-input-content-area">
-          <input type="number" class="find-pw-input-text" />
+          <form:input path="name" type="text" class="find-pw-input-text" placeholder="이름" />
+          <form:errors path="name" />
         </div>
       </div>
       <div class="find-pw-btn-area">
-        <button class="find-pw-btn">인증번호 받기</button>
+        <button type="submit" class="find-pw-btn">인증번호 받기</button>
       </div>
+      </form:form>
     </div>
   </body>
