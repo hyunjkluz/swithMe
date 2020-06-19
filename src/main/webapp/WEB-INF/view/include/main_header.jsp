@@ -38,7 +38,7 @@
 	                        <c:if test="${userSession.type == 'teacher' }">
 	                        	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/mypage/teacher.do'/>">${userSession.name } 선생님</a></li>
 	                        </c:if>
-	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='logout'/>">로그아웃</a></li>
+	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/auth/logout'/>">로그아웃</a></li>
 	                    </ul>
                     </c:if>
                 </div>
