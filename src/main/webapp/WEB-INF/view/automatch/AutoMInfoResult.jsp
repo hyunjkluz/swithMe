@@ -183,7 +183,7 @@
 			</div>
 		</c:forEach>
 
-		<c:if test="${classCardList == null }">
+		<c:if test="${classCardList.length == 0 }">
 			<p>해당 조건을 가진 선생님이 없습니다.</p>
 		</c:if>
 	</form:form>
