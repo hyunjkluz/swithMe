@@ -15,7 +15,7 @@ public class MailMapperRepository {
 	@Autowired
 	private MailMapper mailMapper;
 
-	Integer deleteAllData() {
+	public Integer deleteAllData() {
 		return mailMapper.deleteAllData();
 	}
 

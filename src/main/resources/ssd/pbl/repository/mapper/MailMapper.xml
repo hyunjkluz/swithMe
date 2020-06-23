@@ -5,7 +5,7 @@
 	<cache />
 	
 	<delete id="deleteAllData">
-		DELETE *
+		DELETE
 		FROM MAILAUTH
 	</delete>
 </mapper>
