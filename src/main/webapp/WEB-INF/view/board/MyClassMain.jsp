@@ -6,6 +6,11 @@
 <head>
 <title>My Class</title>
 </head>
+<script >
+	function class_change(connectionId) {
+		location.href = "<c:url value='/connection/' />"+connectionId+"/board/main";
+	}
+</script>
 <body>
 <div class="container">
 <%@ include file="../include/main_header.jsp" %>
@@ -13,12 +18,21 @@
 <div class="container">
 <section id="page-section">
 	<div >
-		<select>
+		<select onchange="class_change(this.value);">
 		<c:forEach var="connectioncard" items="${connectioncards}" >
-			<option><c:out value="${connectioncard.subject}" />-<c:out value="${connectioncard.teacher.name}" /></option>
+			<option value="${connectioncard.connectionId}" ${connectioncard.connectionId == connectionId ? 'selected="selected"' : '' }>
+				<c:out value="${connectioncard.subject}" />-
+				<c:if test="${userSession.type == 'student' }">
+					<c:out value="${connectioncard.teacher}" />
+				</c:if>
+				<c:if test="${userSession.type == 'teacher' }">
+					<c:out value="${connectioncard.student}" />
+				</c:if>
+			</option>
 		</c:forEach>
 		</select>
 	</div>
+	<br>
 	<div >
 		<button type="button" onclick="">공지사항</button>
 		<button type="button" onclick="">질문</button>

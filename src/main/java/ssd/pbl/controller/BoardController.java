@@ -1,5 +1,7 @@
 package ssd.pbl.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +11,10 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,11 +24,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import ssd.pbl.model.Board;
 import ssd.pbl.model.BoardForm;
+import ssd.pbl.model.ConnectionCard;
 import ssd.pbl.model.Reply;
 import ssd.pbl.service.BoardService;
+import ssd.pbl.service.ConnectionService;
 import ssd.pbl.service.ReplyService;
 
 /**
@@ -31,7 +41,7 @@ import ssd.pbl.service.ReplyService;
  */
 @Controller
 @RequestMapping("/connection/{connectionId}")
-public class BoardController {
+public class BoardController implements ApplicationContextAware {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
@@ -39,14 +49,31 @@ public class BoardController {
 	private BoardService boardService;
 	@Autowired
 	private ReplyService replyService;
+	@Autowired
+	private ConnectionService connectionService;
 	
 	//나의 수업 -> 강의실 입장
 	@RequestMapping(value = "/board/main", method = RequestMethod.GET)
 	public String getMyBoard(@PathVariable("connectionId") int connectionId, Model model) {
 		logger.info("BoardController-MyClass");
+		
 		model.addAttribute("boardList", boardService.getBoardlist(connectionId));
 		model.addAttribute("connectionId", connectionId);
 		return "board/MyClassMain";
+	}
+	
+	@ModelAttribute("connectioncards")
+	public List<ConnectionCard> getConnectionCardList(HttpSession session) {
+		UserSession userSession= (UserSession) session.getAttribute("userSession");
+		int id = userSession.getId();
+		
+		List<ConnectionCard> connectioncards = new ArrayList<ConnectionCard>();
+		
+		if(userSession.getType().equals("student"))
+			connectioncards = connectionService.getMyClassStudentsConnection(id);
+		else if(userSession.getType().equals("teacher"))
+			connectioncards = connectionService.getMyClassTeachersConnection(id);
+		return connectioncards;
 	}
 	
 	@ModelAttribute("boardTypes")
@@ -68,18 +95,41 @@ public class BoardController {
 		return "board/MyClassUploadBoard";
 	}
 	
+	private WebApplicationContext context;	
+	private String uploadDir;
+
+	@Override					// life-cycle callback method
+	public void setApplicationContext(ApplicationContext appContext)
+		throws BeansException {
+		this.context = (WebApplicationContext) appContext;
+		this.uploadDir = context.getServletContext().getRealPath("/upload/");
+	}
+	
 	//새로운 글 등록
 	@RequestMapping(value ="/board" , method = RequestMethod.POST)
-	public String uploadNewPost(@PathVariable int connectionId, @ModelAttribute("boardForm") BoardForm boardForm, HttpSession session) throws Exception {
-		logger.info("BoardController-uploadNewPost"+connectionId);
+	public String uploadNewPost(@ModelAttribute("boardForm") BoardForm boardForm, 
+			@RequestParam(value="upload", required = false) MultipartFile upload,  
+			@PathVariable int connectionId, 
+			HttpSession session) throws Exception {
+		logger.info("BoardController-uploadNewPost"+connectionId+ boardForm.toString());
 		UserSession userSession= (UserSession) session.getAttribute("userSession");
 		int id = userSession.getId();
 		logger.info("BoardController-uploadNewPost"+id);
 		String type = userSession.getType();
+		
+		if(upload != null) {
+		  File file = new File(this.uploadDir + upload.getOriginalFilename());
+		  upload.transferTo(file);
+		}
+
 		Board board = new Board(connectionId, boardForm, id, type);
 		boardService.createBoard(board);
+		
+		
 		return "redirect:board/main";
 	}
+	
+
 
 	//글 상세보기+댓글(제목 클릭)
 	@RequestMapping(value ="/board/{boardId}" , method = RequestMethod.GET)
@@ -122,8 +172,9 @@ public class BoardController {
 	  }
 	//글 수정	  
 	  @RequestMapping(value ="/board/{boardId}" , method = RequestMethod.PUT)
-	  public String updatePost(@PathVariable("connectionId") int connectionId, @PathVariable("boardId") int boardId, @ModelAttribute("boardForm") BoardForm boardForm) {
-		  boardService.updateBoard(boardId, boardForm); 
+	  public String updatePost(@PathVariable("connectionId") int connectionId, @PathVariable("boardId") int boardId, @ModelAttribute("board") Board board) {
+		  logger.info("BoardController-UpdatePost"+connectionId+ board.getBoardForm().toString());
+		  boardService.updateBoard(boardId, board.getBoardForm()); 
 		  return "redirect:{boardId}"; 
 	  }
 	  
