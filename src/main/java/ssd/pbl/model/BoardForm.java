@@ -27,15 +27,21 @@ public class BoardForm {
 	public void setType(String type) {
 		this.type = type;
 	}
-	/*
-	 * public MultipartFile getUpload() { return upload; } public void
-	 * setUpload(MultipartFile upload) { this.upload = upload; }
-	 */
+	
+	//public MultipartFile getUpload() { return upload; } 
+	//public void setUpload(MultipartFile upload) { this.upload = upload; }
+	 
+	
 	public String getUpload() {
 		return upload;
 	}
 	public void setUpload(String upload) {
 		this.upload = upload;
+	}
+	
+	@Override
+	public String toString() {
+		return "BoardForm [title=" + title + ", type=" + type + ", content=" + content + ", upload=" + upload + "]";
 	}
 	
 }
