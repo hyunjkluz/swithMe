@@ -65,7 +65,7 @@
       <form action="<c:url value='/auth/find/pw/identify' />" method="post">
       <div class="find-pw-identify-input-area">
         <div class="find-pw-identify-input-content-area">
-          <input name="certificationNum" type="text" class="find-pw-identify-input-text" placeholder="인증번호 입력" />
+          <input name="code" type="text" class="find-pw-identify-input-text" placeholder="인증번호 입력" />
         </div>
       </div>
       <div class="find-pw-identify-btn-area">

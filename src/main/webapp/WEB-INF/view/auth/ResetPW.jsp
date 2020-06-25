@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
@@ -58,17 +61,19 @@
       <div class="reset-pw-title-area">
         <span class="reset-pw-title">비밀번호 변경</span>
       </div>
+      <form:form modelAttribute="resetPWForm" action="reset" method="POST">
       <div class="reset-pw-input-area">
         <div class="reset-pw-input-content-area">
-          <input type="password" class="reset-pw-input-text" />
+          <input name="password" type="password" class="reset-pw-input-text" placeholder="새 비밀번호 입력" />
         </div>
         <div class="reset-pw-input-content-area">
-          <input type="password" class="reset-pw-input-text" />
+          <input name="checkedPassword" type="password" class="reset-pw-input-text" placeholder="비밀번호 확인" />
         </div>
       </div>
       <div class="reset-pw-btn-area">
-        <button class="reset-pw-btn">비밀번호 변경</button>
+        <button type="submit" class="reset-pw-btn">비밀번호 변경</button>
       </div>
+      </form:form>
     </div>
   </body>
     
