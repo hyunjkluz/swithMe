@@ -53,7 +53,7 @@
 		
 		<br> <br>
 		<h3 class="check">
-			<a href="<c:url value='/swithMe/main'/>">확인하러가기</a>
+			<a href="<c:url value='/main'/>">확인하러가기</a>
 		</h3>
 	</div>
 
