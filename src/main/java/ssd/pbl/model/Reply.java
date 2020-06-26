@@ -12,6 +12,17 @@ public class Reply implements Serializable{
 	String writerType;
 	Date registerdAt;
 	Date updatedAt;
+
+	public Reply() {
+		
+	}
+	public Reply(String content, int boardId, int writerId, String writerType) {
+		super();
+		this.content = content;
+		this.boardId = boardId;
+		this.writerId = writerId;
+		this.writerType = writerType;
+	}
 	public int getRelpyId() {
 		return relpyId;
 	}
