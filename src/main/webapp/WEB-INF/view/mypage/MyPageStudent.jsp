@@ -7,6 +7,7 @@
 <html>
 <head>
 <title>MyPageStudent</title>
+<link rel="stylesheet" href="../../resources/css/theme.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -87,7 +88,7 @@
 <style>
 .mypage-student-status {
 	margin: auto;
-	border: 1px solid black;
+	border: 3px solid #FFF9B1;
 	width: 600px;
 	padding: 30px 30px 30px 30px;
 }
