@@ -1,4 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -7,7 +8,6 @@
 <html>
 <head>
 <title>MyPageTeacher</title>
-<link rel="stylesheet" href="../resources/css/theme.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -18,7 +18,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <style>
-div {
+.left {
 	float:left;
 	text-align:center;
 }
@@ -250,72 +250,76 @@ image {
 	}
 </script>
 </head>
-<body>
+<div id="ex1" class="modal"></div>
+<body id="page-top">
+	<%@ include file="../include/main_header.jsp" %>
+			<div class="buttons left">
+				<img class="image" src="../resources/assets/Teacher_mypage.png"/><br><br>
+					<button class="btn btn-outline-warning cc_pointer" type="button"
+						onclick="location.href=''">회원 정보 수정</button>
+					<button class="btn btn-outline-warning cc_pointer">매치 정보 수정</button>
+			</div>
 
-	<div class="buttons">
-		<img class="image" src="../resources/assets/Teacher_mypage.png"/><br><br>
-		<button class="btn btn-outline-warning cc_pointer" type="button"
-			onclick="location.href=''">회원 정보 수정</button>
-		<button class="btn btn-outline-warning cc_pointer">매치 정보 수정</button>
-	</div>
-
-	<div class="mypage-teacher-status">
-		<h4 class="text-muted">수업 신청 현황</h4><br>
-		<div id="ex1" class="modal"></div>
-		<table id="status" width="200px">
-			<thead>
-				<tr>
-					<td>요청</td>
-					<td>상태</td>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${connections }" var="conn">
-					<tr>
-						<td>${conn.student }(${conn.subject })</td>
-						<td><c:choose>
-								<c:when test="${conn.step == 'CLASS' }">
-									<p>수업중</p>
-									<br>
-									<a
-										href="<c:url value='/connection/${conn.connectionId}/step?step=REVIEW&type=teacher'/>">수업
-										종료</a>
-								</c:when>
-								<c:when test="${conn.step == 'REJECT' }">
-									<p>수업 거절</p>
-								</c:when>
-								<c:when
-									test="${conn.step == 'FINISH' || conn.step == 'REVIEW' }">
-									<p>수업 종료</p>
-								</c:when>
-								<c:when test="${conn.step == 'MATCH' }">
-									<p>
-										<a href="#ex1" rel="modal:open" onclick="setConnection()"
-											data-arg1="${conn.connectionId }">요청 확인</a> <br /> <a
-											href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>
-										&nbsp;&nbsp; <a
-											href="<c:url value='/connection/${conn.connectionId}/step?step=CLASS&type=teacher'/>">최종
-											수락</a>
-									</p>
-								</c:when>
-								<c:otherwise>
-									<!-- step == 'REQUEST' -->
-									<p>
-										<a href="#ex1" rel="modal:open" onclick="setConnection()"
-											data-arg1="${conn.connectionId }">수업 요청</a><br /> <a
-											href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>
-										&nbsp;&nbsp; <a
-											href="<c:url value='/connection/${conn.connectionId}/step?step=MATCH&type=teacher'/>">수락</a>
-									</p>
-								</c:otherwise>
-							</c:choose></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-
-	</div>
-
-
+			
+			<div class="mypage-teacher-status left">
+				<h4 class="text-muted">수업 신청 현황</h4><br>
+				<table id="status" width="200px">
+					<thead>
+						<tr>
+							<td>요청</td>
+							<td>상태</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${connections }" var="conn">
+							<tr>
+								<td>${conn.student }(${conn.subject })</td>
+								<td><c:choose>
+										<c:when test="${conn.step == 'CLASS' }">
+											<p>수업중</p>
+											<br>
+											<a
+												href="<c:url value='/connection/${conn.connectionId}/step?step=REVIEW&type=teacher'/>">수업
+												종료</a>
+										</c:when>
+										<c:when test="${conn.step == 'REJECT' }">
+											<p>수업 거절</p>
+										</c:when>
+										<c:when
+											test="${conn.step == 'FINISH' || conn.step == 'REVIEW' }">
+											<p>수업 종료</p>
+										</c:when>
+										<c:when test="${conn.step == 'MATCH' }">
+											<p>
+												<a href="#ex1" rel="modal:open" onclick="setConnection()"
+													data-arg1="${conn.connectionId }">요청 확인</a> <br /> <a
+													href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>
+												&nbsp;&nbsp; <a
+													href="<c:url value='/connection/${conn.connectionId}/step?step=CLASS&type=teacher'/>">최종
+													수락</a>
+											</p>
+										</c:when>
+										<c:otherwise>
+											<!-- step == 'REQUEST' -->
+											<p>
+												<a href="#ex1" rel="modal:open" onclick="setConnection()"
+													data-arg1="${conn.connectionId }">수업 요청</a><br /> <a
+													href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>
+												&nbsp;&nbsp; <a
+													href="<c:url value='/connection/${conn.connectionId}/step?step=MATCH&type=teacher'/>">수락</a>
+											</p>
+										</c:otherwise>
+									</c:choose></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+		
+			</div>
+	
+	<section class="page-section">
+		<div class="container text-center">
+		</div>
+	</section>
 </body>
 </html>

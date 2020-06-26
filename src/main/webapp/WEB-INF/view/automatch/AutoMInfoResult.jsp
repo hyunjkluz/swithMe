@@ -123,16 +123,6 @@
 				tr1.appendChild(td1_2);
 				table.appendChild(tr1);
 
-				tr2 = document.createElement("tr");
-				td2_1 = document.createElement("td");
-				td2_1.innerHTML = "수업 경력";
-				td2_2 = document.createElement("td");
-				td2_2.innerHTML = detail.teacherMatch.profileCareer;
-
-				tr2.appendChild(td2_1);
-				tr2.appendChild(td2_2);
-				table.appendChild(tr2);
-
 				var tr3 = document.createElement("tr");
 				var td3_1 = document.createElement("td");
 				td3_1.innerHTML = "수업 스타일";
@@ -152,13 +142,34 @@
 		})
 	}
 </script>
+<style type="text/css">
+table, td, th {
+	border: 1px solid #ddd;
+	text-align: left;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+thead {
+	 background-color: #fff9b1;
+	 text-align: center;
+}
+
+th, td {
+	padding: 15px;
+}
+
+</style>
 </head>
+<div id="ex1" class="modal"></div>
 <body id="page-top">
 	<%@ include file="../include/main_header.jsp" %>
 	<spring:hasBindErrors name="studentMatchForm" />
 	<form:form modelAttribute="studentMatchForm" method="post"
 		action="/swithMe/student/match/fin">
-		<div id="ex1" class="modal"></div>
 
 		<section class="page-section text-center">
 			<div class="container">
@@ -173,6 +184,7 @@
 
 			<section class="page-section">
 					<div class="container">
+		
 						<div id="classList" class="row text-center">
 							<c:forEach items="${classCardList }" var="cc" varStatus="i">
 								<div class="col-lg-4 col-sm-6 mb-4">
