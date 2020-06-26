@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -16,14 +17,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<style>
-.teacherClassCard {
-	background-color: #fffab5;
-	margin: 10px;
-	text-align: center;
-	float: left;
-}
-</style>
+<link href="../resources/css/classcard.css" rel="stylesheet" />
 <script type="text/javascript">
 	function setTeacher(e) {
 		const classId = event.target.getAttribute('data-arg1');
@@ -159,33 +153,65 @@
 	}
 </script>
 </head>
-<body>
+<body id="page-top">
+	<%@ include file="../include/main_header.jsp" %>
 	<spring:hasBindErrors name="studentMatchForm" />
 	<form:form modelAttribute="studentMatchForm" method="post"
 		action="/swithMe/student/match/fin">
 		<div id="ex1" class="modal"></div>
 
-		<input type="submit" value="선생님 선택">
-		<br>
-		<br>
-
-		<form:errors path="teacherId" />
-
-		<c:forEach items="${classCardList }" var="cc" varStatus="i">
-			<div class="teacherClassCard">
-				<form:radiobutton path="teacherId" value="${cc.teacher.id }" />
-				<h1>${ cc.teacher.name}(${ cc.teacherInfo.entranceYear})</h1>
-				<h3>${cc.teacherInfo.university.name }/
-					${cc.teacherInfo.major.name }</h3>
-
-				<a href="#ex1" rel="modal:open" onclick="setTeacher()"
-					data-arg1="${cc.classId }">정보 보기</a>
+		<section class="page-section text-center">
+			<div class="container">
+			<br>
+				<h2>자동매칭 결과</h2>
+					<button class="sbtn2 sbtn" type="submit">선생님 선택</button>
+				<form:errors path="teacherId" />
 			</div>
-		</c:forEach>
+		</section>
+		<br>
+		<br>
 
-		<c:if test="${classCardList.length == 0 }">
-			<p>해당 조건을 가진 선생님이 없습니다.</p>
+			<section class="page-section">
+					<div class="container">
+						<div id="classList" class="row text-center">
+							<c:forEach items="${classCardList }" var="cc" varStatus="i">
+								<div class="col-lg-4 col-sm-6 mb-4">
+								<div class="card-container center">
+									<div class="card" >
+										<form:radiobutton path="teacherId" value="${cc.teacher.id }" />
+										<h2>${ cc.teacher.name}</h2>
+										<h4>${cc.subject.name }</h4>
+										<hr>
+										<p>${cc.teacherInfo.university.name } ${cc.teacherInfo.major.name }</p>
+											<p>${ cc.teacherInfo.entranceYear}</p>
+										<a href="#ex1" rel="modal:open" onclick="setTeacher()" data-arg1="${cc.classId }">정보 보기</a>
+									</div>
+								</div>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+				</section>
+			
+
+		<c:if test="${empty classCardList }">
+			<section class="page-section">
+				<div class="container text-center">
+					<h2>해당 조건을 가진 선생님이 없습니다.</h2>
+				</div>
+			</section>
 		</c:if>
+		
+		<section class="page-section">
+			<div class="container text-center">
+			</div>
+		</section>
+		
+		<section class="page-section">
+			<div class="container text-center">
+			</div>
+		</section>
 	</form:form>
+	<%@ include file="../include/main_footer.jsp" %>
 </body>
 </html>

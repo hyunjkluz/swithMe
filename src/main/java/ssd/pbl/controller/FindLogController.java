@@ -69,16 +69,15 @@ public class FindLogController {
 			return "auth/FindPWForm";
 		}
 		
-		String key = authService.findPW(findPWForm);
-		session.setAttribute("key", key);
+		authService.findPW(findPWForm);
 		
 		return "auth/FindPWIdentify";
 	}
 	
 	@RequestMapping(value = "/pw/identify", method = RequestMethod.POST)
-	public String checkIdentify	(@RequestParam("certificationNum") String certificationNum, HttpSession session, Model model, HttpServletResponse response) throws IOException {
-		String key = session.getAttribute("key").toString();
-		if (!key.equals(certificationNum)) {
+	public String checkIdentify	(@ModelAttribute("findPWForm") FindPWForm findPWForm, @RequestParam("code") int code, HttpSession session, Model model, HttpServletResponse response) throws IOException {
+		boolean check = authService.checkSecurityCode(code, findPWForm);
+		if (!check) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('인증번호가 일치하지 않습니다.'); location.href='auth/pw';</script>");
@@ -94,10 +93,12 @@ public class FindLogController {
 		
 		FindPWForm findPWForm = (FindPWForm)session.getAttribute("findPWForm");
 		String type = findPWForm.getType();
+		String email = findPWForm.getEmail();
 
 		resetPWForm.setType(type);
+		resetPWForm.setEmail(email);
 		authService.resetPW(resetPWForm);
 		
-		return "redirect:/auth/login";
+		return "redirect:/auth/loginForm.do";
 	}
 }

@@ -92,7 +92,7 @@
 	<div class="board_file">첨부파일: <c:out value="${board.boardForm.upload}"/></div>
 	
 	<br>
-	<c:if test="${userSession.id==board.writerId}">
+	<c:if test="${userSession.id==board.writerId && userSession.type == board.writerType}">
 		<a href="<c:url value='/connection/${connectionId}/board/' />${board.boardId}/edit">수정</a>
 		<input type="submit" value="삭제"/>
 	</c:if>

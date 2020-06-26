@@ -28,6 +28,7 @@
    			   WRITERTYPE AS writerType,
    			   REGISTEREDAT AS creationDate
 		FROM CLASSROOMBOARD
+		WHERE CLASS = #{connetionId}
 		ORDER BY REGISTEREDAT DESC
 	</select>
  	

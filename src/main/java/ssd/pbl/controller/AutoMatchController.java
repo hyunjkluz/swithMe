@@ -251,6 +251,7 @@ public class AutoMatchController {
 
 		HttpSession session = request.getSession();
 		List<ClassCard> cc = classService.getAutoMatchClasses(sMatchForm);
+		session.removeAttribute("classCardList");
 		session.setAttribute("classCardList", cc);
 
 		return "automatch/AutoMInfoResult";

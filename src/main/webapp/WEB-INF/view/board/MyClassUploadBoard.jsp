@@ -15,12 +15,12 @@
 </div>
 <div class="container">
 <section id="page-section">
-<form:form modelAttribute="boardForm" enctype="mutipart/form-data" action='/swithMe/connection/${connectionId}/board'>
+<form:form modelAttribute="boardForm" enctype="multipart/form-data" action='/swithMe/connection/${connectionId}/board' >
 	<form:select path="type" items="${boardTypes}" />
 	<br>
-	제목: <input type="text" name="title" />${boardForm.title}<br/>
-	내용: <textarea name="content">${boardForm.content}</textarea><br/>
-	<input type="file" name="upload">
+	제목: <form:input path="title" type="text" name="title" /><br/>
+	내용: <form:textarea path="content" name="content"></form:textarea><br/>
+	첨부파일: <form:input path="upload" type="file" name="upload"/>
 	<br>
 	<input type="submit" value="저장"/>
 	<a href="<c:url value='/connection/${connectionId}/board/main' />">취소</a>
