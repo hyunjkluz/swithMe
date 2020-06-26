@@ -16,8 +16,8 @@ public class BoardService {
 	@Autowired
 	private BoardMapperRepository boardMapperRepository;
 
-	public List<BoardForm> getBoardlist(int connectionId) {
-		return  boardMapperRepository.selectBoardList(connectionId);
+	public List<BoardForm> getBoardlist(int connectionId, String category) {
+		return  boardMapperRepository.selectBoardList(connectionId, category);
 	}
 	
 	public Board getBoard(int bId) {

@@ -9,10 +9,10 @@ import ssd.pbl.model.FindIDForm;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
 import ssd.pbl.model.ResetPWForm;
-import ssd.pbl.model.StudentForm;
 import ssd.pbl.model.Teacher;
 import ssd.pbl.model.TeacherForm;
 import ssd.pbl.model.University;
+import ssd.pbl.model.TeacherMatchForm;
 
 public interface TeacherMapper {
 	String selectEmailByNameAndPhone(FindIDForm findIDForm);
@@ -36,4 +36,12 @@ public interface TeacherMapper {
 	Integer selectTeacherId(String email);
 	
 	List<University> selectUniversity(String university);
+	
+	Integer insertTeacherMatch(TeacherMatchForm tmInfo);
+	
+	Integer insertTeacherRegion(@Param("id") int id, @Param("dongId") int dongId);
+	
+	Integer insertStudentTime(@Param("id") int id, @Param("time") String time);
+
+	Integer insertStudentCharacter(@Param("id")int id, @Param("characterId") int characterId);
 }

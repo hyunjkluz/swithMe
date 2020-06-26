@@ -6,8 +6,8 @@ public class BoardForm {
 	private String title;
 	private String type;
 	private String content;
-	//private MultipartFile upload;
 	private String upload;
+	private MultipartFile uploadFile;
 	
 	public String getTitle() {
 		return title;
@@ -27,21 +27,22 @@ public class BoardForm {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	//public MultipartFile getUpload() { return upload; } 
-	//public void setUpload(MultipartFile upload) { this.upload = upload; }
-	 
-	
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
 	public String getUpload() {
 		return upload;
 	}
 	public void setUpload(String upload) {
 		this.upload = upload;
 	}
-	
 	@Override
 	public String toString() {
-		return "BoardForm [title=" + title + ", type=" + type + ", content=" + content + ", upload=" + upload + "]";
+		return "BoardForm [title=" + title + ", type=" + type + ", content=" + content + ", uploadFile=" + uploadFile
+				+ ", upload=" + upload + "]";
 	}
 	
 }

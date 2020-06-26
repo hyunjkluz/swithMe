@@ -8,7 +8,7 @@ import ssd.pbl.model.BoardForm;
 import ssd.pbl.model.Board;
 
 public interface BoardMapper {
-	List<BoardForm> selectBoardList(int connectionId);
+	List<BoardForm> selectBoardList(@Param("connectionId")int connectionId, @Param("category")String category);
 	
 	Board selectBoardById(int bId);
 	

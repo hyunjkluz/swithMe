@@ -33,7 +33,7 @@
 								  <h4>${connection.student}</h4>
 								  </c:if>
                             	  <p class="text-muted">${connection.subject}</p>
-								  <a href="<c:url value='/connection/' />${connection.connectionId}/board/main">입장하기</a>
+								  <a href="<c:url value='/connection/' />${connection.connectionId}/board/?category=NOTICE">입장하기</a>
 							      </div>
 							</c:forEach>
 						  </c:when>

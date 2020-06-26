@@ -3,20 +3,7 @@
 
 <mapper namespace="ssd.pbl.repository.mapper.BoardMapper">
 	<cache />
- 	<!-- <select id="selectBoardList" parameterType="int" resultType="Board">
-   		SELECT ID AS boardId,
-   			   CLASS AS connectionId,
-   			   TITLE AS boardForm.title,
-   			   TYPE AS boardForm.type,
-   			   CONTENT AS boardForm.content,
-   			   UPLOAD AS boardForm.upload,
-   			   WRITER AS writer,
-   			   WRITERTYPE AS writerType,
-   			   REGISTEREDAT AS creationDate
-		FROM CLASSROOMBOARD
-		WHERE CLASS = #{connetionId}
-		ORDER BY REGISTEREDAT DESC
-	</select> -->
+
 	<select id="selectBoardList"  resultType="Board">
    		SELECT ID AS boardId,
    			   CLASS AS connectionId,
@@ -28,7 +15,7 @@
    			   WRITERTYPE AS writerType,
    			   REGISTEREDAT AS creationDate
 		FROM CLASSROOMBOARD
-		WHERE CLASS = #{connetionId}
+		WHERE CLASS = #{connectionId} AND TYPE=#{category}
 		ORDER BY REGISTEREDAT DESC
 	</select>
  	
@@ -62,7 +49,7 @@
  	</insert>
  	
  	<update id="updateBoard" parameterType="BoardForm">
- 		UPDATE CLASSROOMBOARD SET TITLE = #{boardForm.title},  CONTENT = #{boardForm.content}, UPLOAD = #{boardForm.upload, javaType=String, jdbcType=VARCHAR} 
+ 		UPDATE CLASSROOMBOARD SET TITLE = #{boardForm.title}, TYPE = #{boardForm.type}, CONTENT = #{boardForm.content}, UPLOAD = #{boardForm.upload, javaType=String, jdbcType=VARCHAR} 
 		WHERE ID = #{boardId}
  	</update>
  	

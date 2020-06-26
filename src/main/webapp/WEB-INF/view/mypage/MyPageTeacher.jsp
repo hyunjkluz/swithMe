@@ -7,6 +7,7 @@
 <html>
 <head>
 <title>MyPageTeacher</title>
+<link rel="stylesheet" href="../resources/css/theme.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -17,11 +18,20 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <style>
+div {
+	float:left;
+	text-align:center;
+}
+.buttons {
+	padding: 200px 50px 30px 400px;
+}
 .mypage-teacher-status {
 	margin: auto;
-	border: 1px solid black;
+	border: 3px solid #FFF9B1;
 	width: 600px;
 	padding: 30px 30px 30px 30px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 table, td, th {
@@ -34,6 +44,11 @@ table {
 	width: 100%;
 }
 
+thead {
+	 background-color: #fff9b1;
+	 text-align: center;
+}
+
 th, td {
 	padding: 15px;
 }
@@ -41,7 +56,7 @@ th, td {
 a.modalA:link, a.modalA:visited {
 	background-color: #ffbe0d;
 	color: white;
-	padding: 14px 25px;
+	padding: 25px 25px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -49,6 +64,9 @@ a.modalA:link, a.modalA:visited {
 
 a.modalA:hover, a.modalA:active {
 	background-color: #ffe18f;
+}
+image {
+	padding-bottom: 30px;
 }
 </style>
 <script type="text/javascript">
@@ -234,19 +252,17 @@ a.modalA:hover, a.modalA:active {
 </head>
 <body>
 
-	<div>
-
-		<!-- 프로필 사진 -->
-
-		<a href="<c:url value=''/>">회원 정보 수정</a> &nbsp; <a
-			href="<c:url value=''/>">매칭 정보 수정</a>
-
+	<div class="buttons">
+		<img class="image" src="../resources/assets/Teacher_mypage.png"/><br><br>
+		<button class="btn btn-outline-warning cc_pointer" type="button"
+			onclick="location.href=''">회원 정보 수정</button>
+		<button class="btn btn-outline-warning cc_pointer">매치 정보 수정</button>
 	</div>
 
 	<div class="mypage-teacher-status">
-		<p>수업 신청 현황</p>
+		<h4 class="text-muted">수업 신청 현황</h4><br>
 		<div id="ex1" class="modal"></div>
-		<table border="1px" id="status" width="200px">
+		<table id="status" width="200px">
 			<thead>
 				<tr>
 					<td>요청</td>
@@ -268,24 +284,28 @@ a.modalA:hover, a.modalA:active {
 								<c:when test="${conn.step == 'REJECT' }">
 									<p>수업 거절</p>
 								</c:when>
-								<c:when test="${conn.step == 'FINISH' || conn.step == 'REVIEW' }">
+								<c:when
+									test="${conn.step == 'FINISH' || conn.step == 'REVIEW' }">
 									<p>수업 종료</p>
 								</c:when>
 								<c:when test="${conn.step == 'MATCH' }">
 									<p>
 										<a href="#ex1" rel="modal:open" onclick="setConnection()"
-											data-arg1="${conn.connectionId }">요청 확인</a> <br/> 
-										<a href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>	&nbsp;&nbsp;
-										<a href="<c:url value='/connection/${conn.connectionId}/step?step=CLASS&type=teacher'/>">최종 수락</a>
+											data-arg1="${conn.connectionId }">요청 확인</a> <br /> <a
+											href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>
+										&nbsp;&nbsp; <a
+											href="<c:url value='/connection/${conn.connectionId}/step?step=CLASS&type=teacher'/>">최종
+											수락</a>
 									</p>
 								</c:when>
 								<c:otherwise>
-								<!-- step == 'REQUEST' -->
+									<!-- step == 'REQUEST' -->
 									<p>
 										<a href="#ex1" rel="modal:open" onclick="setConnection()"
-											data-arg1="${conn.connectionId }">수업 요청</a><br/> 
-										<a href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>	&nbsp;&nbsp;
-										<a href="<c:url value='/connection/${conn.connectionId}/step?step=MATCH&type=teacher'/>">수락</a>
+											data-arg1="${conn.connectionId }">수업 요청</a><br /> <a
+											href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=teacher'/>">거절</a>
+										&nbsp;&nbsp; <a
+											href="<c:url value='/connection/${conn.connectionId}/step?step=MATCH&type=teacher'/>">수락</a>
 									</p>
 								</c:otherwise>
 							</c:choose></td>
