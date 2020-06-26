@@ -115,40 +115,40 @@
 	<select id="selectClassTeacherDetailByClassId"
 		resultMap="ctd">
 		SELECT tc.id, tc.ability, tc.studentGender,
-		s.id "subId", s.name "subName", s.category "subCategory",
-		t.id "teacherId", t.name "teacherName", t.rank "teacherRank", t.rate "teacherRate",
-		ti.teacherGender, ti.status " teacherStatus",
-		ti.entranceYear, ti.profileImg,
-		u.id "univId", u.name "univName", m.id "majorId", m.name "majorName",
-		tm.profileIntro, tm.profilestyle, 
-		tm.profilecareer, tm.studentGender,
-		tt.id "timeId", tt.time,
-		c.id "charId", c.name "charName", c.description "charDescription",
-		d.id "dongId", d.name "dongName"
+       s.id "subId", s.name "subName", s.category "subCategory",
+       t.id "teacherId", t.name "teacherName", t.rank "teacherRank", t.rate "teacherRate",
+       ti.teacherGender, ti.status " teacherStatus",
+       ti.entranceYear, ti.profileImg,
+       u.id "univId", u.name "univName", m.id "majorId", m.name "majorName",
+       tm.profileIntro, tm.profilestyle,
+       tm.profilecareer, tm.studentGender,
+       tt.id "timeId", tt.time,
+       c.id "charId", c.name "charName", c.description "charDescription",
+       d.id "dongId", d.name "dongName"
 
-		FROM teacherClass tc
-		INNER JOIN subject s
-		ON tc.id = #{classId} AND tc.subject = s.id
-		INNER JOIN teacher t
-		ON t.id = tc.teacher
-		INNER JOIN teacherInfo ti
-		ON ti.teacher = t.id
-		INNER JOIN university u
-		ON u.id = ti.university
-		INNER JOIN major m
-		ON m.id = ti.major
-		INNER JOIN teacherMatch tm
-		ON tm.teacher = t.id
-		INNER JOIN teacherTimes tt
-		ON tt.teachermatch = tm.id
-		JOIN teacherCharacter tch
-		ON tch.teachermatch = tm.id
-		INNER JOIN character c
-		ON c.id = tch.character
-		INNER JOIN teacherRegion tr
-		ON tr.teachermatch = tm.id
-		INNER JOIN dong d
-		ON d.id = tr.dong
+FROM teacherClass tc
+         INNER JOIN subject s
+                    ON tc.id = #{classId} AND tc.subject = s.id
+    INNER JOIN teacher t
+ON t.id = tc.teacher
+    INNER JOIN teacherInfo ti
+    ON ti.teacher = t.id
+    INNER JOIN university u
+    ON u.id = ti.university
+    INNER JOIN major m
+    ON m.id = ti.major
+    INNER JOIN teacherMatch tm
+    ON tm.teacher = t.id
+    INNER JOIN teacherTimes tt
+    ON tt.teachermatch = tm.TEACHER
+    JOIN teacherCharacter tch
+    ON tch.teachermatch = tm.TEACHER
+    INNER JOIN character c
+    ON c.id = tch.character
+    INNER JOIN teacherRegion tr
+    ON tr.teachermatch = tm.TEACHER
+    INNER JOIN dong d
+    ON d.id = tr.dong
 
 	</select>
 

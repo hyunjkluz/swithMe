@@ -11,7 +11,7 @@
 		s.name "subjectName"
 		FROM connection c
 		JOIN teacher t
-		ON t.id = 4 AND c.teacher = t.id
+		ON t.id = #{teacherId} AND c.teacher = t.id
 		LEFT JOIN classFeedback cf
 		ON c.id = cf.connection
 		JOIN subject s

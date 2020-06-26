@@ -9,7 +9,14 @@ public class FindPWForm {
 	private String email;
 	@NotEmpty(message="이름을 입력해주세요.")
 	private String name;
+	private int code;
 	
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
 	public String getType() {
 		return type;
 	}

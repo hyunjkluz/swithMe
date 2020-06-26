@@ -128,10 +128,6 @@ table  tr:nth-child(2n + 1) {
 					<td>${detail.teacherMatch.profileIntro }</td>
 				</tr>
 				<tr>
-					<th>수업 경력</th>
-					<td>${detail.teacherMatch.profileCareer }</td>
-				</tr>
-				<tr>
 					<th>수업 스타일</th>
 					<td>${detail.teacherMatch.profileStyle }</td>
 				</tr>
