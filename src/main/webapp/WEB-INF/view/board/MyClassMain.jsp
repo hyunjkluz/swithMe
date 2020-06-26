@@ -8,7 +8,7 @@
 </head>
 <script >
 	function class_change(connectionId) {
-		location.href = "<c:url value='/connection/' />"+connectionId+"/board/main";
+		location.href = "<c:url value='/connection/' />"+connectionId+"/board/?category=NOTICE";
 	}
 </script>
 <body>
@@ -34,9 +34,9 @@
 	</div>
 	<br>
 	<div >
-		<button type="button" onclick="">공지사항</button>
-		<button type="button" onclick="">질문</button>
-		<button type="button" onclick="">과제</button>
+		<a href="<c:url value='/connection/${connectionId}/board?category=NOTICE' />">공지사항</a>
+		<a href="<c:url value='/connection/${connectionId}/board?category=QA' />">질문</a>
+		<a href="<c:url value='/connection/${connectionId}/board?category=HOMEWORK' />">과제</a>
 		<a href="<c:url value='/connection/${connectionId}/board.do' />">글작성</a>
 		<hr />
 		<br>
@@ -50,7 +50,7 @@
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
-				<th>이름</th>
+				<th>작성자</th>
 				<th>작성일</th>
 			</tr>
 			<c:choose>
@@ -62,7 +62,7 @@
 					  <tr>
 					    <th><c:out value="${status.index+1}" /></th>
 					    <th><a href="<c:url value='/connection/' />${board.connectionId}/board/${board.boardId}">${board.boardForm.title}</a></th>
-					    <th>${board.writerId}</th>
+					    <th>${board.writerType}</th>
 					    <th><fmt:formatDate value="${board.creationDate}" pattern="yyyy-MM-dd"/></th>	    
 					  </tr>
 				  </c:forEach>
