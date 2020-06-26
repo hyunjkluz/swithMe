@@ -8,4 +8,15 @@
 		DELETE
 		FROM MAILAUTH
 	</delete>
+	
+	<insert id="insertSecurityCode" parameterType="ssd.pbl.model.FindPWForm">
+		INSERT INTO MAILAUTH (EMAIL, CODE, REGISTEREDAT)
+		VALUES (#{email}, #{code}, SYSDATE)
+	</insert>
+	
+	<select id="selectSecurityCode" parameterType="java.lang.String" resultType="int">
+		SELECT *
+		FROM (SELECT CODE FROM MAILAUTH WHERE email = #{email} order by REGISTEREDAT DESC)
+        WHERE ROWNUM = 1
+	</select>
 </mapper>

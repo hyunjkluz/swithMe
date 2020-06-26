@@ -21,6 +21,9 @@ import ssd.pbl.model.FindIDForm;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
 import ssd.pbl.model.ResetPWForm;
+import ssd.pbl.model.StudentForm;
+import ssd.pbl.model.TeacherForm;
+import ssd.pbl.repository.mapper.MailMapperRepository;
 import ssd.pbl.repository.mapper.StudentMapperRepository;
 import ssd.pbl.repository.mapper.TeacherMapperRepository;
 
@@ -31,6 +34,8 @@ public class AuthService {
 	private StudentMapperRepository studentMapperRepository;
 	@Autowired
 	private TeacherMapperRepository teacherMapperRepository;
+	@Autowired
+	private MailMapperRepository mailMapperRepository;
 	private JavaMailSender mailSender;
 	
 	public AuthService(StudentMapperRepository studentMapperRepository,
@@ -85,7 +90,7 @@ public class AuthService {
 
 	}
 
-	public String findPW(FindPWForm findPWForm) throws Exception {
+	public boolean findPW(FindPWForm findPWForm) throws Exception {
 		int id = -1;
 		if (findPWForm.getType().equals("student")) {
 			id = studentMapperRepository.selectStudentByEmailAndName(findPWForm);
@@ -94,12 +99,26 @@ public class AuthService {
 			id = teacherMapperRepository.selectTeacherByEmailAndName(findPWForm);
 		}
 		
-		String key = "";
+		int key;
 		if (id != -1) {
 			key = send_mail(findPWForm);
+			findPWForm.setCode(key);
+			mailMapperRepository.insertSecurityCode(findPWForm);
+			System.out.println(key);
+			return true;
 		}
-		System.out.println(key);
-		return key;
+		
+		return false;
+	}
+	
+	public boolean checkSecurityCode(int code, FindPWForm findPWForm) {
+		int key = mailMapperRepository.selectSecurityCode(findPWForm.getEmail());
+		
+		if (key == code) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void resetPW(ResetPWForm resetPWForm) {
@@ -110,11 +129,11 @@ public class AuthService {
 		}
 	}
 
-	public String send_mail(FindPWForm findPWForm) throws Exception {
+	public int send_mail(FindPWForm findPWForm) throws Exception {
 		String setfrom = "subees4136@gmail.com";
 		String subject = "swithMe 인증번호입니다.";
 		String msg = "";
-		String key = create_key();
+		int key = create_key();
 
 		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 		msg += "<h3 style='color: blue;'>";
@@ -140,25 +159,42 @@ public class AuthService {
 	    return key;
 	}
 
-	public String create_key() throws Exception {
-		String key = "";
+	public int create_key() throws Exception {
+		int key = 0;
 		Random rd = new Random();
 
 		for (int i = 0; i < 8; i++) {
-			key += rd.nextInt(10);
+			key = key * 10 + rd.nextInt(10);
 		}
+		
 		return key;
 	}
 
-	public boolean isEmailExist(String email) {
+	public int isEmailExist(String email) {
 		return studentMapperRepository.selectCountStudentEmail(email);
 	}
 
-	public void createStudent() {
-
+	public void createStudent(StudentForm student) {
+		studentMapperRepository.insertStudent(student);
+	}
+	
+	public void createStudentInfo(StudentForm student) {
+		studentMapperRepository.insertStudentInfo(student);
 	}
 
-	public void createTeacher() {
-
+	public int selectStudentId(String email) {
+		return studentMapperRepository.selectStudentId(email);
+	}
+	
+	public void createTeacher(TeacherForm teacher) {
+		teacherMapperRepository.insertTeacher(teacher);
+	}
+	
+	public void createTeacherInfo(TeacherForm teacher) {
+		teacherMapperRepository.insertTeacherInfo(teacher);
+	}
+	
+	public int selectTeacherId(String email) {
+		return teacherMapperRepository.selectTeacherId(email);
 	}
 }

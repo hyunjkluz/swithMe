@@ -46,4 +46,25 @@
 		WHERE TEACHER.EMAIL = #{email} AND TEACHER.NAME = #{name}
 	</select>
 	
+	<insert id="insertTeacher" parameterType="TeacherForm">
+		INSERT INTO TEACHER(EMAIL, PASSWORD, NAME, PHONE, STEP, REGIETEREDAT, UPDATEDAT)
+		VALUES (#{email}, #{password}, #{name}, #{phone}, 'GUEST', SYSDATE, SYSDATE)
+	</insert>
+	
+	<insert id="insertTeacherInfo" parameterType="TeacherForm">
+		INSERT INTO TEACHERINFO (TEACHER, TEACHERGENDER,, UNIVERSITY, MAJOR, STATUS, ENTRANCEYEAR, UNICERTIMG, PROFILEIMG, UPDATEDAT)
+		VALUES (#{id}, #{gender}, #{phone}, #{universityId}, #{major}, #{status}, #{entranceYear}, null, null, SYSDATE)
+	</insert>
+	
+	<select id="selectTeacherId" parameterType="java.lang.String" resultType="int">
+		SELECT id
+		FROM TEACHER
+		WHERE TEACHER.EMAIL = #{email}
+	</select>
+	
+	<select id="selectUniversity" parameterType="java.lang.String" resultType="University">
+		SELECT *
+		FROM university
+		WHERE name like '%'||#{university}||'%'
+	</select>
 </mapper>

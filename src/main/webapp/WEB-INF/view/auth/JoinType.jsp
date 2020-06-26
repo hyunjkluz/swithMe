@@ -90,6 +90,13 @@
     		
     		form.submit();
     	}
+    	
+    	function setTypeTeacher() {
+    		var form = document.signupTeacher;
+    		form.action = "<c:url value='/auth/signup' />";
+    		
+    		form.submit();
+    	}
     </script>
     <div class="base-top">
 
@@ -120,7 +127,7 @@
         
         </form:form>
         <form:form action="<c:url value='/auth/signup'/>" name="signupTeacher" method="GET">
-        <div class="join-type-select-teacher">
+        <div onclick="setTypeTeacher()" class="join-type-select-teacher">
           <div class="join-type-select-text">
             <span>선생님으로 회원가입</span>
             <input type="hidden" value="teacher" name="type">

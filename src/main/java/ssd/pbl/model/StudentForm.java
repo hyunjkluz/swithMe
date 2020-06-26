@@ -2,7 +2,12 @@ package ssd.pbl.model;
 
 import java.io.File;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class StudentForm {
+	private int id;
 	private String email;
 	private String password;
 	private boolean agreement;
@@ -11,11 +16,31 @@ public class StudentForm {
 	private String phone;
 	private String gender;
 	private String schoolCategory;
+	private String schoolType;
 	private String status;
 	private int schoolId;
 	private int grade;
-	private File profileImg;
+//	private MultipartFile profileImg;
 	
+
+	public int getSchoolId() {
+		return schoolId;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getSchoolType() {
+		return schoolType;
+	}
+	public void setSchoolType(String schoolType) {
+		this.schoolType = schoolType;
+	}
+	public void setSchoolId(int schoolId) {
+		this.schoolId = schoolId;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -70,24 +95,18 @@ public class StudentForm {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getSchoolId() {
-		return schoolId;
-	}
-	public void setSchoolId(int schoolId) {
-		this.schoolId = schoolId;
-	}
 	public int getGrade() {
 		return grade;
 	}
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	public File getProfileImg() {
-		return profileImg;
-	}
-	public void setProfileImg(File profileImg) {
-		this.profileImg = profileImg;
-	}
+//	public MultipartFile getProfileImg() {
+//		return profileImg;
+//	}
+//	public void setProfileImg(MultipartFile profileImg) {
+//		this.profileImg = profileImg;
+//	}
 	
 	
 }

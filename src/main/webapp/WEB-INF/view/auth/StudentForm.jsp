@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -139,7 +139,30 @@
         height: 40px;
       }
     </style>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
+	    $("#email-text").blur(function() {
+	    	var id = $("#email-text").val();
+	    	console.log(id);
+	    	$.ajax({
+				url : 'http://localhost:8080/swithMe/auth/signup/student/idCheck?email='+ id,
+				type : 'get',
+				success : function(data) {
+					console.log("1 = 중복o / 0 = 중복x : "+ data);							
+					
+					if (data == 1) {
+							// 1 : 아이디가 중복되는 문구
+							$("#id-check").text("이미 사용중인 아이디입니다.");
+							$("#id-check").css("color", "red");
+							$("#reg_submit").attr("disabled", true);
+					}
+				},
+				error : function() {
+							console.log("실패");
+				}
+			});
+	    });
+	    
     	function changeGrade(value) {
     		if (value == "elementary") {
     			num = new Array("1학년", "2학년", "3학년", "4학년", "5학년", "6학년");
@@ -162,6 +185,28 @@
     			grade.options[i] = new Option(num[i], vnum[i]);
     		}
     	}
+    	
+    	function searchSchool() {
+    		var id = $("#school").val();
+    		const url = "http://localhost:8080/swithMe/search/school/" + id;
+    		console.log(url);
+
+    		$.ajax({
+    			url : url,
+    			type : "GET",
+    			dataType : "json",
+    			contentType : "application/json",
+    			success : function(data) {
+    				console.log(data);
+    				for (var i = 0; i < data.length; i++) {
+    					$('#schoolList').append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+    				}
+    			},
+    			error : function(errorThrown) {
+    				alert(errorThrown.statusText);
+    			}
+    		})
+    	}
     </script>
   </head>
   <body>
@@ -183,18 +228,14 @@
       <div class="join-term-title-area">
         <span class="join-term-title">학생 회원정보 입력</span>
       </div>
-      <form:form modelAttribute="student" method="post" action="student">
+      <form:form modelAttribute="studentForm" method="post" action="student">
       <div class="join-input-info">
-      	<form:form action="<c:url value='/auth/signup/idCheck' />" name="idCheck" method="POST">
         <div class="join-input-info-row-area">
           <div class="join-input-info-id">
-            <form:input path="email" type="text" class="join-input-info-id-text" placeholder="아이디" />
-          </div>
-          <div class="join-input-info-id-confirm">
-            <button type="submit" class="join-input-info-id-confirm-btn">중복 확인</button>
+            <form:input path="email" id="email-text" type="text" class="join-input-info-id-text" placeholder="아이디" />
           </div>
         </div>
-        </form:form>
+        <div class="id-check-area" id="id-check"></div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-pw">
             <form:input path="password" type="password" class="join-input-info-pw-text" placeholder="비밀번호" />
@@ -205,20 +246,19 @@
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
-            <input type="text" class="join-input-info-name-text" placeholder="이름" />
+            <form:input path="name" type="text" class="join-input-info-name-text" placeholder="이름" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
-            <input type="number" class="join-input-info-name-text" placeholder="전화번호" />
+            <form:input path="phone" type="number" class="join-input-info-name-text" placeholder="전화번호" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-gender">
-            <button class="join-input-info-gender-btn" id="female" onclick="setGenderBtn('female');">여성</button>
-          </div>
-          <div class="join-input-info-gender">
-            <button class="join-input-info-gender-btn" id="male" onclick="setGenderBtn('male');">남성</button>
+          	<form:radiobutton path="gender" value="female" label="여성" />
+			<form:radiobutton path="gender" value="male" label="남성" /><br>
+			<form:errors path="gender" />
           </div>
         </div>
         <div class="join-input-info-row-area">
@@ -230,10 +270,9 @@
             </form:select>
           </div>
           <div class="join-input-info-school-status">
-            <!-- <button class="join-input-info-school-status-btn">재학</button>
-            <button class="join-input-info-school-status-btn">졸업</button>
-            <form:input type="radio" name="status" path="status" value="attend" />재학
-            <form:input type="radio" name="status" path="status" value="graduate" />졸업 -->
+          	<form:radiobutton path="status" value="attend" label="재학" />
+			<form:radiobutton path="status" value="graduate" label="졸업" /><br>
+			<form:errors path="status" />
           </div>
         </div>
         <div class="join-input-info-row-area">
@@ -241,8 +280,11 @@
             <input type="text" class="join-input-info-school-text" id="school" placeholder="학교이름" />
           </div>
           <div class="join-input-info-school-search">
-            <button class="join-input-info-school-search-btn">학교 검색</button>
+            <input type="button" class="join-input-info-school-search-btn" onclick="searchSchool();" value="학교 검색" />
           </div>
+          <form:select path="schoolId" id="schoolList" name="schoolList">
+          
+          </form:select>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-grade">
@@ -253,7 +295,7 @@
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-img">
-
+			<input type="file" name="profileImg" />
           </div>
         </div>
         <div class="join-input-info-row-area">

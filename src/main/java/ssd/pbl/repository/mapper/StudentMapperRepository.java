@@ -13,6 +13,7 @@ import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
 import ssd.pbl.model.ResetPWForm;
 import ssd.pbl.model.SchoolForm;
+import ssd.pbl.model.StudentForm;
 import ssd.pbl.model.StudentMatchForm;
 import ssd.pbl.model.StudentTest;
 
@@ -72,12 +73,8 @@ public class StudentMapperRepository {
 		return studentMapper.selectStudent(email);
 	}
 
-	public boolean selectCountStudentEmail(String email) {
-		if (studentMapper.selectCountStudentEmail(email) == 0) {
-			return false;
-		} else {
-			return true;
-		}
+	public int selectCountStudentEmail(String email) {
+		return studentMapper.selectCountStudentEmail(email);
 	}
 
 	public List<SchoolForm> selectSchool(String school) {
@@ -98,5 +95,21 @@ public class StudentMapperRepository {
 	
 	public void updateStudentPW(ResetPWForm resetPWForm) {
 		studentMapper.updateStudentPW(resetPWForm);
+	}
+	
+	public void insertStudent(StudentForm student) {
+		studentMapper.insertStudent(student);
+	}
+	
+	public void insertStudentInfo(StudentForm student) {
+		studentMapper.insertStudentInfo(student);
+	}
+	
+	public String selectSchoolType(int id) {
+		return studentMapper.selectSchoolType(id);
+	}
+	
+	public Integer selectStudentId(String email) {
+		return studentMapper.selectStudentId(email);
 	}
 }

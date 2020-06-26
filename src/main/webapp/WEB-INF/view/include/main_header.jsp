@@ -25,7 +25,7 @@
                 	<c:if test="${empty userSession}" >
 	                    <ul class="navbar-nav text-uppercase ml-auto">
 	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/auth/loginForm.do'/>">로그인</a></li>
-	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/auth/signUp.do'/>">회원가입</a></li>
+	                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<c:url value='/auth/signup.do'/>">회원가입</a></li>
 	                    </ul>
                     </c:if>
                     <c:if test="${not empty userSession}" >
