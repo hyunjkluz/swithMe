@@ -29,7 +29,8 @@
 	</bean>
 	
 	<!-- multipartResolver 설정 적용 -->
-	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="mulitpartResolver"> </bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+	</bean>
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -69,6 +70,8 @@
 			<mvc:mapping path="/mypage/teacher.do"/>
 			<mvc:mapping path="/mypage/student.do"/>
 			<mvc:mapping path="/review/connection/{connectionId}"/>
+			<mvc:mapping path="/connection/student"/>
+			<mvc:mapping path="/connection/teacher"/>
 			<bean class="ssd.pbl.controller.LoginInterceptor" />
 		</mvc:interceptor> 
 	</mvc:interceptors>

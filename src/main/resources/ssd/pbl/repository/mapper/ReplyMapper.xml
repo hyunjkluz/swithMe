@@ -16,7 +16,7 @@
 	</select>
 
  	<insert id="insertReply" parameterType="Reply">
- 		INSERT INTO REPLY(CONTENT, BOARD, WRITER, WEITERTYPE, REGISTEREDAT, UPDATEDAT) 
+ 		INSERT INTO REPLY(CONTENT, BOARD, WRITER, WRITERTYPE, REGISTEREDAT, UPDATEDAT) 
  		VALUES (#{content}, #{boardId}, #{writerId}, #{writerType}, SYSDATE, SYSDATE)
  	</insert>
  	
