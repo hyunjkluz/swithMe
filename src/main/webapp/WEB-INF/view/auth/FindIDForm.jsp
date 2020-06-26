@@ -20,7 +20,7 @@
       .find-id-form {
         width: 500px;
         margin: auto;
-        background-color: #FFF362;
+        background-color: #e6e6e6;
       }
       .find-id-title-area {
         width: 100%
@@ -48,11 +48,10 @@
         cursor: pointer;
       }
       .find-id-input-area {
-        width: 154px;
+        width: 400px;
         margin: auto;
       }
       .find-id-input-content-area {
-        padding: 5px 0 5px 0;
       }
       .find-id-input-text {
         width: 150px;
@@ -74,8 +73,8 @@
     </style>
   </head>
   <body>
-    <%@ include file="../include/main_header.jsp" %>
-    <div class="find-id-form">
+  	<%@ include file="../include/main_header.jsp" %>
+    <div class="form find-id-form">
       <div class="find-id-title-area">
       	<div class="wrap-title">
         	<span class="find-id-title contact100-form-title">아이디 찾기</span>
@@ -90,11 +89,11 @@
         </div>
       </div>
       <div class="find-id-input-area">
-        <div class="find-id-input-content-area">
-          <form:input path="name" type="text" class="input100 " placeholder="이름" />
+        <div class="wrap-input100 find-id-input-content-area">
+          <form:input path="name" type="text" class="input100" placeholder="이름" />
           <form:errors path="name" />
         </div>
-        <div class="find-id-input-content-area">
+        <div class="wrap-input100 find-id-input-content-area">
           <form:input path="phone" type="number" class="input100 find-id-input-text" placeholder="전화번호" />
           <form:errors path="phone" />
         </div>

@@ -128,7 +128,7 @@
       </div>
       <div class="join-complete-name-area">
         <div class="join-complete-name-content">
-          <span class="join-complete-name">ㅇㅇㅇ님 환영합니다.</span>
+          <span class="join-complete-name">환영합니다.</span>
         </div>
       </div>
       <div class="join-complete-title-area">
@@ -137,7 +137,7 @@
         </div>
       </div>
       <div class="join-complete-btn-area">
-        <button class="join-complete-btn">로그인</div>
+        <button class="join-complete-btn" onclick="<c:url value='/auth/loginForm.do' />">로그인</button>
       </div>
     </div>
   </body>

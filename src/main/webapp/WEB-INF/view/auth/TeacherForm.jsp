@@ -145,7 +145,7 @@
 	    	var id = $("#email-text").val();
 	    	console.log(id);
 	    	$.ajax({
-				url : 'http://localhost:8080/swithMe/auth/signup/student/idCheck?email='+ id,
+				url : 'http://localhost:8080/swithMe/auth/signup/teacher/idCheck?email='+ id,
 				type : 'get',
 				success : function(data) {
 					console.log("1 = 중복o / 0 = 중복x : "+ data);							
@@ -162,33 +162,10 @@
 				}
 			});
 	    });
-	    
-    	function changeGrade(value) {
-    		if (value == "elementary") {
-    			num = new Array("1학년", "2학년", "3학년", "4학년", "5학년", "6학년");
-    			vnum = new Array("1", "2", "3", "4", "5", "6");
-    		} else if (value == "middle") {
-    			num = new Array("1학년", "2학년", "3학년");
-    			vnum = new Array("1", "2", "3");
-    		} else if (value == "high") {
-    			num = new Array("1학년", "2학년", "3학년");
-    			vnum = new Array("1", "2", "3");
-    		}
-    		
-    		var grade = document.getElementById('grade');
-    		
-    		for (var i = 0; i < grade.length; i++) {
-    			grade.options[i] = null;
-    		}
-    		
-    		for (i = 0; i < num.length; i++) {
-    			grade.options[i] = new Option(num[i], vnum[i]);
-    		}
-    	}
     	
-    	function searchSchool() {
-    		var id = $("#school").val();
-    		const url = "http://localhost:8080/swithMe/search/school/" + id;
+    	function searchUniversity() {
+    		var id = $("#university").val();
+    		const url = "http://localhost:8080/swithMe/search/university/" + id;
     		console.log(url);
 
     		$.ajax({
@@ -199,7 +176,7 @@
     			success : function(data) {
     				console.log(data);
     				for (var i = 0; i < data.length; i++) {
-    					$('#schoolList').append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+    					$('#universityList').append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
     				}
     			},
     			error : function(errorThrown) {
@@ -226,9 +203,9 @@
         </div>
       </div>
       <div class="join-term-title-area">
-        <span class="join-term-title">학생 회원정보 입력</span>
+        <span class="join-term-title">선생님 회원정보 입력</span>
       </div>
-      <form:form modelAttribute="studentForm" method="post" action="student">
+      <form:form modelAttribute="teacherForm" method="post" action="student">
       <div class="join-input-info">
         <div class="join-input-info-row-area">
           <div class="join-input-info-id">
@@ -262,38 +239,43 @@
           </div>
         </div>
         <div class="join-input-info-row-area">
-          <div class="join-input-info-school-type">
-            <form:select path="schoolCategory" name="schoolType" id="schoolType" class="join-input-info-school-type-select" onChange="changeGrade(value);">
-              <form:option value="elementary">초등학교</form:option>
-              <form:option value="middle">중학교</form:option>
-              <form:option value="high">고등학교</form:option>
-            </form:select>
-          </div>
+          
           <div class="join-input-info-school-status">
-          	<form:radiobutton path="status" value="attend" label="재학" />
-			<form:radiobutton path="status" value="graduate" label="졸업" /><br>
+          	<form:radiobutton path="status" value="재학" label="재학" />
+          	<form:radiobutton path="status" value="휴학" label="휴학" />
+			<form:radiobutton path="status" value="졸업" label="졸업" /><br>
 			<form:errors path="status" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-school">
-            <input type="text" class="join-input-info-school-text" id="school" placeholder="학교이름" />
+            <input type="text" class="join-input-info-school-text" id="university" placeholder="학교이름" />
           </div>
           <div class="join-input-info-school-search">
-            <input type="button" class="join-input-info-school-search-btn" onclick="searchSchool();" value="학교 검색" />
+            <input type="button" class="join-input-info-school-search-btn" onclick="searchUniversity();" value="학교 검색" />
           </div>
-          <form:select path="schoolId" id="schoolList" name="schoolList">
+          <form:select path="universityId" id="universityList" name="universityList">
           
           </form:select>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-grade">
             <form:select path="grade" name="grade" id="grade" class="join-input-info-school-type-select">
-              
+              <option value="1">1학년</option>
+              <option value="2">2학년</option>
+              <option value="3">3학년</option>
+              <option value="4">4학년</option>
             </form:select>
           </div>
         </div>
         <div class="join-input-info-row-area">
+        	학력증명서
+          <div class="join-input-info-img">
+			<input type="file" name="univCertImg" />
+          </div>
+        </div>
+        <div class="join-input-info-row-area">
+        	프로필이미지
           <div class="join-input-info-img">
 			<input type="file" name="profileImg" />
           </div>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Date;
 
 public class TeacherForm {
+	private int id;
 	private String email;
 	private String password;
 	private boolean agreement;
@@ -11,12 +12,34 @@ public class TeacherForm {
 	private String name;
 	private String phone;
 	private String gender;
+	private int grade;
+	private String status;
 	private int universityId;
 	private int majorId;
 	private int enteranceYear;
 	private File profileImg;
 	private File univCertImg;
 	
+	
+	
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getEmail() {
 		return email;
 	}

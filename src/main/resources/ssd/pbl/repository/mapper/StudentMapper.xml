@@ -39,16 +39,38 @@
 		WHERE STUDENT.EMAIL = #{email}
 	</select>
 	
-	<select id="selectCountStudentEmail" parameterType="string" resultType="int">
+	<select id="selectCountStudentEmail" parameterType="String" resultType="int">
 		SELECT count(*)
 		FROM STUDENT
 		WHERE STUDENT.EMAIL = #{email}
 	</select>
 	
-	<select id="selectSchoolListBySchoolName" parameterType="java.lang.String" resultType="SchoolForm">
-   		SELECT id
+	<insert id="insertStudent" parameterType="StudentForm">
+		INSERT INTO STUDENT(EMAIL, PASSWORD, NAME, PHONE, STEP, REGIETEREDAT, UPDATEDAT)
+		VALUES(#{email}, #{password}, #{name}, #{phone}, 'REGISTER', SYSDATE, SYSDATE)
+	</insert>
+	
+	<select id="selectStudentId" parameterType="java.lang.String" resultType="int">
+		SELECT id
+		FROM STUDENT
+		WHERE STUDENT.EMAIL = #{email}
+	</select>
+	
+	<insert id="insertStudentInfo" parameterType="StudentForm">
+		INSERT INTO STUDENTINFO(STUDENT, STUDENTGENDER, SCHOOL, SCHOOLCATEGORY, SCHOOLTYPE, STATUS, GRADE, PROFILEIMG, UPDATEDAT)
+		VALUES(#{id}, #{gender}, #{schoolId}, #{schoolCategory}, #{schoolType}, #{status}, #{grade}, null, SYSDATE)
+	</insert>
+	
+	<select id="selectSchoolListBySchoolName" parameterType="java.lang.String" resultType="ssd.pbl.model.SchoolForm">
+   		SELECT *
 		FROM school
-		WHERE name like '%#{school}%'
+		WHERE name like '%'||#{school}||'%'
+	</select>
+	
+	<select id="selectSchoolType" parameterType="int" resultType="java.lang.String">
+		SELECT TYPE
+		FROM SCHOOL
+		WHERE ID = #{id}
 	</select>
 	
 	<select id="selectEmailByNameAndPhone" parameterType="FindIDForm" resultType="java.lang.String">
@@ -63,7 +85,7 @@
 		WHERE s.id = i.student AND s.email = #{email}
 	</select>
 	
-	<update id="updateStudentPW">
+	<update id="updateStudentPW" parameterType="ssd.pbl.model.ResetPWForm">
 		UPDATE STUDENT
 		SET STUDENT.PASSWORD = #{password}
 		WHERE EMAIL = #{email}

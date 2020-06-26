@@ -8,6 +8,8 @@ import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
 import ssd.pbl.model.ResetPWForm;
 import ssd.pbl.model.SchoolForm;
+import ssd.pbl.model.StudentForm;
+
 import org.apache.ibatis.annotations.Param;
 
 import ssd.pbl.model.StudentMatchForm;
@@ -42,4 +44,12 @@ public interface StudentMapper {
 	Integer selectStudentByEmailAndName(FindPWForm findPWForm);
 	
 	void updateStudentPW(ResetPWForm resetPWForm);
+	
+	void insertStudent(StudentForm student);
+	
+	void insertStudentInfo(StudentForm student);
+	
+	String selectSchoolType(int id);
+	
+	Integer selectStudentId(String email);
 }
