@@ -1,17 +1,24 @@
 package ssd.pbl.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherMatchForm {
 	private int id;
+	@Min(value = 1, message = "과목을 선택해주세요")
 	private int subjectId;
 	private String subjectName;
+	@NotNull(message = "희망하는 학생의 성멸을 선택해주세요")
 	private String gender;
 	private int level;
+	@NotBlank(message = "지역을 하나 이상 선택해주세요")
 	private String dongIds;
 	private ArrayList<Integer> dongIdArr;
-	private List<String> time;
+	@NotNull(message = "희망하는 수업 시간을 선택해주세요")
+	private String time;
 	private int ch1, ch2, ch3, ch4, ch5;
 	private String intro1;
 	private String intro2;
@@ -25,46 +32,6 @@ public class TeacherMatchForm {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public List<String> getTime() {
-		return time;
-	}
-
-	public void setTime(List<String> time) {
-		this.time = time;
-	}
-
-	public String getIntro1() {
-		return intro1;
-	}
-
-	public void setIntro1(String intro1) {
-		this.intro1 = intro1;
-	}
-
-	public String getIntro2() {
-		return intro2;
-	}
-
-	public void setIntro2(String intro2) {
-		this.intro2 = intro2;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
 	}
 
 	public int getSubjectId() {
@@ -83,12 +50,20 @@ public class TeacherMatchForm {
 		this.subjectName = subjectName;
 	}
 
-	public ArrayList<Integer> getDongIdArr() {
-		return dongIdArr;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setDongIdArr(ArrayList<Integer> dongIdArr) {
-		this.dongIdArr = dongIdArr;
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	public String getDongIds() {
@@ -97,6 +72,22 @@ public class TeacherMatchForm {
 
 	public void setDongIds(String dongIds) {
 		this.dongIds = dongIds;
+	}
+
+	public ArrayList<Integer> getDongIdArr() {
+		return dongIdArr;
+	}
+
+	public void setDongIdArr(ArrayList<Integer> dongIdArr) {
+		this.dongIdArr = dongIdArr;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public int getCh1() {
@@ -139,11 +130,40 @@ public class TeacherMatchForm {
 		this.ch5 = ch5;
 	}
 
-	@Override
-	public String toString() {
-		return "TeacherMatchForm [id=" + id + ", subjectId=" + subjectId + ", subjectName=" + subjectName + ", dongIds=" + dongIds + ", dongIdArr="
-				+ dongIdArr + ", level=" + level + ", gender=" + gender + ", time=" + time + ", ch1=" + ch1 + ", ch2=" + ch2 + ", ch3=" + ch3 + ", ch4=" + ch4 + ", ch5=" + ch5
-				+ ", intro1=" + intro1 + ", intro2=" + intro2 + "]";
+	public String getIntro1() {
+		return intro1;
 	}
 
+	public void setIntro1(String intro1) {
+		this.intro1 = intro1;
+	}
+
+	public String getIntro2() {
+		return intro2;
+	}
+
+	public void setIntro2(String intro2) {
+		this.intro2 = intro2;
+	}
+
+	@Override
+	public String toString() {
+		return "TeacherMatchForm{" +
+				"id=" + id +
+				", subjectId=" + subjectId +
+				", subjectName='" + subjectName + '\'' +
+				", gender='" + gender + '\'' +
+				", level=" + level +
+				", dongIds='" + dongIds + '\'' +
+				", dongIdArr=" + dongIdArr +
+				", time='" + time + '\'' +
+				", ch1=" + ch1 +
+				", ch2=" + ch2 +
+				", ch3=" + ch3 +
+				", ch4=" + ch4 +
+				", ch5=" + ch5 +
+				", intro1='" + intro1 + '\'' +
+				", intro2='" + intro2 + '\'' +
+				'}';
+	}
 }
