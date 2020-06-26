@@ -13,8 +13,8 @@ public class BoardMapperRepository {
 	@Autowired
 	private BoardMapper boardMapper;
 
-	public List<BoardForm> selectBoardList(int connectionId) {
-		return boardMapper.selectBoardList(connectionId);
+	public List<BoardForm> selectBoardList(int connectionId, String category) {
+		return boardMapper.selectBoardList(connectionId, category);
 	}
 	
 	public Board selectBoardById(int bId) {
