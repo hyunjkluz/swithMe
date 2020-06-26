@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.util.WebUtils;
 
 import ssd.pbl.model.Dong;
 import ssd.pbl.model.Gu;
@@ -26,6 +27,7 @@ import ssd.pbl.model.Subject;
 import ssd.pbl.model.SubjectLevel;
 import ssd.pbl.model.TeacherMatchForm;
 import ssd.pbl.service.CharacterService;
+import ssd.pbl.service.MatchService;
 import ssd.pbl.service.RegionService;
 import ssd.pbl.service.SubjectService;
 
@@ -48,6 +50,8 @@ public class MatchController {
 	private CharacterService characterService;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private MatchService matchService;
 	
 	@ModelAttribute("tmInfo")
 	public TeacherMatchForm formBacking() {
@@ -200,8 +204,14 @@ public class MatchController {
 	}
 	
 	@RequestMapping(value = "/fin", method = RequestMethod.POST)
-	public String fin(@Valid @ModelAttribute("tmInfo") TeacherMatchForm tmInfo, BindingResult result,
+	public String fin(HttpServletRequest request, @Valid @ModelAttribute("tmInfo") TeacherMatchForm tmInfo, BindingResult result,
 			SessionStatus status) {
+		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		tmInfo.setId(userSession.getId());
+		System.out.println("=========================");
+		System.out.println(tmInfo.toString());
+		System.out.println("=========================");
+		matchService.createMatch(tmInfo);
 		return DONE;
 	}
 		
