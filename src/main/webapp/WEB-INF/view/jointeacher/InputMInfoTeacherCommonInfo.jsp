@@ -130,12 +130,9 @@
 					</select>
 				</div>
 
-				<br>
 
-				<form:input type="text" id="dongIds" path="dongIds" />
-
-				<input class="btn btn-secondary my-2 my-sm-00 cc_pointer"
-					type="button" value="추가" onclick="insertRegion();">
+				<form:input type="hidden" id="dongIds" path="dongIds" />
+				<input type="button" class="btn btn-outline-warning cc_pointer" value="추가" onclick="insertRegion();">
 
 				<div></div>
 				<br>
