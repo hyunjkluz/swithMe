@@ -124,7 +124,7 @@
       </c:if>
       <c:if test="${type == 'teacher'}">
       	<div class="join-complete-teacher-btn-area">
-      		<button class="btn btn-outline-warning cc_pointer" onclick="location.href='/swithMe/teacher/match/form.do'">매칭정보 작성</button><br>
+      		<button class="btn btn-outline-warning cc_pointer" onclick="location.href='/swithMe/auth/loginForm.do'">매칭정보 작성</button><br>
       		<span>학생과의 매칭을 원하신다면, 수업 정보를 작성해주세요!</span>
     	</div>
       </c:if>
