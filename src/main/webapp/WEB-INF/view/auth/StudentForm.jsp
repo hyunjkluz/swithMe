@@ -153,13 +153,13 @@
 	    }
 	    
     	function changeGrade(value) {
-    		if (value == "elementary") {
+    		if (value == "초등학교") {
     			num = new Array("1학년", "2학년", "3학년", "4학년", "5학년", "6학년");
     			vnum = new Array("1", "2", "3", "4", "5", "6");
-    		} else if (value == "middle") {
+    		} else if (value == "중학교") {
     			num = new Array("1학년", "2학년", "3학년");
     			vnum = new Array("1", "2", "3");
-    		} else if (value == "high") {
+    		} else if (value == "고등학교") {
     			num = new Array("1학년", "2학년", "3학년");
     			vnum = new Array("1", "2", "3");
     		}
@@ -239,22 +239,22 @@
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-gender">
-          	<form:radiobutton path="gender" value="female" label="여성" />
-			<form:radiobutton path="gender" value="male" label="남성" /><br>
+          	<form:radiobutton path="gender" value="WOMAN" label="여성" />
+			<form:radiobutton path="gender" value="MAN" label="남성" /><br>
 			<form:errors path="gender" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="select btn btn-primary">
             <form:select path="schoolCategory" name="schoolType" id="schoolType" class="dropdown-item" onChange="changeGrade(value);">
-              <form:option value="elementary">초등학교</form:option>
-              <form:option value="middle">중학교</form:option>
-              <form:option value="high">고등학교</form:option>
+              <form:option value="초등학교">초등학교</form:option>
+              <form:option value="중학교">중학교</form:option>
+              <form:option value="고등학교">고등학교</form:option>
             </form:select>
           </div>
           <div class="join-input-info-school-status">
-          	<form:radiobutton path="status" value="attend" label="재학" />
-			<form:radiobutton path="status" value="graduate" label="졸업" /><br>
+          	<form:radiobutton path="status" value="재학" label="재학" />
+			<form:radiobutton path="status" value="졸업" label="졸업" /><br>
 			<form:errors path="status" />
           </div>
         </div>

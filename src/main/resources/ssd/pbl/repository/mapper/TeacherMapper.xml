@@ -53,7 +53,7 @@
 	
 	<insert id="insertTeacherInfo" parameterType="TeacherForm">
 		INSERT INTO TEACHERINFO (TEACHER, TEACHERGENDER, UNIVERSITY, MAJOR, STATUS, ENTRANCEYEAR, UNIVCERTIMG, PROFILEIMG, UPDATEDAT)
-		VALUES (#{id}, #{gender}, #{universityId}, 7, #{status}, '2020', 'img', 'image', SYSDATE)
+		VALUES (#{id}, #{gender}, #{universityId}, 7, #{status}, #{enteranceYear}, 'img', 'image', SYSDATE)
 	</insert>
 	
 	<select id="selectCountTeacherEmail" parameterType="String" resultType="int">

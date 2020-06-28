@@ -68,10 +68,6 @@
         padding: 5px 5px 5px 5px;
         height: 13px;
       }
-      .join-input-info-name-text {
-        padding: 5px 5px 5px 5px;
-        height: 13px;
-      }
       .join-input-info-gender {
         padding: 0 5px 0 5px;
       }
@@ -247,6 +243,11 @@
             <form:select path="universityId" id="universityList" name="universityList" class="dropdown-item">
           
             </form:select>
+          </div>
+        </div>
+        <div class="join-input-info-row-area">
+          <div class="join-input-info-name">
+            <form:input path="enteranceYear" type="number" class="form-control" placeholder="입학년도" />
           </div>
           <div class="select btn btn-primary">
             <form:select path="grade" name="grade" id="grade" class="dropdown-item">

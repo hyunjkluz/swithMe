@@ -4,6 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.inject.Inject;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +44,9 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 	private AuthService authService;
 	@Autowired
 	private SearchService searchService;
+	@Inject
+    PasswordEncoder passwordEncoder;
+	
 	private int idCheck = -1;
 	
 	private WebApplicationContext context;	
@@ -107,6 +112,8 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 //        model.addAttribute("filename", filename);
         
 		session.setAttribute("type", "student");
+		String encPassword = passwordEncoder.encode(student.getPassword());
+        student.setPassword(encPassword);
         authService.createStudent(student);
         student.setSchoolType(searchService.selectSchoolType(student.getSchoolId()));
         int id = authService.selectStudentId(student.getEmail());
@@ -138,7 +145,8 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 //        model.addAttribute("filename", filename);
 		
 		session.setAttribute("type", "teacher");
-        
+		String encPassword = passwordEncoder.encode(teacher.getPassword());
+        teacher.setPassword(encPassword);
         authService.createTeacher(teacher);
         int id = authService.selectTeacherId(teacher.getEmail());
         teacher.setId(id);
