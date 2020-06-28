@@ -78,7 +78,7 @@ public class LogInOutController {
 					return "redirect:http://localhost:8080/swithMe/mypage/student.do";
 				}
 				
-				return "redirect:/main";
+				return "redirect:/main/class";
 			} else {
 				return "auth/LoginForm";
 			}
