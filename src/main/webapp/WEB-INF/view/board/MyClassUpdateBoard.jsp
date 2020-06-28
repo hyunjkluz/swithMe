@@ -10,23 +10,35 @@
 <div>
 <%@ include file="../include/main_header.jsp" %>
 </div>
-<div class="container">
-<section id="page-section">
-<form:form modelAttribute="board" action="/swithMe/connection/${connectionId}/board/${board.boardId}" enctype="multipart/form-data">
-	<!-- <input type="hidden" name="_method" value="PUT" /> -->
-	<form:select path="boardForm.type" items="${boardTypes}" />
-	<br>
-	제목: <form:input path="boardForm.title" type="text" name="title" /><br/>
-	내용: <form:textarea path="boardForm.content" name="content"/> <br/>
-	첨부파일: ${board.boardForm.upload} <br/>
-	<form:input path="boardForm.uploadFile" type="file" name="uploadFile" />
-	<br>
-	<input type="submit" value="수정"/>
-	<a href="<c:url value='/connection/${connectionId}/board/?category=' />${board.boardForm.type}">취소</a>
-</form:form>
+<section  id="page-section" >
+	<div class="container shadow-lg ">
+	<div class="pt-3 pb-3">
+	<form:form class="form-group" modelAttribute="board" action="/swithMe/connection/${connectionId}/board/${board.boardId}" enctype="multipart/form-data">
+		<!-- <input type="hidden" name="_method" value="PUT" /> -->
+		<form:select class="form-control col-form-label" path="boardForm.type" items="${boardTypes}" />
+		<br>
+		<label class="mr-4" for="title">제목</label><form:errors  path="boardForm.title" />
+		<form:input class="form-control" path="boardForm.title" type="text" name="title" /><br/>
+		
+		<label class="mr-4" for="title">내용</label><form:errors path="boardForm.title" />
+		<form:textarea class="form-control" rows="6"  path="boardForm.content" name="content"/> <br/>
+		
+		<label for="title">첨부파일</label>
+		<c:if test="${board.boardForm.upload eq null}">
+			<form:input class="form-control-file"  path="boardForm.uploadFile" type="file" name="uploadFile" />
+		</c:if>
+		<c:if test="${board.boardForm.upload ne null}">
+			<a href="<c:url value='/fileDownload.do?fileName='/>${board.boardForm.upload}">${board.boardForm.upload}</a>
+			<button class="btn btn-primary js-scroll-trigger"  onclick="">삭제</button>
+		</c:if>
+		<br>
+		<button class="btn btn-primary js-scroll-trigger"  type="submit" >수정</button>
+		<a class="btn btn-outline-primary" href="<c:url value='/connection/${connectionId}/board/?category=' />${board.boardForm.type}">취소</a>
+	</form:form>
+	</div>
+	</div>
 </section>
-</div>
-<div class="container">
+<div >
 <%@ include file="../include/main_footer.jsp" %>
 </div >
 </body>
