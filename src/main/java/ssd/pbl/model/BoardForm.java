@@ -1,10 +1,14 @@
 package ssd.pbl.model;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardForm {
+	@NotEmpty
 	private String title;
 	private String type;
+	@NotEmpty
 	private String content;
 	private String upload;
 	private MultipartFile uploadFile;
