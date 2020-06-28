@@ -6,12 +6,13 @@
 	<select id="selectAllReplyByBoardId" parameterType="int" resultType="Reply">
 		SELECT ID AS replyId,
 			   CONTENT AS content,
+			   BOARD AS boardId,
 			   WRITER AS writerId,
 			   WRITERTYPE AS writerType,
 			   REGISTEREDAT AS registerdAt,
 			   UPDATEDAT AS updatedAt
 		FROM REPLY
-		WHERE BOARD = #{boardId}
+		WHERE BOARD = #{bId}
 		ORDER BY REGISTEREDAT DESC
 	</select>
 

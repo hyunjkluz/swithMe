@@ -5,7 +5,7 @@ import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Reply implements Serializable{
-	int relpyId;
+	int replyId;
 	String content;
 	int boardId;
 	int writerId;
@@ -16,6 +16,7 @@ public class Reply implements Serializable{
 	public Reply() {
 		
 	}
+	
 	public Reply(String content, int boardId, int writerId, String writerType) {
 		super();
 		this.content = content;
@@ -23,11 +24,11 @@ public class Reply implements Serializable{
 		this.writerId = writerId;
 		this.writerType = writerType;
 	}
-	public int getRelpyId() {
-		return relpyId;
+	public int getReplyId() {
+		return replyId;
 	}
-	public void setRelpyId(int relpyId) {
-		this.relpyId = relpyId;
+	public void setReplyId(int replyId) {
+		this.replyId = replyId;
 	}
 	public String getContent() {
 		return content;

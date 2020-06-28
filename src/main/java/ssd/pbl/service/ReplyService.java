@@ -21,12 +21,12 @@ public class ReplyService {
 		replyMapperRepository.insertReply(reply);
 	}
 	
-	public void editReply(Reply reply) {
-		replyMapperRepository.updateReply(reply);
+	public void editReply(int replyId, String content) {
+		replyMapperRepository.updateReply(replyId, content);
 	}
 	
-	public void deleteReply(int rId) {
-		replyMapperRepository.deleteReply(rId);
+	public void deleteReply(int replyId) {
+		replyMapperRepository.deleteReply(replyId);
 	}
 	
 }
