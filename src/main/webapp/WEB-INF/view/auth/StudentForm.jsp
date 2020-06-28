@@ -8,16 +8,28 @@
   <head>
     <title>회원가입</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="<c:url value='/resources/css/theme.css' />" />
+    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/util.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.min.css' />">
     <style type="text/css">
       .body {
         text-align: center;
       }
-      .join-term-form {
-        margin: auto;
-        border: 1px solid black;
-        width: 600px;
-      }
+      .form {
+		text-align: center;
+		padding-top: 120px;
+	  }
+	  .input {
+		margin: auto;
+		margin-top: 40px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		margin-bottom: 20px;
+		width: 800px;
+		border: 3px solid #FFF9B1;
+	  }
       .join-term-title-area {
         margin: auto;
         padding: 30px 0 30px 0;
@@ -26,33 +38,8 @@
         align-items: center;
       }
       .join-term-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
-      }
-      .join-term-procedure {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 50px 0 30px 0;
-      }
-      .join-term-procedure-content {
-        margin: 0 10px 0 10px;
-        width: 170px;
-        height: 50px;
-        background-color: #D9D9D9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .join-term-procedure-content-now {
-        margin: 0 10px 0 10px;
-        width: 170px;
-        height: 50px;
-        background-color: black;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
       .join-input-info-row-area {
         display: flex;
@@ -96,9 +83,8 @@
         cursor: pointer;
         width: 80px;
       }
-      .join-input-info-school-type-select {
-        padding: 5px 5px 5px 5px;
-        height: 30px;
+      .school-select {
+      	margin-right: 10px;
       }
       .join-input-info-school-status {
         padding: 0 0 0 10px;
@@ -127,7 +113,7 @@
         width: 80px;
       }
       .join-input-info-btn-area {
-        padding: 20px 0 30px 0;
+        padding: 50px 0 0 0;
       }
       .join-input-info-btn {
         padding: 5px 10px 5px 10px;
@@ -141,27 +127,30 @@
     </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
-	    $("#email-text").blur(function() {
+	    function idCheck() {
 	    	var id = $("#email-text").val();
-	    	console.log(id);
+	    	const url = "http://localhost:8080/swithMe/auth/student/idCheck/" + id;
+	    	console.log(url);
 	    	$.ajax({
-				url : 'http://localhost:8080/swithMe/auth/signup/student/idCheck?email='+ id,
-				type : 'get',
+				url : url,
+				type : "GET",
 				success : function(data) {
-					console.log("1 = 중복o / 0 = 중복x : "+ data);							
-					
+					console.log(data);
 					if (data == 1) {
-							// 1 : 아이디가 중복되는 문구
-							$("#id-check").text("이미 사용중인 아이디입니다.");
-							$("#id-check").css("color", "red");
-							$("#reg_submit").attr("disabled", true);
+						// 1 : 아이디가 중복되는 문구
+						$("#id-check").text("이미 사용중인 아이디입니다.");
+						$("#id-check").css("color", "red");
+						$("#reg_submit").attr("disabled", true);
+					} else {
+						$("#id-check").text("사용가능한 아이디입니다.");
+						$("#id-check").css("color", "blue");
 					}
 				},
 				error : function() {
 							console.log("실패");
 				}
 			});
-	    });
+	    }
 	    
     	function changeGrade(value) {
     		if (value == "elementary") {
@@ -210,48 +199,42 @@
     </script>
   </head>
   <body>
-    <div class="base-top">
-
-    </div>
-    <div class="join-term-form">
-      <div class="join-term-procedure">
-        <div class="join-term-procedure-content-now">
-          <span class="join-term-procedure-content-text">약관 동의</span>
-        </div>
-        <div class="join-term-procedure-content">
-          <span class="join-term-procedure-content-text">가입 유형 / 정보 입력</span>
-        </div>
-        <div class="join-term-procedure-content">
-          <span class="join-term-procedure-content-text">가입 완료</span>
-        </div>
+    <%@ include file="../include/step_header.jsp" %>
+    <div class="form">
+      <div class="stepimage">
+        <img src="../../resources/assets/Join_Step_3.png" />
       </div>
+      <div class="input">
       <div class="join-term-title-area">
         <span class="join-term-title">학생 회원정보 입력</span>
       </div>
       <form:form modelAttribute="studentForm" method="post" action="student">
       <div class="join-input-info">
         <div class="join-input-info-row-area">
-          <div class="join-input-info-id">
-            <form:input path="email" id="email-text" type="text" class="join-input-info-id-text" placeholder="아이디" />
+          <div class="join-input-info-area">
+            <form:input path="email" id="email-text" type="text" class="form-control" placeholder="아이디" />
+          </div>
+          <div class="join-input-info-school-search">
+            <input type="button" class="btn btn-outline-warning cc_pointer" onclick="idCheck();" value="중복 확인" />
           </div>
         </div>
-        <div class="id-check-area" id="id-check"></div>
+        <span class="id-check-area" id="id-check"></span>
         <div class="join-input-info-row-area">
           <div class="join-input-info-pw">
-            <form:input path="password" type="password" class="join-input-info-pw-text" placeholder="비밀번호" />
+            <form:input path="password" type="password" class="form-control" placeholder="비밀번호" />
           </div>
           <div class="join-input-info-pw">
-            <form:input path="checkedPassword" type="password" class="join-input-info-pw-text" placeholder="비밀번호 확인" />
+            <form:input path="checkedPassword" type="password" class="form-control" placeholder="비밀번호 확인" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
-            <form:input path="name" type="text" class="join-input-info-name-text" placeholder="이름" />
+            <form:input path="name" type="text" class="form-control" placeholder="이름" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
-            <form:input path="phone" type="number" class="join-input-info-name-text" placeholder="전화번호" />
+            <form:input path="phone" type="number" class="form-control" placeholder="전화번호" />
           </div>
         </div>
         <div class="join-input-info-row-area">
@@ -262,8 +245,8 @@
           </div>
         </div>
         <div class="join-input-info-row-area">
-          <div class="join-input-info-school-type">
-            <form:select path="schoolCategory" name="schoolType" id="schoolType" class="join-input-info-school-type-select" onChange="changeGrade(value);">
+          <div class="select btn btn-primary">
+            <form:select path="schoolCategory" name="schoolType" id="schoolType" class="dropdown-item" onChange="changeGrade(value);">
               <form:option value="elementary">초등학교</form:option>
               <form:option value="middle">중학교</form:option>
               <form:option value="high">고등학교</form:option>
@@ -277,18 +260,20 @@
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-school">
-            <input type="text" class="join-input-info-school-text" id="school" placeholder="학교이름" />
+            <input type="text" class="form-control" id="school" placeholder="학교이름" />
           </div>
           <div class="join-input-info-school-search">
-            <input type="button" class="join-input-info-school-search-btn" onclick="searchSchool();" value="학교 검색" />
+            <input type="button" class="btn btn-outline-warning cc_pointer" onclick="searchSchool();" value="학교 검색" />
           </div>
-          <form:select path="schoolId" id="schoolList" name="schoolList">
-          
-          </form:select>
         </div>
         <div class="join-input-info-row-area">
-          <div class="join-input-info-grade">
-            <form:select path="grade" name="grade" id="grade" class="join-input-info-school-type-select">
+          <div class="select btn btn-primary school-select">
+	          <form:select path="schoolId" id="schoolList" name="schoolList" class="dropdown-item">
+	          	
+	          </form:select>
+          </div>
+          <div class="select btn btn-primary">
+            <form:select path="grade" name="grade" id="grade" class="dropdown-item">
               
             </form:select>
           </div>
@@ -300,10 +285,11 @@
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-btn-area">
-            <button type="submit" class="join-input-info-btn">회원정보 입력 완료</button>
+            <button type="submit" class="btn btn-outline-warning cc_pointer">회원정보 입력 완료</button>
           </div>
         </div>
       </div>
       </form:form>
+    </div>
     </div>
   </body>

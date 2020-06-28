@@ -8,7 +8,7 @@
   <head>
     <title>아이디 찾기</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="<c:url value='/resources/css/theme.css' />" />
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/util.css' />">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css' />">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.css' />">
@@ -17,20 +17,32 @@
       .body {
         text-align: center;
       }
+      .form {
+		text-align: center;
+		padding-top: 120px;
+	  }
+	  .input {
+		margin: auto;
+		margin-top: 40px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		margin-bottom: 20px;
+		width: 800px;
+		border: 3px solid #FFF9B1;
+	  }
       .find-id-form {
         width: 500px;
         margin: auto;
         background-color: #e6e6e6;
+        margin-top: 100px;
       }
       .find-id-title-area {
-        width: 100%
         margin: auto;
-        padding: 50px 0 0 0;
+        padding-bottom: 20px;
       }
-      .wrap-title {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+      .find-id-title {
+        font-size: 24px;
+        font-weight: bold;
 	  }
       .find-id-type {
         display: flex;
@@ -48,19 +60,16 @@
         cursor: pointer;
       }
       .find-id-input-area {
-        width: 400px;
+        width: 250px;
         margin: auto;
-      }
-      .find-id-input-content-area {
       }
       .find-id-input-text {
         width: 150px;
         padding: 5px 0 5px 0;
       }
       .find-id-btn-area {
-        width: 100px;
         margin: auto;
-        padding: 50px 0 50px 0;
+        padding: 50px 0 0 0;
       }
       .find-id-btn {
         width: 100px;
@@ -74,11 +83,10 @@
   </head>
   <body>
   	<%@ include file="../include/main_header.jsp" %>
-    <div class="form find-id-form">
+    <div class="form">
+    <div class="input">
       <div class="find-id-title-area">
-      	<div class="wrap-title">
-        	<span class="find-id-title contact100-form-title">아이디 찾기</span>
-      	</div>
+        <span class="find-id-title">아이디 찾기</span>
       </div>
       <form:form modelAttribute="findIDForm" action="id" method="post">
       <div class="find-id-type">
@@ -89,19 +97,19 @@
         </div>
       </div>
       <div class="find-id-input-area">
-        <div class="wrap-input100 find-id-input-content-area">
-          <form:input path="name" type="text" class="input100" placeholder="이름" />
+        <div class="form-group">
+          <form:input path="name" type="text" class="form-control" placeholder="이름" />
           <form:errors path="name" />
         </div>
-        <div class="wrap-input100 find-id-input-content-area">
-          <form:input path="phone" type="number" class="input100 find-id-input-text" placeholder="전화번호" />
+        <div class="form-group">
+          <form:input path="phone" type="number" class="form-control" placeholder="전화번호" />
           <form:errors path="phone" />
         </div>
       </div>
       <div class="find-id-btn-area">
-        <button type="submit" class="find-id-btn">아이디 찾기</button>
+        <button type="submit" class="btn btn-outline-warning cc_pointer">아이디 찾기</button>
       </div>
       </form:form>
     </div>
-    <%@ include file="../include/main_footer.jsp" %>
+    </div>
   </body>

@@ -8,8 +8,21 @@
   <head>
     <title>회원가입</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="../../resources/css/theme.css" />
     <style type="text/css">
+	  .form {
+		text-align: center;
+		padding-top: 120px;
+	  }
+	  .input {
+		margin: auto;
+		margin-top: 40px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		margin-bottom: 20px;
+		width: 800px;
+		border: 3px solid #FFF9B1;
+	  }
       .body {
         text-align: center;
       }
@@ -17,67 +30,47 @@
         margin: auto;
         border: 1px solid black;
         width: 600px;
+        margin-top: 100px;
       }
       .join-term-title-area {
-        width: 280px;
         margin: auto;
         padding: 30px 0 30px 0;
       }
       .join-term-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
-      }
-      .join-term-procedure {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 50px 0 30px 0;
-      }
-      .join-term-procedure-content {
-        margin: 0 10px 0 10px;
-        width: 170px;
-        height: 50px;
-        background-color: #D9D9D9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .join-term-procedure-content-now {
-        margin: 0 10px 0 10px;
-        width: 170px;
-        height: 50px;
-        background-color: black;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
       .join-type-select-area {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 0 0 50px 0;
+        padding: 30px 0 50px 0;
       }
       .join-type-select-student {
-        width: 250px;
-        height: 200px;
-        background-color: #D9D9D9;
+        width: 300px;
+        height: 250px;
+        background-color: #FFF362;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
       }
       .join-type-select-teacher {
-        width: 250px;
-        height: 200px;
-        background-color: #F3F3F3;
+        width: 300px;
+        height: 250px;
+        background-color: #FFF9B1;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
       }
-      .join-type-select-text {
-
+      .join-type-font {
+      	font-size: 15px;
+      }
+      .img-size {
+      	width: 80px;
+      	height: 80px;
+      	margin-top: 15px;
       }
     </style>
     
@@ -98,21 +91,12 @@
     		form.submit();
     	}
     </script>
-    <div class="base-top">
-
-    </div>
-    <div class="join-term-form">
-      <div class="join-term-procedure">
-        <div class="join-term-procedure-content">
-          <span class="join-term-procedure-content-text">약관 동의</span>
-        </div>
-        <div class="join-term-procedure-content-now">
-          <span class="join-term-procedure-content-text">가입 유형 / 정보 입력</span>
-        </div>
-        <div class="join-term-procedure-content">
-          <span class="join-term-procedure-content-text">가입 완료</span>
-        </div>
+    <%@ include file="../include/step_header.jsp" %>
+    <div class="form">
+      <div class="stepimage">
+        <img src="../../resources/assets/Join_Step_2.png" />
       </div>
+      <div class="input">
       <div class="join-term-title-area">
         <span class="join-term-title">회원가입 유형을 선택해주세요.</span>
       </div>
@@ -120,20 +104,26 @@
       	<form:form action="<c:url value='/auth/signup'/>" name="signupStudent" method="GET">
         <div onclick="setTypeStudent()" class="join-type-select-student">
           <div class="join-type-select-text">
-            <span>학생으로 회원가입</span>
+            <span class="join-type-font">학생으로 회원가입</span>
+            <div class="img-area">
+            	<img class="img-size" src="../../resources/assets/student.png" />
+            </div>
             <input type="hidden" value="student" name="type">
           </div>
         </div>
-        
         </form:form>
         <form:form action="<c:url value='/auth/signup'/>" name="signupTeacher" method="GET">
         <div onclick="setTypeTeacher()" class="join-type-select-teacher">
           <div class="join-type-select-text">
-            <span>선생님으로 회원가입</span>
+            <span class="join-type-font">선생님으로 회원가입</span>
+            <div class="img-area">
+            	<img class="img-size" src="../../resources/assets/Teacher_mypage.png" />
+            </div>
             <input type="hidden" value="teacher" name="type">
           </div>
         </div>
         </form:form>
+      </div>
       </div>
     </div>
   </body>

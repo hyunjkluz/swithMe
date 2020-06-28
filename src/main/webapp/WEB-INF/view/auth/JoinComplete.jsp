@@ -1,20 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
   <head>
     <title>회원가입</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="<c:url value='/resources/css/theme.css' />" />
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/util.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.min.css' />">
     <style type="text/css">
       .body {
         text-align: center;
       }
-      .join-term-form {
-        margin: auto;
-        border: 1px solid black;
-        width: 600px;
-      }
+      .form {
+		text-align: center;
+		padding-top: 120px;
+	  }
+	  .input {
+		margin: auto;
+		margin-top: 40px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		margin-bottom: 20px;
+		width: 800px;
+		border: 3px solid #FFF9B1;
+	  }
       .join-complete-name-area {
         width: 280px;
         margin: auto;
@@ -26,30 +41,8 @@
       .join-complete-name {
         font-size: 14px;
       }
-      .join-term-procedure {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 50px 0 30px 0;
-      }
-      .join-term-procedure-content {
-        margin: 0 10px 0 10px;
-        width: 170px;
-        height: 50px;
-        background-color: #D9D9D9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .join-term-procedure-content-now {
-        margin: 0 10px 0 10px;
-        width: 170px;
-        height: 50px;
-        background-color: black;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      .join-complete-title {
+      	font-size: 16px;
       }
       .join-type-select-area {
         display: flex;
@@ -98,34 +91,22 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 30px 0 50px 0;
+        padding: 30px 0 0 0;
       }
-      .join-complete-btn {
-        width: 80px;
-        padding: 5px 10px 5px 10px;
-        border: 0;
-        outline: 0;
-        border-radius: 3px;
-        cursor: pointer;
+      .join-complete-teacher-btn-area {
+        justify-content: center;
+        align-items: center;
+        padding: 30px 0 0 0;
       }
     </style>
   </head>
   <body>
-    <div class="base-top">
-
-    </div>
-    <div class="join-term-form">
-      <div class="join-term-procedure">
-        <div class="join-term-procedure-content">
-          <span class="join-term-procedure-content-text">약관 동의</span>
-        </div>
-        <div class="join-term-procedure-content">
-          <span class="join-term-procedure-content-text">가입 유형 / 정보 입력</span>
-        </div>
-        <div class="join-term-procedure-content-now">
-          <span class="join-term-procedure-content-text">가입 완료</span>
-        </div>
+    <%@ include file="../include/step_header.jsp" %>
+    <div class="form">
+      <div class="stepimage">
+        <img src="../../resources/assets/Join_Step_4.png" />
       </div>
+    <div class="input">
       <div class="join-complete-name-area">
         <div class="join-complete-name-content">
           <span class="join-complete-name">환영합니다.</span>
@@ -136,9 +117,18 @@
           <span class="join-complete-title">가입이 완료되었습니다.</span>
         </div>
       </div>
-      <div class="join-complete-btn-area">
-        <button class="join-complete-btn" onclick="<c:url value='/auth/loginForm.do' />">로그인</button>
-      </div>
+      <c:if test="${type == 'student'}">
+	      <div class="join-complete-btn-area">
+	        <button class="btn btn-outline-warning cc_pointer" onclick="location.href='/swithMe/auth/loginForm.do'">로그인</button>
+	      </div>
+      </c:if>
+      <c:if test="${type == 'teacher'}">
+      	<div class="join-complete-teacher-btn-area">
+      		<button class="btn btn-outline-warning cc_pointer" onclick="location.href='/swithMe/teacher/match/form.do'">매칭정보 작성</button><br>
+      		<span>학생과의 매칭을 원하신다면, 수업 정보를 작성해주세요!</span>
+    	</div>
+      </c:if>
+    </div>
     </div>
   </body>
     
