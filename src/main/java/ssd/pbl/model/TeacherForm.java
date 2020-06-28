@@ -20,8 +20,6 @@ public class TeacherForm {
 	private File profileImg;
 	private File univCertImg;
 	
-	
-	
 	public int getGrade() {
 		return grade;
 	}

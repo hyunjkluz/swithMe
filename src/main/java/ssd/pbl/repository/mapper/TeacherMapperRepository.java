@@ -64,4 +64,8 @@ public class TeacherMapperRepository {
 	public List<University> selectUniversity(String university) {
 		return teacherMapper.selectUniversity(university);
 	}
+	
+	public int selectCountTeacherEmail(String email) {
+		return teacherMapper.selectCountTeacherEmail(email);
+	}
 }

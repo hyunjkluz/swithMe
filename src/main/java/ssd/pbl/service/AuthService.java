@@ -170,8 +170,12 @@ public class AuthService {
 		return key;
 	}
 
-	public int isEmailExist(String email) {
+	public int isStudentEmailExist(String email) {
 		return studentMapperRepository.selectCountStudentEmail(email);
+	}
+	
+	public int isTeacherEmailExist(String email) {
+		return teacherMapperRepository.selectCountTeacherEmail(email);
 	}
 
 	public void createStudent(StudentForm student) {

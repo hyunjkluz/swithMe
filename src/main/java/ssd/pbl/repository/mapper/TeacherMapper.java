@@ -9,6 +9,7 @@ import ssd.pbl.model.FindIDForm;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
 import ssd.pbl.model.ResetPWForm;
+import ssd.pbl.model.StudentForm;
 import ssd.pbl.model.Teacher;
 import ssd.pbl.model.TeacherForm;
 import ssd.pbl.model.University;
@@ -32,6 +33,8 @@ public interface TeacherMapper {
 	void insertTeacher(TeacherForm teacher);
 	
 	void insertTeacherInfo(TeacherForm teacher);
+	
+	Integer selectCountTeacherEmail(String email);
 	
 	Integer selectTeacherId(String email);
 	
