@@ -148,7 +148,7 @@
 					</select>
 				</div>
 				<br> <br>
-				<form:input type="text" id="dongIds" path="dongIds" />
+				<form:input type="hidden" id="dongIds" path="dongIds" />
 				<input type="button" value="추가" onclick="insertRegion();">
 				<br><br>
 				<button class="btn btn-outline-warning cc_pointer">다음</button> 

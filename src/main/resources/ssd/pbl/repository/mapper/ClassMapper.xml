@@ -32,7 +32,7 @@
 				AND (tc.ability = 3 OR tc.ability = 2 OR tc.ability = 1)
 			</otherwise>
 		</choose>
-		AND (tm.studentGender = 'ANY' OR tm.studentGender = #{gender})
+		AND (tc.studentGender = 'ANY' OR tc.studentGender = #{gender})
 		AND
 		tc.teacher = tm.teacher
 		JOIN teacherTimes tt
@@ -140,13 +140,13 @@ ON t.id = tc.teacher
     INNER JOIN teacherMatch tm
     ON tm.teacher = t.id
     INNER JOIN teacherTimes tt
-    ON tt.teachermatch = tm.TEACHER
+    ON tt.teachermatch = tm.id
     JOIN teacherCharacter tch
-    ON tch.teachermatch = tm.TEACHER
+    ON tch.teachermatch = tm.id
     INNER JOIN character c
     ON c.id = tch.character
     INNER JOIN teacherRegion tr
-    ON tr.teachermatch = tm.TEACHER
+    ON tr.teachermatch = tm.id
     INNER JOIN dong d
     ON d.id = tr.dong
 

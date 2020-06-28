@@ -1,4 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -7,7 +8,7 @@
 <html>
 <head>
 <title>MyPageStudent</title>
-<link rel="stylesheet" href="../../resources/css/theme.css" />
+<link rel="stylesheet" href="../resources/css/theme.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -17,7 +18,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-	<script type="text/javascript">
+<script type="text/javascript">
 	function setConnection(e) {
 		var modal = document.getElementById("ex1");
 		$('#ex1').empty();
@@ -26,71 +27,82 @@
 		const url = "http://localhost:8080/swithMe/connection/" + connectionId
 				+ "/teacher/detail";
 
-		$.ajax({
-			url : url,
-			type : "GET",
-			dateType : "json",
-			contentType : "application/json",
-			success : function(detail) {
-				console.log(detail);
+		$
+				.ajax({
+					url : url,
+					type : "GET",
+					dateType : "json",
+					contentType : "application/json",
+					success : function(detail) {
+						console.log(detail);
 
-				var table = document.createElement('table');
+						var table = document.createElement('table');
 
-				var tr = document.createElement('tr');
+						var tr = document.createElement('tr');
 
-				var td1 = document.createElement('td');
-				td1.innerHTML = '이름';
-				var td2 = document.createElement('td');
-				var sGender = detail.teacherInfo.teacherGender == 'WOMEN' ? "여자 선생님"
+						var td1 = document.createElement('td');
+						td1.innerHTML = '이름';
+						var td2 = document.createElement('td');
+						var sGender = detail.teacherInfo.teacherGender == 'WOMEN' ? "여자 선생님"
 								: "남자 선생님";
-				td2.innerHTML = detail.teacher.name + "(" + sGender
+						td2.innerHTML = detail.teacher.name + "(" + sGender
 								+ ")";
 
-				tr.appendChild(td1);
-				tr.appendChild(td2);
-				table.appendChild(tr);
+						tr.appendChild(td1);
+						tr.appendChild(td2);
+						table.appendChild(tr);
 
-				tr = document.createElement('tr');
-				td1 = document.createElement('td');
-				td1.innerHTML = '학교';
-				td2 = document.createElement('td');
-				td2.innerHTML = detail.teacherInfo.university.name  + " "
-						+ detail.teacherInfo.major.name + " "
-						+ detail.teacherInfo.entranceYear + "("
-						+ detail.teacherInfo.status + " 중)";
+						tr = document.createElement('tr');
+						td1 = document.createElement('td');
+						td1.innerHTML = '학교';
+						td2 = document.createElement('td');
+						td2.innerHTML = detail.teacherInfo.university.name
+								+ " " + detail.teacherInfo.major.name + " "
+								+ detail.teacherInfo.entranceYear + "("
+								+ detail.teacherInfo.status + " 중)";
 
-				tr.appendChild(td1);
-				tr.appendChild(td2);
-				table.appendChild(tr);
+						tr.appendChild(td1);
+						tr.appendChild(td2);
+						table.appendChild(tr);
 
-				if (detail.step == 'MATCH') {
-					tr = document.createElement('tr');
-					td1 = document.createElement('td');
-					td1.innerHTML = '전화번호';
-					td2 = document.createElement('td');
-					td2.innerHTML = detail.teacher.phone;
+						if (detail.step == 'MATCH') {
+							tr = document.createElement('tr');
+							td1 = document.createElement('td');
+							td1.innerHTML = '전화번호';
+							td2 = document.createElement('td');
+							td2.innerHTML = detail.teacher.phone;
 
-					tr.appendChild(td1);
-					tr.appendChild(td2);
-					table.appendChild(tr);
-				}
+							tr.appendChild(td1);
+							tr.appendChild(td2);
+							table.appendChild(tr);
+						}
 
-						
-				modal.appendChild(table);
+						modal.appendChild(table);
 
-			},
-			error : function(error) {
-				alert(errorThrown.statusText);
-			}
-		});
+					},
+					error : function(error) {
+						alert(errorThrown.statusText);
+					}
+				});
 	}
 </script>
 <style>
+.left {
+	float: left;
+	text-align: center;
+}
+
+.buttons {
+	padding: 200px 50px 30px 400px;
+}
+
 .mypage-student-status {
 	margin: auto;
 	border: 3px solid #FFF9B1;
 	width: 600px;
 	padding: 30px 30px 30px 30px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 table, td, th {
@@ -103,26 +115,33 @@ table {
 	width: 100%;
 }
 
+thead {
+	 background-color: #fff9b1;
+	 text-align: center;
+}
+
 th, td {
 	padding: 15px;
+}
+
+image {
+	padding-bottom: 30px;
 }
 </style>
 
 </head>
 <body>
-
-	<div>
-
-		<!-- 프로필 사진 -->
-
-		<a href="<c:url value=''/>">회원 정보 수정</a>
+	<%@ include file="../include/main_header.jsp" %>
+	<div class="buttons left">
+		<img class="image" src="../resources/assets/Student_mypage.png" /><br><br>
+		<button class="btn btn-outline-warning cc_pointer">회원 정보 수정</button>
 
 	</div>
 
 	<div class="mypage-student-status">
-		<p>수업 신청 현황</p>
+		<h4 class="text-muted">수업 신청 현황</h4><br>
 		<div id="ex1" class="modal"></div>
-		<table border="1px" id="status" width="200px">
+		<table id="status" width="200px">
 			<thead>
 				<tr>
 					<td>요청</td>
@@ -140,21 +159,25 @@ th, td {
 								<c:when test="${conn.step == 'REVIEW' }">
 									<p>수업 완료</p>
 									<br />
-									<a href="<c:url value='/review/connection/${conn.connectionId}'/>">수업 후기 작성하기</a>
+									<a
+										href="<c:url value='/review/connection/${conn.connectionId}'/>">수업
+										후기 작성하기</a>
 								</c:when>
 								<c:when test="${conn.step == 'CLASS' }">
 									<p>수업 중</p>
 								</c:when>
 								<c:when test="${conn.step == 'MATCH' }">
 									<p>
-										<a href="#ex1" rel="modal:open" onclick="setConnection()" data-arg1="${conn.connectionId }">수업 확정 대기 중</a><br/> 
-										<a href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=student'/>">거절</a>
+										<a href="#ex1" rel="modal:open" onclick="setConnection()"
+											data-arg1="${conn.connectionId }">수업 확정 대기 중</a><br /> <a
+											href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=student'/>">거절</a>
 									</p>
 								</c:when>
 								<c:when test="${conn.step == 'REQUEST' }">
 									<p>
-										<a href="#ex1" rel="modal:open" onclick="setConnection()" data-arg1="${conn.connectionId }">수업 요청 확인</a><br/>
-										<a href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=student'/>">거절</a>
+										<a href="#ex1" rel="modal:open" onclick="setConnection()"
+											data-arg1="${conn.connectionId }">수업 요청 확인</a><br /> <a
+											href="<c:url value='/connection/${conn.connectionId}/step?step=REJECT&type=student'/>">거절</a>
 									</p>
 								</c:when>
 								<c:otherwise>
