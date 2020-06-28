@@ -7,7 +7,7 @@ import java.util.Date;
 public class Board implements Serializable{
 	private int boardId;
 	private int connectionId;
-	private BoardForm boardForm;
+	public BoardForm boardForm;
 	private int writerId;
 	private String writerType;
 	private Date creationDate;
