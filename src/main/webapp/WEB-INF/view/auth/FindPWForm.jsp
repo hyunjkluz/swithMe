@@ -8,23 +8,34 @@
   <head>
     <title>비밀번호 찾기</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="<c:url value='/resources/css/theme.css' />" />
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/util.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap.min.css' />">
     <style type="text/css">
       .body {
         text-align: center;
       }
-      .find-pw-form {
-        width: 500px;
-        margin: auto;
-        border: 1px solid gray;
-      }
+      .form {
+		text-align: center;
+		padding-top: 120px;
+	  }
+	  .input {
+		margin: auto;
+		margin-top: 40px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		margin-bottom: 20px;
+		width: 800px;
+		border: 3px solid #FFF9B1;
+	  }
       .find-pw-title-area {
-        width: 130px;
         margin: auto;
-        padding: 50px 0 30px 0;
+        padding-bottom: 20px;
       }
       .find-pw-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
       }
       .find-pw-type {
@@ -43,20 +54,16 @@
         cursor: pointer;
       }
       .find-pw-input-area {
-        width: 154px;
+        width: 250px;
         margin: auto;
-      }
-      .find-pw-input-content-area {
-        padding: 5px 0 5px 0;
       }
       .find-pw-input-text {
         width: 150px;
         padding: 5px 0 5px 0;
       }
       .find-pw-btn-area {
-        width: 110px;
         margin: auto;
-        padding: 50px 0 50px 0;
+        padding: 50px 0 0 0;
       }
       .find-pw-btn {
         width: 110px;
@@ -69,10 +76,9 @@
     </style>
   </head>
   <body>
-    <div class="base-top">
-
-    </div>
-    <div class="find-pw-form">
+    <%@ include file="../include/main_header.jsp" %>
+    <div class="form">
+    <div class="input">
       <div class="find-pw-title-area">
         <span class="find-pw-title">비밀번호 찾기</span>
       </div>
@@ -85,18 +91,19 @@
         </div>
       </div>
       <div class="find-pw-input-area">
-        <div class="find-pw-input-content-area">
-          <form:input path="email" type="text" class="find-pw-input-text" placeholder="이메일" />
+        <div class="form-group">
+          <form:input path="email" type="text" class="form-control" placeholder="이메일" />
           <form:errors path="email" />
         </div>
-        <div class="find-pw-input-content-area">
-          <form:input path="name" type="text" class="find-pw-input-text" placeholder="이름" />
+        <div class="form-group">
+          <form:input path="name" type="text" class="form-control" placeholder="이름" />
           <form:errors path="name" />
         </div>
       </div>
       <div class="find-pw-btn-area">
-        <button type="submit" class="find-pw-btn">인증번호 받기</button>
+        <button type="submit" class="btn btn-outline-warning cc_pointer">인증번호 받기</button>
       </div>
       </form:form>
+    </div>
     </div>
   </body>

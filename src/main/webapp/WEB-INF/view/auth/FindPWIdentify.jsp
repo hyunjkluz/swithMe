@@ -13,24 +13,36 @@
       .body {
         text-align: center;
       }
+      .form {
+		text-align: center;
+		padding-top: 120px;
+	  }
+	  .input {
+		margin: auto;
+		margin-top: 40px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		margin-bottom: 20px;
+		width: 800px;
+		border: 3px solid #FFF9B1;
+	  }
       .find-pw-identify-form {
         width: 500px;
         margin: auto;
         border: 1px solid gray;
       }
       .find-pw-identify-title-area {
-        width: 130px;
         margin: auto;
-        padding: 50px 0 30px 0;
+        padding: 0 0 20px 0;
       }
       .find-pw-identify-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
       }
       .find-pw-identify-input-area {
-        width: 154px;
+        width: 200px;
         margin: auto;
-        padding-top: 10px;
+        padding-top: 20px;
       }
       .find-pw-identify-input-content-area {
         padding: 5px 0 5px 0;
@@ -40,9 +52,8 @@
         padding: 5px 0 5px 0;
       }
       .find-pw-identify-btn-area {
-        width: 80px;
         margin: auto;
-        padding: 50px 0 50px 0;
+        padding: 50px 0 0 0;
       }
       .find-pw-identify-btn {
         width: 80px;
@@ -55,22 +66,22 @@
     </style>
   </head>
   <body>
-    <div class="base-top">
-
-    </div>
-    <div class="find-pw-identify-form">
+    <%@ include file="../include/main_header.jsp" %>
+    <div class="form">
+    <div class="input">
       <div class="find-pw-identify-title-area">
         <span class="find-pw-identify-title">인증번호 입력</span>
       </div>
       <form action="<c:url value='/auth/find/pw/identify' />" method="post">
       <div class="find-pw-identify-input-area">
         <div class="find-pw-identify-input-content-area">
-          <input name="code" type="text" class="find-pw-identify-input-text" placeholder="인증번호 입력" />
+          <input name="code" type="text" class="form-control" placeholder="인증번호 입력" />
         </div>
       </div>
       <div class="find-pw-identify-btn-area">
-        <button type="submit" class="find-pw-identify-btn">인증하기</button>
+        <button type="submit" class="btn btn-outline-warning cc_pointer">인증하기</button>
       </div>
       </form>
+    </div>
     </div>
   </body>
