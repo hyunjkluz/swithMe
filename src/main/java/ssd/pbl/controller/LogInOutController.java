@@ -50,6 +50,11 @@ public class LogInOutController {
 				userSession.setType(type);
 				session.setAttribute("userSession", userSession);
 				
+				// guest 상태인 teach일 경우 form.do로 이동
+				if (userSession != null && userSession.getStep().equals("GUEST")) {
+					return "redirect:http://localhost:8080/swithMe/teacher/match/form.do";
+				}
+				
 				LOGGER.info("이전 URL : " + forwardAction);
 				// 로그인 이전 페이지가 학생 자동매칭이면 다시 원래 페이지로 돌아감.
 				if (forwardAction.contains("/student/match")) {
