@@ -37,6 +37,13 @@ public class FindLogController {
 
 	}
 	
+	@ModelAttribute("resetPWForm")
+	public ResetPWForm setEmptyResetPWForm() {
+
+	    return new ResetPWForm();
+
+	}
+	
 	@RequestMapping(value = "/id.do", method = RequestMethod.GET)
 	public String getFindIDForm(@ModelAttribute("findIDForm") FindIDForm findIDForm) {		
 		return "auth/FindIDForm";
@@ -90,6 +97,10 @@ public class FindLogController {
 	@RequestMapping(value = "/pw/reset", method = RequestMethod.POST)
 	public String resetPW(@Valid @ModelAttribute("resetPWForm") ResetPWForm resetPWForm, BindingResult result,
 			HttpSession session, Model model) throws Exception {
+		
+		if (result.hasErrors()) {
+			return "auth/ResetPW";
+		}
 		
 		FindPWForm findPWForm = (FindPWForm)session.getAttribute("findPWForm");
 		String type = findPWForm.getType();

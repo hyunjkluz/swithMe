@@ -147,9 +147,9 @@
 						</c:forEach>
 					</select>
 				</div>
-				<br> <br>
+				
 				<form:input type="hidden" id="dongIds" path="dongIds" />
-				<input type="button" value="추가" onclick="insertRegion();">
+				<input type="button" class="btn btn-outline-warning cc_pointer" value="추가" onclick="insertRegion();">
 				<br><br>
 				<button class="btn btn-outline-warning cc_pointer">다음</button> 
 				<br> <br>

@@ -20,6 +20,9 @@
 						, #{level}
 						, SYSDATE
 					  )
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			SELECT TEACHERMATCH_SEQ.currval FROM dual
+		</selectKey>
  	</insert>
 
 	<insert id="insertTeacherRegion">

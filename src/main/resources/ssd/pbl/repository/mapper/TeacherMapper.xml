@@ -47,14 +47,20 @@
 	</select>
 	
 	<insert id="insertTeacher" parameterType="TeacherForm">
-		INSERT INTO TEACHER(EMAIL, PASSWORD, NAME, PHONE, STEP, REGIETEREDAT, UPDATEDAT)
-		VALUES (#{email}, #{password}, #{name}, #{phone}, 'GUEST', SYSDATE, SYSDATE)
+		INSERT INTO TEACHER(EMAIL, PASSWORD, NAME, PHONE, RANK, RATE, STEP, REGIETEREDAT, UPDATEDAT)
+		VALUES (#{email}, #{password}, #{name}, #{phone}, 'C', 0.0, 'GUEST', SYSDATE, SYSDATE)
 	</insert>
 	
 	<insert id="insertTeacherInfo" parameterType="TeacherForm">
-		INSERT INTO TEACHERINFO (TEACHER, TEACHERGENDER,, UNIVERSITY, MAJOR, STATUS, ENTRANCEYEAR, UNICERTIMG, PROFILEIMG, UPDATEDAT)
-		VALUES (#{id}, #{gender}, #{phone}, #{universityId}, #{major}, #{status}, #{entranceYear}, null, null, SYSDATE)
+		INSERT INTO TEACHERINFO (TEACHER, TEACHERGENDER, UNIVERSITY, MAJOR, STATUS, ENTRANCEYEAR, UNIVCERTIMG, PROFILEIMG, UPDATEDAT)
+		VALUES (#{id}, #{gender}, #{universityId}, 7, #{status}, #{enteranceYear}, 'img', 'image', SYSDATE)
 	</insert>
+	
+	<select id="selectCountTeacherEmail" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM TEACHER
+		WHERE TEACHER.EMAIL = #{email}
+	</select>
 	
 	<select id="selectTeacherId" parameterType="java.lang.String" resultType="int">
 		SELECT id

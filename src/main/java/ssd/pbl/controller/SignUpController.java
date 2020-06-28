@@ -4,20 +4,24 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.inject.Inject;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +44,9 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 	private AuthService authService;
 	@Autowired
 	private SearchService searchService;
+	@Inject
+    PasswordEncoder passwordEncoder;
+	
 	private int idCheck = -1;
 	
 	private WebApplicationContext context;	
@@ -51,9 +58,14 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 		this.uploadDir = context.getServletContext().getRealPath("/upload/");
 	}
 	
-	@ModelAttribute("studentForm")
+	@ModelAttribute("student")
 	public StudentForm setEmptyStudentForm() {
 	    return new StudentForm();
+	}
+	
+	@ModelAttribute("teacher")
+	public TeacherForm setEmptyTeacherForm() {
+	    return new TeacherForm();
 	}
 	
 	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
@@ -93,8 +105,12 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 	
 	@RequestMapping(value = "/signup/student", method = RequestMethod.POST)
 	public String signupStudent(@Valid @ModelAttribute("student") StudentForm student, BindingResult result,
-			@RequestParam(defaultValue="") String schoolKeyword, Model model) {
+			@RequestParam(defaultValue="") String schoolKeyword, HttpSession session, Model model) {
 
+		if (result.hasErrors()) {
+			return "auth/StudentForm";
+		}
+		
 		String email = student.getEmail();
 //		MultipartFile report = student.getProfileImg();
 //		uploadFile(email, report);
@@ -104,6 +120,9 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
         // ...
 //        model.addAttribute("filename", filename);
         
+		session.setAttribute("type", "student");
+		String encPassword = passwordEncoder.encode(student.getPassword());
+        student.setPassword(encPassword);
         authService.createStudent(student);
         student.setSchoolType(searchService.selectSchoolType(student.getSchoolId()));
         int id = authService.selectStudentId(student.getEmail());
@@ -113,16 +132,22 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 		return "auth/JoinComplete";
 	}
 	
-	@RequestMapping(value = "/signup/student/idCheck", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/idCheck/{email}", method = RequestMethod.GET)
 	@ResponseBody
-	public int signupStudentIdCheck(@RequestParam("email") String email) {
-		return authService.isEmailExist(email);
+	public int signupStudentIdCheck(@PathVariable String email) {
+		System.out.println(email);
+		System.out.println(authService.isStudentEmailExist(email));
+		return authService.isStudentEmailExist(email);
 	}
 	
 	@RequestMapping(value = "/signup/teacher", method = RequestMethod.POST)
 	public String signupTeacher(@Valid @ModelAttribute("teacher") TeacherForm teacher, BindingResult result,
-			@RequestParam(defaultValue="") String schoolKeyword, Model model) {
+			@RequestParam(defaultValue="") String schoolKeyword, HttpSession session, Model model) {
 
+		if (result.hasErrors()) {
+			return "auth/TeacherForm";
+		}
+		
 //		String email = student.getEmail();
 //		MultipartFile report = student.getProfileImg();
 //		uploadFile(email, report);
@@ -131,19 +156,22 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
         // 다른 controller에서는 이미 저장된 filename을 데이터베이스로부터 검색해 옴
         // ...
 //        model.addAttribute("filename", filename);
-        
+		
+		session.setAttribute("type", "teacher");
+		String encPassword = passwordEncoder.encode(teacher.getPassword());
+        teacher.setPassword(encPassword);
         authService.createTeacher(teacher);
-        int id = authService.selectStudentId(teacher.getEmail());
+        int id = authService.selectTeacherId(teacher.getEmail());
         teacher.setId(id);
         authService.createTeacherInfo(teacher);
 		
 		return "auth/JoinComplete";
 	}
 	
-	@RequestMapping(value = "/signup/teacher/idCheck", method = RequestMethod.GET)
+	@RequestMapping(value = "/teacher/idCheck/{email}", method = RequestMethod.GET)
 	@ResponseBody
-	public int signupTeacherIdCheck(@RequestParam("email") String email) {
-		return authService.isEmailExist(email);
+	public int signupTeacherIdCheck(@PathVariable String email) {
+		return authService.isTeacherEmailExist(email);
 	}
 	
 //	private void uploadFile(String email, MultipartFile report) {

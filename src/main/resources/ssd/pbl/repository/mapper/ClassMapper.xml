@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ssd.pbl.repository.mapper.ClassMapper">
 	<cache />
 	<select id="selectAutoMatchClass"
-		parameterType="studentMatchForm" resultType="ClassCard">
+			parameterType="studentMatchForm" resultType="ClassCard">
 		SELECT DISTINCT tc.id
 		classId, tc.teacher "teacher.id", t.name
 		"teacher.name", t.rank
@@ -42,7 +42,7 @@
 		ON tr.teacherMatch = tm.id
 		AND tr.dong IN
 		<foreach collection="dongIdArr" item="dId" index="index"
-			open="(" close=")" separator=",">
+				 open="(" close=")" separator=",">
 			#{dId}
 		</foreach>
 		JOIN teacherCharacter tch
@@ -83,7 +83,7 @@
 		INNER JOIN University u
 		ON m.university = u.id
 	</select>
-	
+
 	<select id="selectClassBySubjectId" resultType="ClassCard">
 		SELECT tc.id classId,
 		tc.teacher "teacher.id", tch.name "teacher.name", tch.rank
@@ -97,9 +97,9 @@
 		s.id "subject.id", s.name "subject.name"
 		FROM TEACHERCLASS tc
 		INNER JOIN SUBJECT s
-		ON s.id = tc.subject AND 
+		ON s.id = tc.subject AND
 		s.id IN
-		<foreach collection="subIds" item="subId" index="index" open="(" close=")" separator=","> 
+		<foreach collection="subIds" item="subId" index="index" open="(" close=")" separator=",">
 			#{subId}
 		</foreach>
 		INNER JOIN TEACHER tch
@@ -113,7 +113,7 @@
 	</select>
 
 	<select id="selectClassTeacherDetailByClassId"
-		resultMap="ctd">
+			resultMap="ctd">
 		SELECT tc.id, tc.ability, tc.studentGender,
        s.id "subId", s.name "subName", s.category "subCategory",
        t.id "teacherId", t.name "teacherName", t.rank "teacherRank", t.rate "teacherRate",
@@ -156,14 +156,14 @@ ON t.id = tc.teacher
 		<id column="id" jdbcType="NUMERIC" property="classId" />
 		<result column="ability" jdbcType="VARCHAR" property="ability" />
 		<result column="studentGender" jdbcType="VARCHAR" property="studentGender" />
-	
+
 		<association property="teacher" column="teacher" javaType="Teacher">
 			<id property="id" column="teacherId"/>
 			<result property="name" column="teacherName"/>
 			<result property="rank" column="teaherRank"/>
 			<result property="rate" column="teacherRate"/>
 		</association>
-		
+
 		<association property="teacherInfo" column="teacher" javaType="TeacherInfo">
 			<id property="id" column="id"/>
 			<result property="teacherGender" column="teacherGender"/>
@@ -179,7 +179,7 @@ ON t.id = tc.teacher
 				<result property="name" column="majorName"/>
 			</association>
 		</association>
-		
+
 		<association property="teacherMatch" column="teacher" javaType="TeacherMatch">
 			<id property="id" column="id"/>
 			<result property="profileIntro" column="profileIntro"/>
@@ -187,36 +187,36 @@ ON t.id = tc.teacher
 			<result property="profileStyle" column="profileStyle"/>
 			<result property="studentGender" column="studentGender"/>
 		</association>
-		
+
 		<association property="subject" column="subject" javaType="Subject">
 			<id property="id" column="subId"/>
 			<result property="name" column="subName"/>
 			<result property="category" column="subCategory"/>
 		</association>
-		
+
 		<collection property="teacherTimes" ofType="TeacherTimes">
 			<id property="id" column="timeId"/>
 			<result property="time" column="time"/>
 		</collection>
-		
+
 		<collection property="teacherCharacter" ofType="Character">
 			<id property="id" column="charId"/>
 			<result property="name" column="charName"/>
 			<result property="description" column="charDescription"/>
 		</collection>
-		
+
 		<collection property="teacherRegion" ofType="Dong">
 			<id property="id" column="dongId"/>
 			<result property="name" column="dongName"/>
 		</collection>
 	</resultMap>
-	
+
 	<select id="selectTeacherAndSubjectByClassId" resultMap="teahcerAndSubject">
 		SELECT teacher, subject
 		FROM teacherClass
 		WHERE id = #{classId}
 	</select>
-	
+
 	<resultMap type="map" id="teahcerAndSubject">
 		<result column="teacher" property="teacherId"/>
 		<result column="subject" property="subjectId"/>

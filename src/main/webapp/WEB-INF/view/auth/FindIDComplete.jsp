@@ -6,21 +6,29 @@
 <!doctype html>
 <html>
   <head>
-    <title>인증번호 입력</title>
+    <title>아이디 찾기 결과</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="" />
     <style type="text/css">
       .body {
         text-align: center;
       }
-      .find-id-complete-form {
-        width: 500px;
-        margin: auto;
-        border: 1px solid gray;
-      }
+      .form {
+		text-align: center;
+		padding-top: 120px;
+	  }
+	  .input {
+		margin: auto;
+		margin-top: 40px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		margin-bottom: 20px;
+		width: 800px;
+		border: 3px solid #FFF9B1;
+	  }
       .find-id-complete-title-area {
         margin: auto;
-        padding: 50px 0 30px 0;
+        padding: 0 0 30px 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -29,7 +37,7 @@
         margin: auto;
       }
       .find-id-complete-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
       }
       .find-id-complete-result-area {
@@ -37,7 +45,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-top: 10px;
+        padding-top: 30px;
       }
       .find-id-complete-result-content-area {
         padding: 5px 0 5px 0;
@@ -50,7 +58,7 @@
         justify-content: center;
         align-items: center;
         margin: auto;
-        padding: 50px 0 50px 0;
+        padding: 50px 0 0 0;
       }
       .find-id-complete-btn {
         width: 80px;
@@ -64,10 +72,9 @@
     
   </head>
   <body>
-    <div class="base-top">
-
-    </div>
-    <div class="find-id-complete-form">
+    <%@ include file="../include/main_header.jsp" %>
+    <div class="form">
+    <div class="input">
       <div class="find-id-complete-title-area">
         <div class="find-id-complete-title-text-area">
           <span class="find-id-complete-title">아이디 찾기 결과</span>
@@ -79,8 +86,9 @@
         </div>
       </div>
       <div class="find-id-complete-btn-area">
-        <button class="find-id-complete-btn" id="login" onclick="location.href='/swithMe/auth/loginForm.do'">로그인</button>
+        <button class="btn btn-outline-warning cc_pointer" id="login" onclick="location.href='/swithMe/auth/loginForm.do'">로그인</button>
       </div>
+    </div>
     </div>
   </body>
     

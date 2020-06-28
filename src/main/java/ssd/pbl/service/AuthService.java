@@ -5,7 +5,10 @@ import java.util.Random;
 import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.core.io.FileSystemResource;
+
+import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage.RecipientType;
@@ -27,6 +30,8 @@ import ssd.pbl.repository.mapper.MailMapperRepository;
 import ssd.pbl.repository.mapper.StudentMapperRepository;
 import ssd.pbl.repository.mapper.TeacherMapperRepository;
 
+import javax.inject.Inject;
+
 @Service
 public class AuthService {
 
@@ -37,6 +42,8 @@ public class AuthService {
 	@Autowired
 	private MailMapperRepository mailMapperRepository;
 	private JavaMailSender mailSender;
+	@Inject
+    PasswordEncoder passwordEncoder;
 	
 	public AuthService(StudentMapperRepository studentMapperRepository,
 			TeacherMapperRepository teacherMapperRepository) {
@@ -58,8 +65,8 @@ public class AuthService {
 		} else {
 			dbLoginForm = teacherMapperRepository.selectTeacher(loginForm.getEmail());
 		}
-
-		if (dbLoginForm.getPassword().equals(loginForm.getPassword())) {
+		
+		if (passwordEncoder.matches(loginForm.getPassword(), dbLoginForm.getPassword())) {
 //			throw new IDPWNotMatchingException();
 			return true;
 		} else {
@@ -170,8 +177,12 @@ public class AuthService {
 		return key;
 	}
 
-	public int isEmailExist(String email) {
+	public int isStudentEmailExist(String email) {
 		return studentMapperRepository.selectCountStudentEmail(email);
+	}
+	
+	public int isTeacherEmailExist(String email) {
+		return teacherMapperRepository.selectCountTeacherEmail(email);
 	}
 
 	public void createStudent(StudentForm student) {

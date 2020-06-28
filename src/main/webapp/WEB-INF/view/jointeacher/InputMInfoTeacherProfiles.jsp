@@ -41,11 +41,11 @@
 			path="intro1"
 			placeholder="학생들에게 선생님을 자유롭게 소개해주세요."/>
 			<br><br>
-			<h5 class="text-muted">Q8. 어떤 방식으로 수업을 진행하시는지 알려주세요.</h5>
+			<h5 class="text-muted">Q8. 수업 경력 혹은 관련 경험이 있으신가요 ?</h5>
 			<br>
 			<form:textarea class="form-control" name="introduction2" rows="10" cols="40" 
 			path="intro2"
-			placeholder="EX) 자체 제작 문법 교재로 기초부터 심화까지 문제풀이 위주의 수업을 진행합니다."/>
+			placeholder="EX) 중학생 영어 과외 경험이 있으며, 방학 중에는 초등학생 교육봉사를 꾸준히 하고 있습니다."/>
 
 			<br><br>
 			<button class="btn btn-outline-warning cc_pointer" type="button"
