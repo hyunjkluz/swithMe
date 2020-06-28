@@ -30,7 +30,7 @@
 	</div>
 	<div class="form">
 		<div class="stepimage">
-			<img src="../../resources/assets/Teacher_Step_5.png" />
+			<img src="../../resources/assets/Student_Step_4.png" />
 		</div>
 		<div class="input">
 			<spring:hasBindErrors name="studentMatchForm" />
