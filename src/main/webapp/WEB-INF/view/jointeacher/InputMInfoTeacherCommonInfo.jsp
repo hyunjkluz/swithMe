@@ -129,13 +129,10 @@
 						</c:forEach>
 					</select>
 				</div>
-
-				<br>
-
-				<form:input type="text" id="dongIds" path="dongIds" />
-
-				<input class="btn btn-secondary my-2 my-sm-00 cc_pointer"
-					type="button" value="추가" onclick="insertRegion();">
+				<br> <br>
+				<form:input type="hidden" id="dongIds" path="dongIds" />
+				<input type="button" value="추가" onclick="insertRegion();">
+				<br><br>
 
 				<div></div>
 				<br>
@@ -147,7 +144,7 @@
 				<br>
 				<br>
 				<button class="btn btn-outline-warning cc_pointer" type="button"
-					onclick="location.href='/swithMe/student/match/step2'">이전
+					onclick="location.href='/swithMe/teacher/match/step2'">이전
 					단계로</button>
 				<button class="btn btn-outline-warning cc_pointer">다음</button>
 				<br>
