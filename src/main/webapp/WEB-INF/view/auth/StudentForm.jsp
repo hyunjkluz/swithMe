@@ -129,6 +129,7 @@
     <script type="text/javascript">
 	    function idCheck() {
 	    	var id = $("#email-text").val();
+	    	console.log(id);
 	    	const url = "http://localhost:8080/swithMe/auth/student/idCheck/" + id;
 	    	console.log(url);
 	    	$.ajax({
@@ -208,11 +209,12 @@
       <div class="join-term-title-area">
         <span class="join-term-title">학생 회원정보 입력</span>
       </div>
-      <form:form modelAttribute="studentForm" method="post" action="student">
+      <form:form modelAttribute="student" method="post" action="student">
       <div class="join-input-info">
         <div class="join-input-info-row-area">
           <div class="join-input-info-area">
             <form:input path="email" id="email-text" type="text" class="form-control" placeholder="아이디" />
+            <form:errors style="color: red;" path="email" />
           </div>
           <div class="join-input-info-school-search">
             <input type="button" class="btn btn-outline-warning cc_pointer" onclick="idCheck();" value="중복 확인" />
@@ -222,26 +224,30 @@
         <div class="join-input-info-row-area">
           <div class="join-input-info-pw">
             <form:input path="password" type="password" class="form-control" placeholder="비밀번호" />
+            <form:errors style="color: red;" path="password" />
           </div>
           <div class="join-input-info-pw">
             <form:input path="checkedPassword" type="password" class="form-control" placeholder="비밀번호 확인" />
+            <form:errors style="color: red;" path="checkedPassword" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
             <form:input path="name" type="text" class="form-control" placeholder="이름" />
+            <form:errors style="color: red;" path="name" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
             <form:input path="phone" type="number" class="form-control" placeholder="전화번호" />
+            <form:errors style="color: red;" path="phone" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-gender">
           	<form:radiobutton path="gender" value="WOMAN" label="여성" />
 			<form:radiobutton path="gender" value="MAN" label="남성" /><br>
-			<form:errors path="gender" />
+			<form:errors style="color: red;" path="gender" />
           </div>
         </div>
         <div class="join-input-info-row-area">
@@ -251,11 +257,12 @@
               <form:option value="중학교">중학교</form:option>
               <form:option value="고등학교">고등학교</form:option>
             </form:select>
+            <form:errors style="color: red;" path="schoolCategory" />
           </div>
           <div class="join-input-info-school-status">
           	<form:radiobutton path="status" value="재학" label="재학" />
 			<form:radiobutton path="status" value="졸업" label="졸업" /><br>
-			<form:errors path="status" />
+			<form:errors style="color: red;" path="status" />
           </div>
         </div>
         <div class="join-input-info-row-area">

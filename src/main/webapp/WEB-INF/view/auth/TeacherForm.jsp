@@ -124,6 +124,10 @@
       .school-select {
       	margin-right: 10px;
       }
+      .join-input-info-enteranceYear {
+      	width: 100px;
+      	margin-right: 10px;
+      }
     </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
@@ -185,11 +189,12 @@
       <div class="join-term-title-area">
         <span class="join-term-title">선생님 회원정보 입력</span>
       </div>
-      <form:form modelAttribute="teacherForm" method="post" action="teacher">
+      <form:form modelAttribute="teacher" method="post" action="teacher">
       <div class="join-input-info">
         <div class="join-input-info-row-area">
           <div class="join-input-info-id">
             <form:input path="email" id="email-text" type="text" class="form-control" placeholder="아이디" />
+          	<form:errors style="color: red;" path="email" />
           </div>
           <div class="join-input-info-school-search">
             <input type="button" class="btn btn-outline-warning cc_pointer" onclick="idCheck();" value="중복 확인" />
@@ -199,26 +204,30 @@
         <div class="join-input-info-row-area">
           <div class="join-input-info-pw">
             <form:input path="password" type="password" class="form-control" placeholder="비밀번호" />
+            <form:errors style="color: red;" path="password" />
           </div>
           <div class="join-input-info-pw">
             <form:input path="checkedPassword" type="password" class="form-control" placeholder="비밀번호 확인" />
+          	<form:errors style="color: red;" path="checkedPassword" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
             <form:input path="name" type="text" class="form-control" placeholder="이름" />
+            <form:errors style="color: red;" path="name" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
             <form:input path="phone" type="number" class="form-control" placeholder="전화번호" />
+            <form:errors style="color: red;" path="phone" />
           </div>
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-gender">
           	<form:radiobutton path="gender" value="female" label="여성" />
 			<form:radiobutton path="gender" value="male" label="남성" /><br>
-			<form:errors path="gender" />
+			<form:errors style="color: red;" path="gender" />
           </div>
         </div>
         <div class="join-input-info-row-area">
@@ -227,7 +236,7 @@
           	<form:radiobutton path="status" value="재학" label="재학" />
           	<form:radiobutton path="status" value="휴학" label="휴학" />
 			<form:radiobutton path="status" value="졸업" label="졸업" /><br>
-			<form:errors path="status" />
+			<form:errors style="color: red;" path="status" />
           </div>
         </div>
         <div class="join-input-info-row-area">
@@ -243,11 +252,13 @@
             <form:select path="universityId" id="universityList" name="universityList" class="dropdown-item">
           
             </form:select>
+            <form:errors style="color: red;" path="universityId" />
           </div>
         </div>
         <div class="join-input-info-row-area">
-          <div class="join-input-info-name">
+          <div class="join-input-info-enteranceYear">
             <form:input path="enteranceYear" type="number" class="form-control" placeholder="입학년도" />
+          	<form:errors style="color: red;" path="enteranceYear" />
           </div>
           <div class="select btn btn-primary">
             <form:select path="grade" name="grade" id="grade" class="dropdown-item">
@@ -256,6 +267,7 @@
               <option value="3">3학년</option>
               <option value="4">4학년</option>
             </form:select>
+            <form:errors style="color: red;" path="grade" />
           </div>
         </div>
         <div class="join-input-info-row-area">

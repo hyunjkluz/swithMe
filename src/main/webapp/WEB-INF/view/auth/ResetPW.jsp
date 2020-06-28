@@ -69,10 +69,12 @@
       <form:form modelAttribute="resetPWForm" action="reset" method="POST">
       <div class="reset-pw-input-area">
         <div class="form-group">
-          <input name="password" type="password" class="form-control" placeholder="새 비밀번호 입력" />
+          <form:input path="password" name="password" type="password" class="form-control" placeholder="새 비밀번호 입력" />
+          <form:errors style="color: red;" path="password" />
         </div>
         <div class="form-group">
-          <input name="checkedPassword" type="password" class="form-control" placeholder="비밀번호 확인" />
+          <form:input path="checkedPassword" name="checkedPassword" type="password" class="form-control" placeholder="비밀번호 확인" />
+          <form:errors style="color: red;" path="checkedPassword" />
         </div>
       </div>
       <div class="reset-pw-btn-area">

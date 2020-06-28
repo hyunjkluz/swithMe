@@ -58,9 +58,14 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 		this.uploadDir = context.getServletContext().getRealPath("/upload/");
 	}
 	
-	@ModelAttribute("studentForm")
+	@ModelAttribute("student")
 	public StudentForm setEmptyStudentForm() {
 	    return new StudentForm();
+	}
+	
+	@ModelAttribute("teacher")
+	public TeacherForm setEmptyTeacherForm() {
+	    return new TeacherForm();
 	}
 	
 	@RequestMapping(value = "/signup.do", method = RequestMethod.GET)
@@ -102,6 +107,10 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 	public String signupStudent(@Valid @ModelAttribute("student") StudentForm student, BindingResult result,
 			@RequestParam(defaultValue="") String schoolKeyword, HttpSession session, Model model) {
 
+		if (result.hasErrors()) {
+			return "auth/StudentForm";
+		}
+		
 		String email = student.getEmail();
 //		MultipartFile report = student.getProfileImg();
 //		uploadFile(email, report);
@@ -135,6 +144,10 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 	public String signupTeacher(@Valid @ModelAttribute("teacher") TeacherForm teacher, BindingResult result,
 			@RequestParam(defaultValue="") String schoolKeyword, HttpSession session, Model model) {
 
+		if (result.hasErrors()) {
+			return "auth/TeacherForm";
+		}
+		
 //		String email = student.getEmail();
 //		MultipartFile report = student.getProfileImg();
 //		uploadFile(email, report);

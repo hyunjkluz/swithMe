@@ -93,17 +93,17 @@
         <div class="find-id-type-area">
         	<form:radiobutton path="type" value="student" label="학생" />
 			<form:radiobutton path="type" value="teacher" label="선생님" /><br>
-			<form:errors path="type" />
+			<form:errors style="color: red;" path="type" />
         </div>
       </div>
       <div class="find-id-input-area">
         <div class="form-group">
           <form:input path="name" type="text" class="form-control" placeholder="이름" />
-          <form:errors path="name" />
+          <form:errors style="color: red;" path="name" />
         </div>
         <div class="form-group">
           <form:input path="phone" type="number" class="form-control" placeholder="전화번호" />
-          <form:errors path="phone" />
+          <form:errors style="color: red;" path="phone" />
         </div>
       </div>
       <div class="find-id-btn-area">

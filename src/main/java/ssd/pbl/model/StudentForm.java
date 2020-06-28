@@ -3,22 +3,33 @@ package ssd.pbl.model;
 import java.io.File;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.web.multipart.MultipartFile;
 
 public class StudentForm {
 	private int id;
+	@NotEmpty(message="이메일을 입력해주세요.")
 	private String email;
+	@NotEmpty(message="비밀번호를 입력해주세요.")
 	private String password;
 	private boolean agreement;
+	@NotEmpty(message="비밀번호를 한 번 더 입력해주세요.")
 	private String checkedPassword;
+	@NotEmpty(message="이름을 입력해주세요.")
 	private String name;
+	@NotEmpty(message="전화번호를 입력해주세요.")
 	private String phone;
+	@NotEmpty(message="성별을 입력해주세요.")
 	private String gender;
+	@NotEmpty(message="학교를 입력해주세요.")
 	private String schoolCategory;
 	private String schoolType;
+	@NotEmpty(message="학적 상태를 입력해주세요.")
 	private String status;
+	@NotNull(message="학교를 입력해주세요.")
 	private int schoolId;
+	@NotNull(message="학년을 입력해주세요.")
 	private int grade;
 //	private MultipartFile profileImg;
 	

@@ -3,19 +3,32 @@ package ssd.pbl.model;
 import java.io.File;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class TeacherForm {
 	private int id;
+	@NotEmpty(message="이메일을 입력해주세요.")
 	private String email;
+	@NotEmpty(message="비밀번호를 입력해주세요.")
 	private String password;
 	private boolean agreement;
+	@NotEmpty(message="비밀번호를 한 번 더 입력해주세요.")
 	private String checkedPassword;
+	@NotEmpty(message="이름을 입력해주세요.")
 	private String name;
+	@NotEmpty(message="전화번호를 입력해주세요.")
 	private String phone;
+	@NotEmpty(message="성별을 입력해주세요.")
 	private String gender;
+	@NotNull(message="학년을 입력해주세요.")
 	private int grade;
+	@NotEmpty(message="학적 상태를 입력해주세요.")
 	private String status;
+	@NotNull(message="대학교를 입력해주세요.")
 	private int universityId;
 	private int majorId;
+	@NotNull(message="입학년도를 입력해주세요.")
 	private int enteranceYear;
 	private File profileImg;
 	private File univCertImg;

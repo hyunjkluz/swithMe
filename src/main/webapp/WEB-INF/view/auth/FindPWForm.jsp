@@ -87,17 +87,17 @@
         <div class="find-pw-type-area">
           	<form:radiobutton path="type" value="student" label="학생" />
 			<form:radiobutton path="type" value="teacher" label="선생님" /><br>
-			<form:errors path="type" />
+			<form:errors style="color: red;" path="type" />
         </div>
       </div>
       <div class="find-pw-input-area">
         <div class="form-group">
           <form:input path="email" type="text" class="form-control" placeholder="이메일" />
-          <form:errors path="email" />
+          <form:errors style="color: red;" path="email" />
         </div>
         <div class="form-group">
           <form:input path="name" type="text" class="form-control" placeholder="이름" />
-          <form:errors path="name" />
+          <form:errors style="color: red;" path="name" />
         </div>
       </div>
       <div class="find-pw-btn-area">
