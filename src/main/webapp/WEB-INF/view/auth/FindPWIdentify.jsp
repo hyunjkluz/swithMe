@@ -63,6 +63,11 @@
         border-radius: 3px;
         cursor: pointer;
       }
+      .wrap-error {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	  }
     </style>
   </head>
   <body>
@@ -75,6 +80,9 @@
       <form action="<c:url value='/auth/find/pw/identify' />" method="post">
       <div class="find-pw-identify-input-area">
         <div class="find-pw-identify-input-content-area">
+        	<div class="wrap-error">
+				<form:errors style="color: red;" />
+			</div>
           <input name="code" type="text" class="form-control" placeholder="인증번호 입력" />
         </div>
       </div>

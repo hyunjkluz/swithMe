@@ -9,6 +9,7 @@ import ssd.pbl.controller.UserSession;
 import ssd.pbl.model.FindIDForm;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
+import ssd.pbl.model.Major;
 import ssd.pbl.model.ResetPWForm;
 import ssd.pbl.model.StudentForm;
 import ssd.pbl.model.Teacher;
@@ -67,5 +68,9 @@ public class TeacherMapperRepository {
 	
 	public int selectCountTeacherEmail(String email) {
 		return teacherMapper.selectCountTeacherEmail(email);
+	}
+	
+	public List<Major> selectMajor(int major) {
+		return teacherMapper.selectMajor(major);
 	}
 }

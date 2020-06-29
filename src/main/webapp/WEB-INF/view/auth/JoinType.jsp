@@ -106,7 +106,7 @@
           <div class="join-type-select-text">
             <span class="join-type-font">학생으로 회원가입</span>
             <div class="img-area">
-            	<img class="img-size" src="../../resources/assets/student.png" />
+            	<img class="img-size" src="../../resources/assets/Student_mypage.png" />
             </div>
             <input type="hidden" value="student" name="type">
           </div>

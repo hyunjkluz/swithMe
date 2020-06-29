@@ -40,20 +40,17 @@ public class LogInOutController {
 	public String login(@ModelAttribute("loginForwardAction") String forwardAction,
 			@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult result,
 			@RequestParam("type") String type, HttpSession session, Model model) throws Exception {
+
 		if (result.hasErrors()) {
 			return "auth/LoginForm";
 		}
+		
 		try {
 			loginForm.setType(type);
-			if (authService.login(loginForm)) {
+			authService.login(loginForm);
 				UserSession userSession = authService.getInfo(loginForm);
 				userSession.setType(type);
 				session.setAttribute("userSession", userSession);
-				
-				// guest 상태인 teach일 경우 form.do로 이동
-				if (userSession != null && userSession.getStep().equals("GUEST")) {
-					return "redirect:http://localhost:8080/swithMe/teacher/match/form.do";
-				}
 				
 				LOGGER.info("이전 URL : " + forwardAction);
 				// 로그인 이전 페이지가 학생 자동매칭이면 다시 원래 페이지로 돌아감.
@@ -79,13 +76,9 @@ public class LogInOutController {
 				}
 				
 				return "redirect:/main/class";
-			} else {
-				return "auth/LoginForm";
-			}
 			
 		} catch (IDPWNotMatchingException e) {
-			result.reject("invalidIdOrPassword", 
-					new Object[] { loginForm.getEmail() }, null);
+			result.reject("IDPWNotMatching", "아이디와 비밀번호가 일치하지 않습니다.");
 			return "auth/LoginForm";
 		}
 	}

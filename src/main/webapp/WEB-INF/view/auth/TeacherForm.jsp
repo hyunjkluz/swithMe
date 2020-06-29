@@ -128,16 +128,27 @@
       	width: 100px;
       	margin-right: 10px;
       }
+      .major-search-btn {
+      	margin-right: 20px;
+      }
+      .wrap-error {
+      	display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
 	    function idCheck() {
 	    	var id = $("#email-text").val();
-	    	const url = "http://localhost:8080/swithMe/auth/teacher/idCheck/" + id;
+	    	console.log(id);
+	    	const url = "http://localhost:8080/swithMe/auth/teacher/idCheck";
+	    	var datas = {"email": id};
 	    	console.log(url);
 	    	$.ajax({
 				url : url,
 				type : "GET",
+				data : datas,
 				success : function(data) {
 					console.log(data);
 					if (data == 1) {
@@ -160,6 +171,8 @@
     		var id = $("#university").val();
     		const url = "http://localhost:8080/swithMe/search/university/" + id;
     		console.log(url);
+    		var target = document.getElementById("universityList");
+    		target.options.length = 0;
 
     		$.ajax({
     			url : url,
@@ -169,7 +182,38 @@
     			success : function(data) {
     				console.log(data);
     				for (var i = 0; i < data.length; i++) {
-    					$('#universityList').append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+    					var opt = document.createElement("option");
+    					opt.value = data[i].id;
+    					opt.innerHTML = data[i].name;
+    					target.appendChild(opt);
+    				}
+    			},
+    			error : function(errorThrown) {
+    				alert(errorThrown.statusText);
+    			}
+    		})
+    	}
+    	
+    	function searchMajor() {
+    		var e = $("#universityList option:selected").val();
+    		console.log(e);
+    		const url = "http://localhost:8080/swithMe/search/major/" + e;
+    		console.log(url);
+    		var target = document.getElementById("majorList");
+    		target.options.length = 0;
+    		
+    		$.ajax({
+    			url : url,
+    			type : "GET",
+    			dataType : "json",
+    			contentType : "application/json",
+    			success : function(data) {
+    				console.log(data);
+    				for (var i = 0; i < data.length; i++) {
+    					var opt = document.createElement("option");
+    					opt.value = data[i].id;
+    					opt.innerHTML = data[i].name;
+    					target.appendChild(opt);
     				}
     			},
     			error : function(errorThrown) {
@@ -211,6 +255,9 @@
           	<form:errors style="color: red;" path="checkedPassword" />
           </div>
         </div>
+        <div class="wrap-error">
+			<form:errors style="color: red;" />
+		</div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
             <form:input path="name" type="text" class="form-control" placeholder="이름" />
@@ -225,8 +272,8 @@
         </div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-gender">
-          	<form:radiobutton path="gender" value="female" label="여성" />
-			<form:radiobutton path="gender" value="male" label="남성" /><br>
+          	<form:radiobutton path="gender" value="WOMAN" label="여성" />
+			<form:radiobutton path="gender" value="MAN" label="남성" /><br>
 			<form:errors style="color: red;" path="gender" />
           </div>
         </div>
@@ -249,10 +296,19 @@
         </div>
         <div class="join-input-info-row-area">
           <div class="select btn btn-primary school-select">
+            <form:errors style="color: white;" path="universityId" />
             <form:select path="universityId" id="universityList" name="universityList" class="dropdown-item">
+        
+            </form:select>
+          </div>
+          <div class="major-search-btn">
+            <input type="button" class="btn btn-outline-warning cc_pointer" onclick="searchMajor();" value="확인" />       
+          </div>
+          <div class="select btn btn-primary school-select">
+            <form:errors style="color: white;" path="majorId" />
+            <form:select path="majorId" id="majorList" name="majorList" class="dropdown-item">
           
             </form:select>
-            <form:errors style="color: red;" path="universityId" />
           </div>
         </div>
         <div class="join-input-info-row-area">
@@ -261,13 +317,13 @@
           	<form:errors style="color: red;" path="enteranceYear" />
           </div>
           <div class="select btn btn-primary">
+            <form:errors style="color: white;" path="grade" />
             <form:select path="grade" name="grade" id="grade" class="dropdown-item">
               <option value="1">1학년</option>
               <option value="2">2학년</option>
               <option value="3">3학년</option>
               <option value="4">4학년</option>
             </form:select>
-            <form:errors style="color: red;" path="grade" />
           </div>
         </div>
         <div class="join-input-info-row-area">

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ssd.pbl.model.Dong;
+import ssd.pbl.model.Major;
 import ssd.pbl.model.SchoolForm;
 import ssd.pbl.model.University;
 import ssd.pbl.service.SearchService;
@@ -36,5 +37,11 @@ public class SearchController {
 	@ResponseBody
 	public List<University> searchUniversity(@PathVariable String university) {
 		return searchService.searchUniversity(university);
+	}
+	
+	@RequestMapping(value = "/major/{major}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Major> searchMajor(@PathVariable int major) {
+		return searchService.searchMajor(major);
 	}
 }

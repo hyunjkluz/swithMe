@@ -127,10 +127,21 @@ th, td {
 image {
 	padding-bottom: 30px;
 }
+.modal {
+	padding-top:100px;
+}
+.modalDiv {
+	padding-top:100px;
+}
 </style>
 
 </head>
-<body>
+
+<body id="page-top">
+<div class="modalDiv">
+	<div id="ex1" class="modal">
+</div>
+</div>
 	<%@ include file="../include/main_header.jsp" %>
 	<div class="buttons left">
 		<img class="image" src="../resources/assets/Student_mypage.png" /><br><br>
@@ -138,9 +149,8 @@ image {
 
 	</div>
 
-	<div class="mypage-student-status">
+	<div class="mypage-student-status left">
 		<h4 class="text-muted">수업 신청 현황</h4><br>
-		<div id="ex1" class="modal"></div>
 		<table id="status" width="200px">
 			<thead>
 				<tr>
@@ -184,12 +194,17 @@ image {
 									<p>수업 취소</p>
 								</c:otherwise>
 							</c:choose>
+							</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 
 	</div>
+	<section class="page-section">
+		<div class="container text-center">
+		</div>
+	</section>
 
 </body>
 </html>

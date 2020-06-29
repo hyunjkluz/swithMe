@@ -73,6 +73,11 @@
         border-radius: 3px;
         cursor: pointer;
       }
+      .wrap-error {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	  }
     </style>
   </head>
   <body>
@@ -83,6 +88,9 @@
         <span class="find-pw-title">비밀번호 찾기</span>
       </div>
       <form:form modelAttribute="findPWForm" action="pw" method="post">
+      <div class="wrap-login-error">
+		<form:errors style="color: red;" />
+	  </div>
       <div class="find-pw-type">
         <div class="find-pw-type-area">
           	<form:radiobutton path="type" value="student" label="학생" />
