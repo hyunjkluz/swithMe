@@ -80,7 +80,7 @@ table  tr:nth-child(2n + 1) {
 		<form:form modelAttribute="detail" method="post" action="/swithMe/class/${detail.classId}/request">
 		<div class="media-body">
 			<div class="personal_text">
-				<h6>${detail.subject.name }(${detail.ability == 1 ? "하" : detail.ability == 2 ? "중" : "상"}) ${detail.teacherInfo.teacherGender == "WOMEN" ? "여자" : "남자"} 선생님</h6>
+				<h6>${detail.subject.name }(${detail.ability == 1 ? "하" : detail.ability == 2 ? "중" : "상"}) ${detail.teacherInfo.teacherGender == "WOMAN" ? "여자" : "남자"} 선생님</h6>
 				<h3>${detail.teacher.name}</h3>
 				<h4>${detail.teacherInfo.university.name } ${detail.teacherInfo.major.name } ${detail.teacherInfo.entranceYear}</h4>
 			</div>
