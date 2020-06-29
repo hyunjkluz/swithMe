@@ -168,13 +168,13 @@ public class BoardController {
 	  public String updatePost(@PathVariable("connectionId") int connectionId, @PathVariable("boardId") int boardId, 
 			  @ModelAttribute("board") Board board) throws IOException{
 		  logger.info("BoardController-UpdatePost"+connectionId+ board.getBoardForm().toString());
-		  	String fileName=null;
-			MultipartFile uploadFile = board.boardForm.getUploadFile();
 			
-			if (!uploadFile.isEmpty()) {
-				fileName = uploadFile(uploadFile);
-			}
-			board.boardForm.setUpload(fileName);
+			  String fileName=null; 
+			  MultipartFile uploadFile = board.boardForm.getUploadFile();
+			  
+			  if (!uploadFile.isEmpty()) { fileName = uploadFile(uploadFile); }
+			  board.boardForm.setUpload(fileName);
+			 
 		  boardService.updateBoard(boardId, board.getBoardForm()); 
 		  return "redirect:http://localhost:8080/swithMe/connection/{connectionId}/board/{boardId}"; 
 	  }
