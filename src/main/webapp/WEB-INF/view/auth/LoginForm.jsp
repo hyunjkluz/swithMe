@@ -22,7 +22,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: #e6e6e6;
+	background: #FFFFFF;
 }
 
 .login-student-detail {
@@ -108,7 +108,7 @@
 <body>
 	<%@ include file="../include/join_header.jsp" %>
 	<div class="login-form">
-	<div class="container-contact100" style="width: 70%;">
+	<div class="container-contact100" style="width: 70%; background-color: #FFFFFF;">
 		<div class="login-student-detail">
 			<form:form modelAttribute="loginForm" action="/swithMe/auth/login" method="POST">
 				<input type="hidden" value="${loginForwardAction}"
