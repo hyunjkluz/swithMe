@@ -8,6 +8,7 @@ import ssd.pbl.controller.UserSession;
 import ssd.pbl.model.FindIDForm;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
+import ssd.pbl.model.Major;
 import ssd.pbl.model.ResetPWForm;
 import ssd.pbl.model.StudentForm;
 import ssd.pbl.model.Teacher;
@@ -47,4 +48,6 @@ public interface TeacherMapper {
 	Integer insertStudentTime(@Param("id") int id, @Param("time") String time);
 
 	Integer insertStudentCharacter(@Param("id")int id, @Param("characterId") int characterId);
+	
+	List<Major> selectMajor(int major);
 }

@@ -96,6 +96,12 @@
 .login-find-atag {
 	text-decoration: underline;
 }
+
+.wrap-login-error {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 </style>
 </head>
 <body>
@@ -111,17 +117,24 @@
 						<span class="login-title-text contact100-form-title">학생으로 로그인하기</span>
 					</div>
 				</div>
+				<div class="wrap-login-error">
+					<form:errors style="color: red;" />
+				</div>
 				<div class="login-input-area">
 					<div class="wrap-login-input-content-area">
+						<div class="wrap-login-error">
+							<form:errors style="color: red;"  path="email" />
+						</div>
 						<div class="wrap-input100 login-input-content-area">
-							<form:input path="email" class="input100" type="text" placeholder="아이디" />
-							<form:errors path="email" />
+							<form:input path="email" class="input100" type="text" placeholder="아이디" />			
 						</div>
 					</div>
 					<div class="wrap-login-input-content-area">
+						<div class="wrap-login-error">
+							<form:errors style="color: red;"  path="password" />
+						</div>
 						<div class="wrap-input100 login-input-content-area">
 							<form:input path="password" class="input100" type="password" placeholder="비밀번호" />
-							<form:errors path="password" />
 						</div>
 					</div>
 				</div>
@@ -143,17 +156,24 @@
 						<span class="login-title-text contact100-form-title">선생님으로 로그인하기</span>
 					</div>
 				</div>
+				<div class="wrap-login-error">
+					<form:errors style="color: red;" />
+				</div>
 				<div class="login-input-area">
 					<div class="wrap-login-input-content-area">
+						<div class="wrap-login-error">
+							<form:errors style="color: red;"  path="email" />
+						</div>
 						<div class="wrap-input100 login-input-content-area">
 							<form:input path="email" class="input100 login-input" type="text" placeholder="아이디" />
-							<form:errors path="email" />
 						</div>
 					</div>
 					<div class="wrap-login-input-content-area">
+					<div class="wrap-login-error">
+							<form:errors style="color: red;"  path="password" />
+						</div>
 						<div class="wrap-input100 login-input-content-area">
 							<form:input path="password" class="input100 login-input" type="password" placeholder="비밀번호" />
-							<form:errors path="password" />
 						</div>
 					</div>
 				</div>

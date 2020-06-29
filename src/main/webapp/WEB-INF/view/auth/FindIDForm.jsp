@@ -79,6 +79,11 @@
         border-radius: 3px;
         cursor: pointer;
       }
+      .wrap-error {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	  }
     </style>
   </head>
   <body>
@@ -89,6 +94,9 @@
         <span class="find-id-title">아이디 찾기</span>
       </div>
       <form:form modelAttribute="findIDForm" action="id" method="post">
+      <div class="wrap-error">
+		<form:errors style="color: red;" />
+	  </div>
       <div class="find-id-type">
         <div class="find-id-type-area">
         	<form:radiobutton path="type" value="student" label="학생" />

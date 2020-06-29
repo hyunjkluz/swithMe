@@ -40,12 +40,14 @@ public class LogInOutController {
 	public String login(@ModelAttribute("loginForwardAction") String forwardAction,
 			@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult result,
 			@RequestParam("type") String type, HttpSession session, Model model) throws Exception {
+
 		if (result.hasErrors()) {
 			return "auth/LoginForm";
 		}
+		
 		try {
 			loginForm.setType(type);
-			if (authService.login(loginForm)) {
+			authService.login(loginForm);
 				UserSession userSession = authService.getInfo(loginForm);
 				userSession.setType(type);
 				session.setAttribute("userSession", userSession);
@@ -79,13 +81,13 @@ public class LogInOutController {
 				}
 				
 				return "redirect:/main/class";
-			} else {
-				return "auth/LoginForm";
-			}
+//			} 
+//				else {
+//				result.reject("invalidIdOrPassword", "아이디와 비밀번호가 일치하지 않습니다.");
+//			}
 			
 		} catch (IDPWNotMatchingException e) {
-			result.reject("invalidIdOrPassword", 
-					new Object[] { loginForm.getEmail() }, null);
+			result.reject("invalidIdOrPassword", "아이디와 비밀번호가 일치하지 않습니다.");
 			return "auth/LoginForm";
 		}
 	}

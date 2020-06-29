@@ -124,6 +124,11 @@
         width: 150px;
         height: 40px;
       }
+      .wrap-error {
+      	display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
@@ -231,6 +236,9 @@
             <form:errors style="color: red;" path="checkedPassword" />
           </div>
         </div>
+        <div class="wrap-error">
+			<form:errors style="color: red;" />
+		</div>
         <div class="join-input-info-row-area">
           <div class="join-input-info-name">
             <form:input path="name" type="text" class="form-control" placeholder="이름" />
@@ -275,11 +283,13 @@
         </div>
         <div class="join-input-info-row-area">
           <div class="select btn btn-primary school-select">
+          	  <form:errors style="color: white;" path="schoolId" />
 	          <form:select path="schoolId" id="schoolList" name="schoolList" class="dropdown-item">
 	          	
 	          </form:select>
           </div>
           <div class="select btn btn-primary">
+            <form:errors style="color: white;" path="grade" />
             <form:select path="grade" name="grade" id="grade" class="dropdown-item">
               
             </form:select>

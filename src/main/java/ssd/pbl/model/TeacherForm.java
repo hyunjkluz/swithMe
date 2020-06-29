@@ -3,6 +3,7 @@ package ssd.pbl.model;
 import java.io.File;
 import java.util.Date;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -21,12 +22,13 @@ public class TeacherForm {
 	private String phone;
 	@NotEmpty(message="성별을 입력해주세요.")
 	private String gender;
-	@NotNull(message="학년을 입력해주세요.")
+	@Min(value = 1, message = "학년을 입력해주세요")
 	private int grade;
 	@NotEmpty(message="학적 상태를 입력해주세요.")
 	private String status;
-	@NotNull(message="대학교를 입력해주세요.")
+	@Min(value = 1, message = "학교를 입력해주세요")
 	private int universityId;
+	@Min(value = 1, message = "전공을 입력해주세요")
 	private int majorId;
 	@NotNull(message="입학년도를 입력해주세요.")
 	private int enteranceYear;

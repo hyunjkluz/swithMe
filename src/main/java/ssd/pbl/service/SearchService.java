@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ssd.pbl.model.Major;
 import ssd.pbl.model.SchoolForm;
 import ssd.pbl.model.University;
 import ssd.pbl.repository.mapper.StudentMapperRepository;
@@ -29,5 +30,9 @@ public class SearchService {
 	
 	public List<University> searchUniversity(String university) {
 		return teacherMapperRepository.selectUniversity(university);
+	}
+	
+	public List<Major> searchMajor(int major) {
+		return teacherMapperRepository.selectMajor(major);
 	}
 }

@@ -29,6 +29,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ssd.pbl.exception.PasswordNotMatchingException;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.SchoolForm;
 import ssd.pbl.model.StudentForm;
@@ -121,6 +122,16 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 //        model.addAttribute("filename", filename);
         
 		session.setAttribute("type", "student");
+		
+		try {
+			if (!student.getPassword().equals(student.getCheckedPassword())) {
+				throw new PasswordNotMatchingException();
+			}
+		} catch (PasswordNotMatchingException e) {
+			result.reject("passwordNotMatching", "두 비밀번호가 일치하지 않습니다.");
+			return "auth/StudentForm";
+		}
+		
 		String encPassword = passwordEncoder.encode(student.getPassword());
         student.setPassword(encPassword);
         authService.createStudent(student);
@@ -158,6 +169,16 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 //        model.addAttribute("filename", filename);
 		
 		session.setAttribute("type", "teacher");
+		
+		try {
+			if (!teacher.getPassword().equals(teacher.getCheckedPassword())) {
+				throw new PasswordNotMatchingException();
+			}
+		} catch (PasswordNotMatchingException e) {
+			result.reject("passwordNotMatching", "두 비밀번호가 일치하지 않습니다.");
+			return "auth/TeacherForm";
+		}
+		
 		String encPassword = passwordEncoder.encode(teacher.getPassword());
         teacher.setPassword(encPassword);
         authService.createTeacher(teacher);

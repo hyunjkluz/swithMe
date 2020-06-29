@@ -2,6 +2,8 @@ package ssd.pbl.model;
 
 import java.io.File;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -27,9 +29,9 @@ public class StudentForm {
 	private String schoolType;
 	@NotEmpty(message="학적 상태를 입력해주세요.")
 	private String status;
-	@NotNull(message="학교를 입력해주세요.")
+	@Min(value = 1, message = "학교를 입력해주세요")
 	private int schoolId;
-	@NotNull(message="학년을 입력해주세요.")
+	@Min(value = 1, message = "학년을 입력해주세요")
 	private int grade;
 //	private MultipartFile profileImg;
 	

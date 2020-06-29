@@ -1,10 +1,12 @@
 package ssd.pbl.controller;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import ssd.pbl.exception.FindPWNotMatchingException;
+import ssd.pbl.exception.PasswordNotMatchingException;
+import ssd.pbl.exception.SecurityCodeNotMatching;
 import ssd.pbl.model.FindIDForm;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.ResetPWForm;
@@ -29,6 +34,8 @@ public class FindLogController {
 	
 	@Autowired
 	private AuthService authService;
+	@Inject
+    PasswordEncoder passwordEncoder;
 	
 	@ModelAttribute("findPWForm")
 	public FindPWForm setEmptyFindPWForm() {
@@ -76,19 +83,24 @@ public class FindLogController {
 			return "auth/FindPWForm";
 		}
 		
-		authService.findPW(findPWForm);
+		try {
+			authService.findPW(findPWForm);
+		} catch (FindPWNotMatchingException e) {
+			result.reject("findPWNotMatching", "일치하는 사용자가 없습니다.");
+			return "auth/FindPWForm";
+		}
 		
 		return "auth/FindPWIdentify";
 	}
 	
 	@RequestMapping(value = "/pw/identify", method = RequestMethod.POST)
-	public String checkIdentify	(@ModelAttribute("findPWForm") FindPWForm findPWForm, @RequestParam("code") int code, HttpSession session, Model model, HttpServletResponse response) throws IOException {
-		boolean check = authService.checkSecurityCode(code, findPWForm);
-		if (!check) {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('인증번호가 일치하지 않습니다.'); location.href='auth/pw';</script>");
-			System.out.println("error");
+	public String checkIdentify	(@ModelAttribute("findPWForm") FindPWForm findPWForm, BindingResult result, 
+			@RequestParam("code") int code, HttpSession session, Model model, HttpServletResponse response) throws Exception {
+		try {
+			authService.checkSecurityCode(code, findPWForm);
+		} catch (SecurityCodeNotMatching e) {
+			result.reject("securityCodeNotMatching", "인증번호가 일치하지 않습니다.");
+			return "auth/FindPWIdentify";
 		}
 		
 		return "auth/ResetPW";
@@ -105,6 +117,19 @@ public class FindLogController {
 		FindPWForm findPWForm = (FindPWForm)session.getAttribute("findPWForm");
 		String type = findPWForm.getType();
 		String email = findPWForm.getEmail();
+		
+		try {
+			if (!resetPWForm.getPassword().contentEquals(resetPWForm.getCheckedPassword())) {
+				throw new PasswordNotMatchingException();
+			}
+		} catch (PasswordNotMatchingException e) {
+			result.reject("passwordNotMatching", "두 비밀번호가 일치하지 않습니다.");
+			return "auth/ResetPW";
+		}
+		
+		
+		String encPassword = passwordEncoder.encode(resetPWForm.getPassword());
+		resetPWForm.setPassword(encPassword);
 
 		resetPWForm.setType(type);
 		resetPWForm.setEmail(email);

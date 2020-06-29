@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ssd.pbl.controller.UserSession;
+import ssd.pbl.exception.FindPWNotMatchingException;
 import ssd.pbl.exception.IDPWNotMatchingException;
+import ssd.pbl.exception.SecurityCodeNotMatching;
 import ssd.pbl.model.FindIDForm;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.LoginForm;
@@ -53,11 +55,6 @@ public class AuthService {
 	}
 
 	public boolean login(LoginForm loginForm) throws Exception {
-		if (loginForm.getEmail() == null || loginForm.getPassword() == null) {
-//			throw new IDPWNotMatchingException();
-			return false;
-		}
-
 		LoginForm dbLoginForm;
 
 		if (loginForm.getType().equals("student")) {
@@ -66,11 +63,10 @@ public class AuthService {
 			dbLoginForm = teacherMapperRepository.selectTeacher(loginForm.getEmail());
 		}
 		
-		if (passwordEncoder.matches(loginForm.getPassword(), dbLoginForm.getPassword())) {
-//			throw new IDPWNotMatchingException();
+		if (dbLoginForm != null && passwordEncoder.matches(loginForm.getPassword(), dbLoginForm.getPassword())) {
 			return true;
 		} else {
-			return false;
+			throw new IDPWNotMatchingException();
 		}
 	}
 
@@ -100,10 +96,18 @@ public class AuthService {
 	public boolean findPW(FindPWForm findPWForm) throws Exception {
 		int id = -1;
 		if (findPWForm.getType().equals("student")) {
-			id = studentMapperRepository.selectStudentByEmailAndName(findPWForm);
+			if (studentMapperRepository.selectStudentByEmailAndName(findPWForm) == null) {
+				throw new FindPWNotMatchingException();
+			} else {
+				id = studentMapperRepository.selectStudentByEmailAndName(findPWForm);
+			}
 			System.out.println(id);
 		} else {
-			id = teacherMapperRepository.selectTeacherByEmailAndName(findPWForm);
+			if (teacherMapperRepository.selectTeacherByEmailAndName(findPWForm) == null) {
+				throw new FindPWNotMatchingException();
+			} else {
+				id = teacherMapperRepository.selectTeacherByEmailAndName(findPWForm);
+			}
 		}
 		
 		int key;
@@ -113,18 +117,18 @@ public class AuthService {
 			mailMapperRepository.insertSecurityCode(findPWForm);
 			System.out.println(key);
 			return true;
+		} else {
+			throw new FindPWNotMatchingException();
 		}
-		
-		return false;
 	}
 	
-	public boolean checkSecurityCode(int code, FindPWForm findPWForm) {
+	public boolean checkSecurityCode(int code, FindPWForm findPWForm) throws Exception {
 		int key = mailMapperRepository.selectSecurityCode(findPWForm.getEmail());
 		
 		if (key == code) {
 			return true;
 		} else {
-			return false;
+			throw new SecurityCodeNotMatching();
 		}
 	}
 

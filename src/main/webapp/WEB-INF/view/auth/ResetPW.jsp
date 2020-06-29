@@ -57,6 +57,11 @@
         margin: auto;
         padding: 50px 0 0 0;
       }
+      .wrap-error {
+      	display: flex;
+      	justify-content: center;
+		align-items: center;
+      }
     </style>
   </head>
   <body>
@@ -67,6 +72,9 @@
         <span class="reset-pw-title">비밀번호 변경</span>
       </div>
       <form:form modelAttribute="resetPWForm" action="reset" method="POST">
+      <div class="wrap-error">
+		<form:errors style="color: red;" />
+	  </div>
       <div class="reset-pw-input-area">
         <div class="form-group">
           <form:input path="password" name="password" type="password" class="form-control" placeholder="새 비밀번호 입력" />
