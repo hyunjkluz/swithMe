@@ -3,12 +3,14 @@ package ssd.pbl.model;
 import java.io.File;
 import java.util.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class TeacherForm {
 	private int id;
+	@Email
 	@NotEmpty(message="이메일을 입력해주세요.")
 	private String email;
 	@NotEmpty(message="비밀번호를 입력해주세요.")

@@ -142,11 +142,13 @@
 	    function idCheck() {
 	    	var id = $("#email-text").val();
 	    	console.log(id);
-	    	const url = "http://localhost:8080/swithMe/auth/teacher/idCheck/" + id;
+	    	const url = "http://localhost:8080/swithMe/auth/teacher/idCheck";
+	    	var datas = {"email": id};
 	    	console.log(url);
 	    	$.ajax({
 				url : url,
 				type : "GET",
+				data : datas,
 				success : function(data) {
 					console.log(data);
 					if (data == 1) {

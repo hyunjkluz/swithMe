@@ -134,12 +134,12 @@
     <script type="text/javascript">
 	    function idCheck() {
 	    	var id = $("#email-text").val();
-	    	console.log(id);
-	    	const url = "http://localhost:8080/swithMe/auth/student/idCheck/" + id;
-	    	console.log(url);
+	    	const url = "http://localhost:8080/swithMe/auth/student/idCheck";
+	    	var datas = {"email": id};
 	    	$.ajax({
 				url : url,
 				type : "GET",
+				data : datas,
 				success : function(data) {
 					console.log(data);
 					if (data == 1) {

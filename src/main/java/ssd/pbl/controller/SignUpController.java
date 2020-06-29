@@ -29,6 +29,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ssd.pbl.exception.CheckIdErrorException;
+import ssd.pbl.exception.CheckIdException;
 import ssd.pbl.exception.PasswordNotMatchingException;
 import ssd.pbl.model.FindPWForm;
 import ssd.pbl.model.SchoolForm;
@@ -143,11 +145,9 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 		return "auth/JoinComplete";
 	}
 	
-	@RequestMapping(value = "/student/idCheck/{email}", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/idCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public int signupStudentIdCheck(@PathVariable String email) {
-		System.out.println(email);
-		System.out.println(authService.isStudentEmailExist(email));
+	public int signupStudentIdCheck(@RequestParam(value="email") String email) {
 		return authService.isStudentEmailExist(email);
 	}
 	
@@ -189,9 +189,9 @@ public class SignUpController extends HandlerInterceptorAdapter implements Appli
 		return "auth/JoinComplete";
 	}
 	
-	@RequestMapping(value = "/teacher/idCheck/{email}", method = RequestMethod.GET)
+	@RequestMapping(value = "/teacher/idCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public int signupTeacherIdCheck(@PathVariable String email) {
+	public int signupTeacherIdCheck(@RequestParam(value="email") String email) {
 		return authService.isTeacherEmailExist(email);
 	}
 	

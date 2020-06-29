@@ -2,6 +2,7 @@ package ssd.pbl.model;
 
 import java.io.File;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class StudentForm {
 	private int id;
+	@Email
 	@NotEmpty(message="이메일을 입력해주세요.")
 	private String email;
 	@NotEmpty(message="비밀번호를 입력해주세요.")
