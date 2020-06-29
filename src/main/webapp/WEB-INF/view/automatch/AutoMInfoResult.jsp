@@ -36,7 +36,7 @@
 			success : function(detail) {
 				console.log(detail);
 				var name = document.createElement("h2");
-				var gender = detail.teacherInfo.teacherGender == "WOMEN" ? "여자"
+				var gender = detail.teacherInfo.teacherGender == "WOMAN" ? "여자"
 						: "남자";
 				name.innerHTML = detail.teacher.name + " "
 						+ detail.teacherInfo.entranceYear + " " + gender;
