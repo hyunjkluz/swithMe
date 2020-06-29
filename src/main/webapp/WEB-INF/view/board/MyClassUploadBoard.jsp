@@ -13,21 +13,32 @@
 <div>
 <%@ include file="../include/main_header.jsp" %>
 </div>
-<div class="container">
-<section id="page-section">
-<form:form modelAttribute="boardForm" action='/swithMe/connection/${connectionId}/board' enctype="multipart/form-data" >
-	<form:select path="type" items="${boardTypes}" />
-	<br>
-	제목: <form:input path="title" type="text" name="title" /><form:errors path="title" /><br/>
-	내용: <form:textarea path="content" name="content"></form:textarea><form:errors path="content" /><br/>
-	첨부파일: <form:input path="uploadFile" type="file" name="uploadFile"/>
-	<br>
-	<input type="submit" value="저장"/>
-	<a href="<c:url value='/connection/${connectionId}/board/?category=NOTICE' />">취소</a>
-</form:form>
+
+<section  id="page-section" >
+	<div class="container shadow-lg ">
+	<div class="pt-3 pb-3">
+	<form:form class="form-group" modelAttribute="boardForm" action='/swithMe/connection/${connectionId}/board' enctype="multipart/form-data" >
+			<form:select class="form-control col-form-label"  path="type" items="${boardTypes}" />
+			<br>
+			<label class="mr-4" for="title">제목</label><form:errors  path="title" />
+			<form:input class="form-control" path="title" type="text" name="title" />
+			<br/>
+			
+			<label class="mr-4" for="title">내용</label><form:errors path="content" />
+			<form:textarea  class="form-control" rows="6" path="content" name="content"></form:textarea>
+			<br/>
+	
+			<label for="title">첨부파일</label>
+			<form:input class="form-control-file" path="uploadFile" type="file" name="uploadFile"/>
+		
+		<br>
+		<button class="btn btn-primary js-scroll-trigger" type="submit" >저장</button>
+		<a class="btn btn-outline-primary" href="<c:url value='/connection/${connectionId}/board/?category=NOTICE' />">취소</a>
+	</form:form>
+	</div></div>
 </section>
-</div>
-<div class="container">
+
+<div>
 <%@ include file="../include/main_footer.jsp" %>
 </div >
 </body>

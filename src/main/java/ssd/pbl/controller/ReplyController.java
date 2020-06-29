@@ -34,7 +34,7 @@ public class ReplyController{
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public List<Reply> getReplyList(@PathVariable("boardId") int boardId) throws Exception{
+	public List<Reply> getReplyList(@PathVariable("boardId") int boardId, Model model) throws Exception{
 		logger.info("ReplyController-getReplyList"+boardId);
 		List<Reply> replyList = replyService.getAllReply(boardId);
 		logger.info("ReplyController-getReplyList"+replyList);
@@ -64,15 +64,19 @@ public class ReplyController{
 		return result;
 	}
 	
+	
+	@RequestMapping(value ="/{replyId}", method = RequestMethod.DELETE)
 	@ResponseBody
-	@RequestMapping(value ="/{replyId}/delete")
 	public void deleteReply(@PathVariable("replyId") int replyId) throws Exception{
+		logger.info("ReplyController-deleteReply");
 		replyService.deleteReply(replyId);
 	}
 	
+	
+	@RequestMapping(value ="/{replyId}", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody
-	@RequestMapping(value ="/{replyId}/update")
-	public void updateReply(@ModelAttribute("reply") Reply reply) throws Exception{
-		replyService.editReply(reply);
+	public void updateReply(@RequestBody String content, @PathVariable("replyId") int replyId) throws Exception{
+		logger.info("ReplyController-updateReply");
+		replyService.editReply(replyId, content);
 	}
 }

@@ -19,12 +19,12 @@ public class ReplyMapperRepository {
 		replyMapper.insertReply(reply);
 	}
 	
-	public void updateReply(Reply reply) {
-		replyMapper.updateReply(reply);
+	public void updateReply(int replyId, String content) {
+		replyMapper.updateReply(replyId, content);
 	}
 	
-	public void deleteReply(int cId) {
-		replyMapper.deleteReply(cId);
+	public void deleteReply(int replyId) {
+		replyMapper.deleteReply(replyId);
 	}
 	
 }

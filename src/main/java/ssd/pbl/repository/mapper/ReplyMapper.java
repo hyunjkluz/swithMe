@@ -2,6 +2,8 @@ package ssd.pbl.repository.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import ssd.pbl.model.Reply;
 
 public interface ReplyMapper {
@@ -9,7 +11,7 @@ public interface ReplyMapper {
 	
 	void insertReply(Reply reply);
 	
-	void updateReply(Reply reply);
+	void updateReply(@Param("replyId")int replyId, @Param("content")String content);
 	
-	void deleteReply(int cId);
+	void deleteReply(@Param("replyId")int replyId);
 }

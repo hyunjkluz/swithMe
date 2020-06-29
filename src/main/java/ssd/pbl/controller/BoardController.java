@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -44,7 +46,7 @@ import ssd.pbl.service.ReplyService;
  */
 @Controller
 @RequestMapping("/connection/{connectionId}")
-public class BoardController implements ApplicationContextAware {
+public class BoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
@@ -99,37 +101,30 @@ public class BoardController implements ApplicationContextAware {
 		return "board/MyClassUploadBoard";
 	}
 	
-	private WebApplicationContext context;	
-	private String uploadDir;
-
-	@Override					// life-cycle callback method
-	public void setApplicationContext(ApplicationContext appContext)
-		throws BeansException {
-		this.context = (WebApplicationContext) appContext;
-		this.uploadDir = context.getServletContext().getRealPath("/WEB-INF/upload");
-	}
+	
 	
 	//새로운 글 등록
 	@RequestMapping(value ="/board" , method = RequestMethod.POST)
-	public String uploadNewPost(@ModelAttribute("boardForm") BoardForm boardForm,
+	public String uploadNewPost(@Valid @ModelAttribute("boardForm") BoardForm boardForm, BindingResult result,
 			@PathVariable int connectionId, 
 			HttpSession session) throws IOException {
-		/*
-		 * if (result.hasErrors()) return "board/MyClassUploadBoard";
-		 */
+		
+		if (result.hasErrors()) 
+			return "board/MyClassUploadBoard";
+		 
 		logger.info("BoardController-uploadNewPost"+connectionId+ boardForm.toString());
 		UserSession userSession= (UserSession) session.getAttribute("userSession");
 		int id = userSession.getId();
 		logger.info("BoardController-uploadNewPost"+id);
 		String type = userSession.getType();
 		
+		String fileName=null;
 		MultipartFile uploadFile = boardForm.getUploadFile();
-		if(uploadFile != null) {
-		  File file = new File(this.uploadDir + uploadFile.getOriginalFilename());
-		  uploadFile.transferTo(file);
-		  boardForm.setUpload(uploadFile.getOriginalFilename());
+		
+		if (!uploadFile.isEmpty()) {
+			fileName = uploadFile(uploadFile);
 		}
-
+		boardForm.setUpload(fileName);
 		Board board = new Board(connectionId, boardForm, id, type);
 		boardService.createBoard(board);
 		String cate = boardForm.getType();
@@ -137,7 +132,15 @@ public class BoardController implements ApplicationContextAware {
 		return "redirect:http://localhost:8080/swithMe/connection/{connectionId}/board?category="+cate;
 	}
 	
-
+	public String uploadFile(MultipartFile uploadFile) throws IOException{
+		String fileName=null;
+		String originalFileName = uploadFile.getOriginalFilename();
+		String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
+		UUID uuid = UUID.randomUUID();	//UUID 구하기
+		fileName=uuid+"."+ext;
+		uploadFile.transferTo(new File("D:\\upload\\" + fileName));
+		return fileName;
+	}
 
 	//글 상세보기+댓글(제목 클릭)
 	@RequestMapping(value ="/board/{boardId}" , method = RequestMethod.GET)
@@ -162,12 +165,16 @@ public class BoardController implements ApplicationContextAware {
 	  }
 	//글 수정	  
 	  @RequestMapping(value ="/board/{boardId}" , method = RequestMethod.POST)
-	  public String updatePost(@PathVariable("connectionId") int connectionId, @PathVariable("boardId") int boardId, @ModelAttribute("board") Board board) {
+	  public String updatePost(@PathVariable("connectionId") int connectionId, @PathVariable("boardId") int boardId, 
+			  @ModelAttribute("board") Board board) throws IOException{
 		  logger.info("BoardController-UpdatePost"+connectionId+ board.getBoardForm().toString());
-		  MultipartFile file = board.getBoardForm().getUploadFile();  
-		  if(file!=null) {
-			  board.getBoardForm().setUpload(file.getOriginalFilename());
-		  }
+		  	String fileName=null;
+			MultipartFile uploadFile = board.boardForm.getUploadFile();
+			
+			if (!uploadFile.isEmpty()) {
+				fileName = uploadFile(uploadFile);
+			}
+			board.boardForm.setUpload(fileName);
 		  boardService.updateBoard(boardId, board.getBoardForm()); 
 		  return "redirect:http://localhost:8080/swithMe/connection/{connectionId}/board/{boardId}"; 
 	  }
@@ -177,7 +184,8 @@ public class BoardController implements ApplicationContextAware {
 	  public String deleteBoard(@PathVariable("boardId") int boardId) throws Exception { 
 		  logger.info("BoardController-delete");
 		  boardService.deleteBoard(boardId); 
-		  return "redirect:?category=NOTICE";
+		  return "redirect:http://localhost:8080/swithMe/connection/{connectionId}/?category=NOTICE";
 	  }
+
 	 
 }

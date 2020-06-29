@@ -32,22 +32,4 @@ public class BoardMapperRepository {
 	public void deleteBoard(int boardId) {
 		boardMapper.deleteBoard(boardId);
 	}
-	
-	private ReplyMapper replyMapper;
-	
-	public List<Reply> selectAllReplyByBoardId(int bId) {
-		return replyMapper.selectAllReplyByBoardId(bId);
-	}
-	
-	public void insertReply(Reply reply) {
-		replyMapper.insertReply(reply);
-	}
-	
-	public void updateReply(Reply reply) {
-		replyMapper.updateReply(reply);
-	}
-	
-	public void deleteReply(int cId) {
-		replyMapper.deleteReply(cId);
-	}
 }
