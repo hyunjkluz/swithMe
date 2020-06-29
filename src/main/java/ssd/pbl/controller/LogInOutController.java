@@ -81,13 +81,9 @@ public class LogInOutController {
 				}
 				
 				return "redirect:/main/class";
-//			} 
-//				else {
-//				result.reject("invalidIdOrPassword", "아이디와 비밀번호가 일치하지 않습니다.");
-//			}
 			
 		} catch (IDPWNotMatchingException e) {
-			result.reject("invalidIdOrPassword", "아이디와 비밀번호가 일치하지 않습니다.");
+			result.reject("IDPWNotMatching", "아이디와 비밀번호가 일치하지 않습니다.");
 			return "auth/LoginForm";
 		}
 	}

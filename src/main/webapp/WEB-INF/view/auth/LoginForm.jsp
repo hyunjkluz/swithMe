@@ -95,6 +95,7 @@
 
 .login-find-atag {
 	text-decoration: underline;
+	color: black;
 }
 
 .wrap-login-error {
@@ -105,7 +106,7 @@
 </style>
 </head>
 <body>
-	<div class="base-top"></div>
+	<%@ include file="../include/join_header.jsp" %>
 	<div class="login-form">
 	<div class="container-contact100" style="width: 70%;">
 		<div class="login-student-detail">
