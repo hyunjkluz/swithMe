@@ -68,6 +68,12 @@ a.modalA:hover, a.modalA:active {
 image {
 	padding-bottom: 30px;
 }
+.modal {
+	padding-top:100px;
+}
+.modalDiv {
+	padding-top:100px;
+}
 </style>
 <script type="text/javascript">
 	function setConnection(e) {
@@ -250,8 +256,10 @@ image {
 	}
 </script>
 </head>
-<div id="ex1" class="modal"></div>
 <body id="page-top">
+<div class="modalDiv">
+	<div id="ex1" class="modal">
+</div>
 	<%@ include file="../include/main_header.jsp" %>
 			<div class="buttons left">
 				<img class="image" src="../resources/assets/Teacher_mypage.png"/><br><br>
@@ -259,7 +267,6 @@ image {
 						onclick="location.href=''">회원 정보 수정</button>
 					<button class="btn btn-outline-warning cc_pointer">매치 정보 수정</button>
 			</div>
-
 			
 			<div class="mypage-teacher-status left">
 				<h4 class="text-muted">수업 신청 현황</h4><br>

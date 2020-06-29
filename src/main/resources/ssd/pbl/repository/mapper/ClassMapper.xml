@@ -32,7 +32,17 @@
 				AND (tc.ability = 3 OR tc.ability = 2 OR tc.ability = 1)
 			</otherwise>
 		</choose>
-		AND (tc.studentGender = 'ANY' OR tc.studentGender = #{gender})
+		<choose>
+			<when test="gender == 'man'">
+				AND (tc.studentGender = 'ANY' OR tc.studentGender = 'MAN')
+			</when>
+			<when test="gender == 'woman'">
+				AND (tc.studentGender = 'ANY' OR tc.studentGender = 'WOMAN')
+			</when>
+			<otherwise>
+				AND (tc.studentGender = 'ANY' OR tc.studentGender = 'MAN' OR tc.studentGender = 'WOMAN')
+			</otherwise>
+		</choose>
 		AND
 		tc.teacher = tm.teacher
 		JOIN teacherTimes tt

@@ -87,8 +87,8 @@ public class MatchController {
 
 	@ModelAttribute("genders")
 	public List<RadioButton> genderFormBacking() {
-		return Arrays.asList(new RadioButton("성별 무관", 0, "any"), new RadioButton("여자", 0, "women"),
-				new RadioButton("남자", 0, "man"));
+		return Arrays.asList(new RadioButton("성별 무관", 0, "ANY"), new RadioButton("여자", 0, "WOMAN"),
+				new RadioButton("남자", 0, "MAN"));
 	}
 	
 	@ModelAttribute("times")
