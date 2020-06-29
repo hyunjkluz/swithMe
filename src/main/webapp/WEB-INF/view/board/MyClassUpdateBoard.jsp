@@ -29,8 +29,9 @@
 		</c:if>
 		<c:if test="${board.boardForm.upload ne null}">
 			<a href="<c:url value='/fileDownload.do?fileName='/>${board.boardForm.upload}">${board.boardForm.upload}</a>
-			<button class="btn btn-primary js-scroll-trigger"  onclick="">삭제</button>
-		</c:if>
+			<%-- <button class="btn btn-primary js-scroll-trigger"  onclick="deleteAttachFile('${board.boardForm.upload}', '${board.boardForm.}')">삭제</button>
+		 --%>
+		 </c:if>
 		<br>
 		<button class="btn btn-primary js-scroll-trigger"  type="submit" >수정</button>
 		<a class="btn btn-outline-primary" href="<c:url value='/connection/${connectionId}/board/?category=' />${board.boardForm.type}">취소</a>

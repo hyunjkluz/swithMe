@@ -44,6 +44,7 @@ $(function(){
  */
 function getreplyList(){
 	/*$('#replyList').load("<c:url value='/board/${board.boardId}/reply'/>");*/
+	var userType = document.getElementById("userType").value;
        $.ajax({
         type:"GET",
         url : "<c:url value='/board/${board.boardId}/reply'/>", 
@@ -54,8 +55,10 @@ function getreplyList(){
             	$(data).each(function(){
                 	html += "<div class='media-body pb-3 mb-0 pr-3 small lh-125 border-bottom horder-gray' id='replyContent"+this.replyId+"'>";	
                		html += "<span class='d-block'><strong class='text-uppercase'>"+this.writerType+"</strong>";
-					html += "<a class='ml-3 mr-2' href='javascript:void(0)' onclick='fn_editReply("+this.replyId+",\""+this.writerType+"\",\""+this.content+"\")'>수정</a>";
-                   	html += "<a href='javascript:void(0)' onclick='fn_deleteReply("+this.replyId+")'>삭제</a>";
+               		if (userType == this.writerType) {
+						html += "<a class='ml-3 mr-2' href='javascript:void(0)' onclick='fn_editReply("+this.replyId+",\""+this.writerType+"\",\""+this.content+"\")'>수정</a>";
+                   		html += "<a href='javascript:void(0)' onclick='fn_deleteReply("+this.replyId+")'>삭제</a>";
+               		}
                     html += "</span> <br><div>"+this.content+"</div></div><br>"; 
                 });                
             } else {               
@@ -132,6 +135,7 @@ function fn_deleteReply(replyId){
 <body>
 <div class="container">
     <form:form modelAttribute="reply" id="form" name="reply" method="post">
+    <input type="hidden" id="userType" value="${userSession.type}" />
     <br><br>
         <div>
             <div>
