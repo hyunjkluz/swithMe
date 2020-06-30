@@ -42,8 +42,8 @@
 	}
 
 	function selectDong(e) {
-		const url = "http://localhost:8080/swithMe/gu/" + e.value;
-		console.log(url);
+		const location = window.location.href;
+		const url = location.split("student")[0] + "gu/" + e.value;
 		var target = document.getElementById("dong");
 		target.options.length = 0;
 
