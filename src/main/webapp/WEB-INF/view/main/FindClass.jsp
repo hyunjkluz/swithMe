@@ -36,8 +36,7 @@ html, body {
 			alert("검색하고싶은 과목을 골라주세요!")
 		} else {
 			const location = window.location.href;
-			const url = location.split("swithMe")[0] + "swithMe/class/subject";
-			console.log(url);
+			const url = location.split("main")[0] + "class/subject";
 			
 			$.ajax({
 				url : url,

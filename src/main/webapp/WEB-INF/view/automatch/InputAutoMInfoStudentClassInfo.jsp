@@ -43,7 +43,7 @@
 
 	function selectDong(e) {
 		const location = window.location.href;
-		const url = location.split("swithMe")[0] + "swithMe/gu/" + e.value;
+		const url = location.split("student")[0] + "gu/" + e.value;
 		var target = document.getElementById("dong");
 		target.options.length = 0;
 
