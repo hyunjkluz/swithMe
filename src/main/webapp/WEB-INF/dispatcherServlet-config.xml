@@ -67,6 +67,7 @@
 	<!-- 특정 URL pattern에 대한 interceptor 설정 -->
 	<mvc:interceptors> 
 		<mvc:interceptor>
+			<mvc:mapping path="/main/class"/>
 			<mvc:mapping path="/student/match/fin"/>
 			<mvc:mapping path="/class/{classId}/request"/>
 			<mvc:mapping path="/mypage/teacher.do"/>
