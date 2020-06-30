@@ -115,14 +115,14 @@ public class ConnectionController {
 
 			connectionService.putConnectionState(connectionId, step);
 			if (type.equals("teacher")) {
-				return "redirect:http://localhost:8080/swithMe/mypage/teacher.do";
+				return "redirect:/mypage/teacher.do";
 			}
 			if (type.equals("student")) {
-				return "redirect:http://localhost:8080/swithMe/mypage/student.do";
+				return "redirect:/mypage/student.do";
 			}
 		}
 
-		return "redirect:http://localhost:8080/swithMe/main/class";
+		return "redirect:/main/class";
 
 	}
 

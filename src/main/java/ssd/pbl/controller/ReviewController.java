@@ -60,7 +60,7 @@ public class ReviewController {
 		feedbackService.postFeedback(reviewForm);
 		
 		sessionStatus.isComplete();
-		return "redirect:http://localhost:8080/swithMe/mypage/student.do";
+		return "redirect:/mypage/student.do";
 	}
 	
 
