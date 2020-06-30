@@ -82,8 +82,9 @@ image {
 
 		const location = window.location.href;
 		const connectionId = event.target.getAttribute('data-arg1');
-		const url = location.split("mypage")[0] + "connection/" + connectionId
+		const url = location.split("swithMe")[0] + "swithMe/connection/" + connectionId
 				+ "/detail";
+		console.log(url);
 
 		$
 				.ajax({
