@@ -17,7 +17,7 @@ public class RootController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
-		return "redirect:http://localhost:8080/swithMe/main";
+		return "redirect:/main";
 	}
 
 }
