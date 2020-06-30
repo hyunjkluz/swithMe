@@ -22,7 +22,6 @@
 		var selectedDongTxt = selectedDong.options[selectedDong.selectedIndex].text;
 		var selectedDongVal = selectedDong.options[selectedDong.selectedIndex].value;
 
-		// id 배열 스트링으로 만들기
 		var txtVal = document.getElementById("dongIds").value;
 		if (txtVal == "") {
 			document.getElementById("dongIds").value = selectedDongVal;
@@ -31,7 +30,6 @@
 					+ selectedDongVal;
 		}
 
-		// 선택된 지역 표시 블록 생성
 		var newRegion = document.createElement('p');
 		var regionText = document.createTextNode(selectedSidoTxt + " "
 				+ selectedGuTxt + " " + selectedDongTxt);
