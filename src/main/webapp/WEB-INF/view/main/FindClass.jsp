@@ -35,8 +35,10 @@ html, body {
 		if (classIds == "") {
 			alert("검색하고싶은 과목을 골라주세요!")
 		} else {
-			console.log(classIds);
-			const url = "http://localhost:8080/swithMe/class/subject"
+			const location = window.location.href;
+			const url = location.split("swithMe")[0] + "swithMe/class/subject";
+			console.log(url);
+			
 			$.ajax({
 				url : url,
 				type : "GET",

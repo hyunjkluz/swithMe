@@ -22,7 +22,7 @@
 	function setTeacher(e) {
 		const classId = event.target.getAttribute('data-arg1');
 		const location = window.location.href;
-		const url = location.split("student")[0] + "class/" + classId
+		const url = location.split("swithMe")[0] + "swithMe/class/" + classId
 				+ "/detail";
 
 		var modal = document.getElementById("ex1");
