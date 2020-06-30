@@ -21,8 +21,8 @@
 <script type="text/javascript">
 	function setTeacher(e) {
 		const classId = event.target.getAttribute('data-arg1');
-		console.log(classId);
-		const url = "http://localhost:8080/swithMe/class/" + classId
+		const location = window.location.href;
+		const url = location.split("student")[0] + "class/" + classId
 				+ "/detail";
 
 		var modal = document.getElementById("ex1");

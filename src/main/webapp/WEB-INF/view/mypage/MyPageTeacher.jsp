@@ -80,8 +80,9 @@ image {
 		var modal = document.getElementById("ex1");
 		$('#ex1').empty();
 
+		const location = window.location.href;
 		const connectionId = event.target.getAttribute('data-arg1');
-		const url = "http://localhost:8080/swithMe/connection/" + connectionId
+		const url = location.split("mypage")[0] + "connection/" + connectionId
 				+ "/detail";
 
 		$
