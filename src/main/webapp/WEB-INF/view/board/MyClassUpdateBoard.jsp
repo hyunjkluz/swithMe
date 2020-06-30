@@ -24,11 +24,13 @@
 		<form:textarea class="form-control" rows="6"  path="boardForm.content" name="content"/> <br/>
 		
 		<label for="title">첨부파일</label>
+		*파일첨부는 하나까지만 가능합니다.*
 		<c:if test="${board.boardForm.upload eq null}">
 			<form:input class="form-control-file"  path="boardForm.uploadFile" type="file" name="uploadFile" />
 		</c:if>
 		<c:if test="${board.boardForm.upload ne null}">
 			<a href="<c:url value='/fileDownload.do?fileName='/>${board.boardForm.upload}">${board.boardForm.upload}</a>
+			<input class="form-control-file"  path="boardForm.uploadFile" type="file" name="uploadFile" />
 			<%-- <button class="btn btn-primary js-scroll-trigger"  onclick="deleteAttachFile('${board.boardForm.upload}', '${board.boardForm.}')">삭제</button>
 		 --%>
 		 </c:if>

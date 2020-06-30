@@ -129,7 +129,7 @@ public class BoardController {
 		boardService.createBoard(board);
 		String cate = boardForm.getType();
 		
-		return "redirect:http://localhost:8080/swithMe/connection/{connectionId}/board?category="+cate;
+		return "redirect:/connection/{connectionId}/board?category="+cate;
 	}
 	
 	public String uploadFile(MultipartFile uploadFile) throws IOException{
@@ -171,12 +171,12 @@ public class BoardController {
 			
 			  String fileName=null; 
 			  MultipartFile uploadFile = board.boardForm.getUploadFile();
-			  
-			  if (!uploadFile.isEmpty()) { fileName = uploadFile(uploadFile); }
+			  fileName = uploadFile(uploadFile); 
 			  board.boardForm.setUpload(fileName);
 			 
+			 
 		  boardService.updateBoard(boardId, board.getBoardForm()); 
-		  return "redirect:http://localhost:8080/swithMe/connection/{connectionId}/board/{boardId}"; 
+		  return "redirect:/connection/{connectionId}/board/{boardId}"; 
 	  }
 	  
 	  //글 삭제
@@ -184,7 +184,7 @@ public class BoardController {
 	  public String deleteBoard(@PathVariable("boardId") int boardId) throws Exception { 
 		  logger.info("BoardController-delete");
 		  boardService.deleteBoard(boardId); 
-		  return "redirect:http://localhost:8080/swithMe/connection/{connectionId}/?category=NOTICE";
+		  return "redirect:/connection/{connectionId}/board?category=NOTICE";
 	  }
 
 	 
