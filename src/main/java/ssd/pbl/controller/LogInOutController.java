@@ -75,6 +75,10 @@ public class LogInOutController {
 					return "redirect:/mypage/student.do";
 				}
 				
+				if (forwardAction.contains("/main/class")) {
+					return "redirect:/main/class";
+				}
+				
 				return "redirect:/main/class";
 			
 		} catch (IDPWNotMatchingException e) {
