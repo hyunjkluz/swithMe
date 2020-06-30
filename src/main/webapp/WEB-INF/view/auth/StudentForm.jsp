@@ -296,11 +296,6 @@
           </div>
         </div>
         <div class="join-input-info-row-area">
-          <div class="join-input-info-img">
-			<input type="file" name="profileImg" />
-          </div>
-        </div>
-        <div class="join-input-info-row-area">
           <div class="join-input-info-btn-area">
             <button type="submit" class="btn btn-outline-warning cc_pointer">회원정보 입력 완료</button>
           </div>

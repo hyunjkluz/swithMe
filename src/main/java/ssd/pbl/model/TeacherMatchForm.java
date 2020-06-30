@@ -8,7 +8,6 @@ import java.util.List;
 
 public class TeacherMatchForm {
 	private int id;
-	@Min(value = 1, message = "과목을 선택해주세요")
 	private int subjectId;
 	private String subjectName;
 	@NotNull(message = "희망하는 학생의 성멸을 선택해주세요")

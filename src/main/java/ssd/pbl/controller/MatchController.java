@@ -189,12 +189,16 @@ public class MatchController {
 			result.rejectValue("ch4", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 
-		if (tmInfo.getCh4() < 5) {
+		if (tmInfo.getCh5() < 5) {
 			result.rejectValue("ch5", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 
-		
 		System.out.println("command 객체: " + tmInfo.toString());
+		if (result.hasErrors()) {
+			LOGGER.info("step3: 유효성 검사 실패");
+			return STEP4_FORM_VIEW;
+		}
+		
 		return STEP5_FORM_VIEW;
 	}
 	

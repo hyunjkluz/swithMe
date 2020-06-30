@@ -11,6 +11,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	function insertRegion() {
+		var regionDiv = document.getElementById('regionDiv');
 		var selectedSido = document.getElementById('sido');
 		var selectedSidoTxt = selectedSido.options[selectedSido.selectedIndex].text;
 
@@ -36,7 +37,7 @@
 				+ selectedGuTxt + " " + selectedDongTxt);
 
 		newRegion.appendChild(regionText);
-		document.body.appendChild(newRegion);
+		regionDiv.appendChild(newRegion);
 		console.log("추가");
 	}
 
@@ -150,6 +151,9 @@
 				
 				<form:input type="hidden" id="dongIds" path="dongIds" />
 				<input type="button" class="btn btn-outline-warning cc_pointer" value="추가" onclick="insertRegion();">
+				<div class="text-center" id="regionDiv">
+					<h6>선택된 지역</h6>
+				</div>
 				<br><br>
 				<button class="btn btn-outline-warning cc_pointer">다음</button> 
 				<br> <br>

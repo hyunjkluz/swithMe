@@ -40,6 +40,7 @@
 		</div>
 
 		<div class="input">
+			<spring:hasBindErrors name="tmInfo" />
 			<form:form modelAttribute="tmInfo" method="post"
 				action="/swithMe/teacher/match/step5">
 

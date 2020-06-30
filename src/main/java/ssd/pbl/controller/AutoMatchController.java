@@ -222,7 +222,7 @@ public class AutoMatchController {
 			bindingResult.rejectValue("ch4", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 
-		if (sMatchForm.getCh4() < 5) {
+		if (sMatchForm.getCh5() < 5) {
 			bindingResult.rejectValue("ch5", "empty", "둘 중 하나의 유형을 선택해주세요");
 		}
 

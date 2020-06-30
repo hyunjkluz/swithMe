@@ -75,7 +75,7 @@ public class LogInOutController {
 					return "redirect:http://localhost:8080/swithMe/mypage/student.do";
 				}
 				
-				return "redirect:/main/class";
+				return "redirect:http://localhost:8080/swithMe/main/class";
 			
 		} catch (IDPWNotMatchingException e) {
 			result.reject("IDPWNotMatching", "아이디와 비밀번호가 일치하지 않습니다.");
