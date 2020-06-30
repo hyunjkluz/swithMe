@@ -136,12 +136,15 @@ public class BoardController {
 		String fileName=null;
 		String originalFileName = uploadFile.getOriginalFilename();
 		String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
-		UUID uuid = UUID.randomUUID();	//UUID 구하기
-		fileName=uuid+"."+ext;
+
+		fileName=getRandomString()+originalFileName;
 		uploadFile.transferTo(new File("D:\\upload\\" + fileName));
 		return fileName;
 	}
-
+	public static String getRandomString() {
+			return UUID.randomUUID().toString().replaceAll("-", "");
+		}
+	  
 	//글 상세보기+댓글(제목 클릭)
 	@RequestMapping(value ="/board/{boardId}" , method = RequestMethod.GET)
 	public String getPostDetail(@PathVariable("connectionId") int connectionId, 
@@ -168,16 +171,16 @@ public class BoardController {
 	  public String updatePost(@PathVariable("connectionId") int connectionId, @PathVariable("boardId") int boardId, 
 			  @ModelAttribute("board") Board board) throws IOException{
 		  logger.info("BoardController-UpdatePost"+connectionId+ board.getBoardForm().toString());
-			
+		  	
 			  String fileName=null; 
 			  MultipartFile uploadFile = board.boardForm.getUploadFile();
 			  fileName = uploadFile(uploadFile); 
 			  board.boardForm.setUpload(fileName);
 			 
-			 
 		  boardService.updateBoard(boardId, board.getBoardForm()); 
 		  return "redirect:/connection/{connectionId}/board/{boardId}"; 
 	  }
+	  
 	  
 	  //글 삭제
 	  @RequestMapping(value = "/board/{boardId}", method = RequestMethod.DELETE)
