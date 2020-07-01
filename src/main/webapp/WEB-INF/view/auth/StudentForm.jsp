@@ -134,7 +134,8 @@
     <script type="text/javascript">
 	    function idCheck() {
 	    	var id = $("#email-text").val();
-	    	const url = "swithMe/auth/student/idCheck";
+	    	const location = window.location.href;
+	    	const url = location.split("signup")[0] + "student/idCheck/";
 	    	var datas = {"email": id};
 	    	$.ajax({
 				url : url,
@@ -183,7 +184,8 @@
     	
     	function searchSchool() {
     		var id = $("#school").val();
-    		const url = "swithMe/search/school/" + id;
+    		const location = window.location.href;
+			const url = location.split("auth")[0] + "search/school/" + id;
     		console.log(url);
 
     		$.ajax({

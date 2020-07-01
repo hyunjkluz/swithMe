@@ -143,7 +143,8 @@
 	    	var id = $("#email-text").val();
 	    	console.log(id);
 	    	const location = window.location.href;
-			const url = location.split("teacher")[0] + "/teacher/idCheck/";
+	    	console.log(location);
+			const url = location.split("signup")[0] + "teacher/idCheck/";
 	    	var datas = {"email": id};
 	    	console.log(url);
 	    	$.ajax({
@@ -171,7 +172,7 @@
     	function searchUniversity() {
     		var id = $("#university").val();
     		const location = window.location.href;
-			const url = location.split("teacher")[0] + "/search/university/";
+			const url = location.split("auth")[0] + "search/university/" + id;
     		console.log(url);
     		var target = document.getElementById("universityList");
     		target.options.length = 0;
@@ -200,7 +201,7 @@
     		var e = $("#universityList option:selected").val();
     		console.log(e);
     		const location = window.location.href;
-			const url = location.split("teacher")[0] + "/search/major/" + e;
+			const url = location.split("auth")[0] + "search/major/" + e;
     		console.log(url);
     		var target = document.getElementById("majorList");
     		target.options.length = 0;

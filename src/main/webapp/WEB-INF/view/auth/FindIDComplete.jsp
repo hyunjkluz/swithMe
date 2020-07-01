@@ -86,7 +86,7 @@
         </div>
       </div>
       <div class="find-id-complete-btn-area">
-        <button class="btn btn-outline-warning cc_pointer" id="login" onclick="location.href='swithMe/auth/loginForm.do'">로그인</button>
+        <button class="btn btn-outline-warning cc_pointer" id="login" onclick="location.href='/swithMe/auth/loginForm.do'">로그인</button>
       </div>
     </div>
     </div>
