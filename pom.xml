@@ -20,7 +20,7 @@
 		<servlet.version>3.1.0</servlet.version>
 
 		<!-- Spring -->
-		<spring.version>5.2.4.RELEASE</spring.version>
+		<spring.version>5.3.18</spring.version>
 
 		<!-- Bean Validation API -->
 		<bean-validation-api.version>2.0.1.Final</bean-validation-api.version>
